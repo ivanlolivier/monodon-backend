@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClinicsDentistsTable extends Migration
+class CreateClinicsPatientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateClinicsDentistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clinics_dentists', function (Blueprint $table) {
+        Schema::create('clinics_patients', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('clinic_id');
-            $table->unsignedInteger('dentist_id');
+            $table->unsignedInteger('patient_id');
 
             $table->foreign('clinic_id')->references('id')->on('clinics');
-            $table->foreign('dentist_id')->references('id')->on('dentists');
+            $table->foreign('patient_id')->references('id')->on('patients');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateClinicsDentistsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clinics_dentists');
+        Schema::drop('clinics_patients');
     }
 }
