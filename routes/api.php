@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 
 /*
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/test', TestController::class . '@probando');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
