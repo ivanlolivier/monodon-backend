@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNewReasonsTable extends Migration
+class CreateTreatmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateNewReasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('new_reasons', function (Blueprint $table) {
+        Schema::create('treatments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->unsignedInteger('code');
+            $table->unsignedInteger('diagnosis_id');
             $table->timestamps();
+
+            //References
+            $table->foreign('diagnosis_id')->references('id')->on('diagnosis');
         });
     }
 
@@ -26,6 +32,6 @@ class CreateNewReasonsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('new_reasons');
+        Schema::dropIfExists('treatments');
     }
 }

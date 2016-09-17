@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class CreateDiagnosisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('diagnosis', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('patient_id');
-            $table->string('type');
-            $table->string('name');
-            $table->string('path_file');
-            $table->text('description');
+            $table->string('description');
+            $table->unsignedInteger('derivation_id')->nullable();
+            $table->enum('type', ['healthy', 'moreInfo', 'onTreatment', 'derivated']);
+
             $table->timestamps();
-            $table->softDeletes();
 
             //References
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('derivation_id')->references('id')->on('derivations');
+
         });
     }
 
@@ -35,6 +34,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('files');
+        Schema::dropIfExists('diagnosis');
     }
 }
