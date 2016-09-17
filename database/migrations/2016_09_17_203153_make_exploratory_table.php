@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiagnosisTable extends Migration
+class MakeExploratoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateDiagnosisTable extends Migration
      */
     public function up()
     {
-        Schema::create('diagnosis', function (Blueprint $table) {
+        Schema::create('exploratory', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
-            $table->enum('type', ['healthy', 'moreInfo', 'onTreatment', 'derivated']);
+
+            $table->unsignedInteger('visit_id');
+            $table->foreign('visit_id')->references('id')->on('visits');
+
+            $table->json('mouth_photo');
+
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateDiagnosisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnosis');
+        Schema::drop('exploratory');
     }
 }

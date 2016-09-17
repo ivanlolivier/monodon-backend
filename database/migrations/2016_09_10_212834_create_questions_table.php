@@ -18,6 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->string('question');
             $table->enum('type', ['patient', 'visit']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

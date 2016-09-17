@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiagnosisTable extends Migration
+class MakeMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,18 @@ class CreateDiagnosisTable extends Migration
      */
     public function up()
     {
-        Schema::create('diagnosis', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
-            $table->enum('type', ['healthy', 'moreInfo', 'onTreatment', 'derivated']);
+
+            $table->unsignedInteger('clinic_id');
+            $table->unsignedInteger('dentist_id')->nullablle();
+
+            $table->string('title');
+            $table->text('message');
+            $table->boolean('is_broadcast');
+
+            $table->dateTime('sent_at')->nullable();
+
             $table->timestamps();
         });
     }
@@ -28,6 +36,6 @@ class CreateDiagnosisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnosis');
+        Schema::drop('messages');
     }
 }

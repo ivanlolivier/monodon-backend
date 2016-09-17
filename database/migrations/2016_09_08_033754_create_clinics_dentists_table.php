@@ -19,10 +19,11 @@ class CreateClinicsDentistsTable extends Migration
             $table->unsignedInteger('clinic_id');
             $table->unsignedInteger('dentist_id');
 
+            $table->timestamps();
+
+            //References
             $table->foreign('clinic_id')->references('id')->on('clinics');
             $table->foreign('dentist_id')->references('id')->on('dentists');
-
-            $table->timestamps();
         });
     }
 

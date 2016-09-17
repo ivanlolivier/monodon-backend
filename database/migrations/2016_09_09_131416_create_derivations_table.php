@@ -16,6 +16,9 @@ class CreateDerivationsTable extends Migration
         Schema::create('derivations', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->unsignedInteger('diagnosis_id');
+            $table->foreign('diagnosis_id')->references('id')->on('diagnosis');
+
             $table->string('contact_name')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('contact_phone')->nullable();
