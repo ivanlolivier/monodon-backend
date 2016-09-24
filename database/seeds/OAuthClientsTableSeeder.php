@@ -21,5 +21,15 @@ class OAuthClientsTableSeeder extends Seeder
             'revoked'                => 0,
         ]);
 
+        DB::table('oauth_clients')->insert([
+            'id'                     => 2,
+            'name'                   => 'Mobile',
+            'secret'                 => 'hVxUk4FQewaPSG0zvIDh8swQwaA0ruonhhiylaqm',
+            'redirect'               => 'http://monodon.dev',
+            'personal_access_client' => 0,
+            'password_client'        => 1,
+            'revoked'                => 0,
+        ]);
+
     }
 }
