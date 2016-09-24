@@ -13,7 +13,7 @@ class CreateMessagePatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_patients', function (Blueprint $table) {
+        Schema::create('message_patient', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('message_id');
@@ -33,6 +33,6 @@ class CreateMessagePatientsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('message_patients');
+        Schema::drop('message_patient');
     }
 }

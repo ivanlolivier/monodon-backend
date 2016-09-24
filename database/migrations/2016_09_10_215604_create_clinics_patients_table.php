@@ -13,7 +13,7 @@ class CreateClinicsPatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clinics_patients', function (Blueprint $table) {
+        Schema::create('clinic_patient', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('clinic_id');
@@ -33,6 +33,6 @@ class CreateClinicsPatientsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clinics_patients');
+        Schema::drop('clinic_patient');
     }
 }
