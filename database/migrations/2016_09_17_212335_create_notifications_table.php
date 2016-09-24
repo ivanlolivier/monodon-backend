@@ -20,8 +20,6 @@ class CreateNotificationsTable extends Migration
 
             $table->string('title');
             $table->text('message');
-            
-            $table->string('answer')->nullable();
             $table->enum('possible_answers', [
                 'YES-NO',
                 'OK',
@@ -29,10 +27,7 @@ class CreateNotificationsTable extends Migration
             ]);
 
             $table->timestamp('send_at');
-            $table->timestamp('sent_at')->nullable();
-            $table->timestamp('read_at')->nullable();
-            $table->timestamp('answered_at')->nullable();
-
+            
             $table->timestamps();
         });
     }
