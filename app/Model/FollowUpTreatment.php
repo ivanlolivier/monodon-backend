@@ -8,4 +8,9 @@ class FollowUpTreatment extends FollowUp
     {
         return $this->hasOne(Treatment::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

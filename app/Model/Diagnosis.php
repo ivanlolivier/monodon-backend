@@ -13,4 +13,9 @@ class Diagnosis extends Model
     {
         return $this->hasMany(Treatment::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

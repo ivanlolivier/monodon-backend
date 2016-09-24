@@ -18,4 +18,9 @@ class Message extends Model
     {
         return $this->hasManyThrough(Patient::class, 'patient_messages');
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

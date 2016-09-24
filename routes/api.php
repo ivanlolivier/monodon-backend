@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\ClinicController;
 use Illuminate\Http\Request;
 
 /*
@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/test', TestController::class . '@probando');
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::get('/clinics/{clinic}', ClinicController::class . '@show');

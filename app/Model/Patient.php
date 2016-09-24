@@ -19,4 +19,8 @@ class Patient extends Model
         return $this->hasMany(PatientInterrogatory::class);
     }
 
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

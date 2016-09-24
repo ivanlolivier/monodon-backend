@@ -13,4 +13,9 @@ class NewReason extends Visit
     {
         return $this->hasMany(VisitInterrogatory::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

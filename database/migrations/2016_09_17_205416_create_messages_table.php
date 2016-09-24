@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakeExploratoryTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class MakeExploratoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('exploratory', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('visit_id');
-            $table->foreign('visit_id')->references('id')->on('visits');
+            $table->unsignedInteger('clinic_id');
+            $table->unsignedInteger('dentist_id')->nullablle();
 
-            $table->json('mouth_photo');
+            $table->string('title');
+            $table->text('message');
+            $table->boolean('is_broadcast');
+
+            $table->dateTime('sent_at')->nullable();
 
             $table->timestamps();
         });
@@ -32,6 +36,6 @@ class MakeExploratoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('exploratory');
+        Schema::drop('messages');
     }
 }

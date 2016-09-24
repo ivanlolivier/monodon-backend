@@ -14,4 +14,9 @@ class Exploratory extends Model
     {
         return $this->hasOne(Visit::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

@@ -8,4 +8,9 @@ class File extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }

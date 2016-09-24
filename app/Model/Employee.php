@@ -8,4 +8,9 @@ class Employee extends Model
     {
         return $this->belongsTo(Clinic::class);
     }
+
+    public static function transformer()
+    {
+        // TODO: Implement transformer() method.
+    }
 }
