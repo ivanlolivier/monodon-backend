@@ -23,7 +23,8 @@ class CreateDentistsTable extends Migration
             $table->string('phones');
             $table->enum('sex', ['male', 'female']);
             $table->string('password');
-            
+
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

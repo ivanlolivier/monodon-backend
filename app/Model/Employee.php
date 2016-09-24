@@ -2,8 +2,12 @@
 
 namespace App\Model;
 
+use Laravel\Passport\HasApiTokens;
+
 class Employee extends Model
 {
+    use HasApiTokens;
+
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);
