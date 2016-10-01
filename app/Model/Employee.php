@@ -2,12 +2,10 @@
 
 namespace App\Model;
 
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User;
 
-class Employee extends Model
+class Employee extends User implements Authenticatable
 {
-    use HasApiTokens;
-
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);

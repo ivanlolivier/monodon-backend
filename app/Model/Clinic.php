@@ -6,6 +6,12 @@ use App\Transformers\ClinicTransformer;
 
 class Clinic extends Model
 {
+    protected $fillable = [
+        'name',
+        'address',
+        'phones'
+    ];
+
     public function dentists()
     {
         return $this->belongsToMany(Dentist::class);

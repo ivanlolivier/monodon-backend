@@ -12,17 +12,25 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function response($result, $transformer)
+    protected $transformer;
+
+    protected function prepareResponse($result, $transformer = null)
     {
+        if (is_null($transformer)) {
+            $transformer = $this->transformer;
+        }
+
         if ($result instanceof Collection) {
             return fractal()
-                ->collection($result, $transformer)
-                ->toJson();
+                ->collection($result)
+                ->transformWith($transformer)
+                ->toArray();
         }
 
         return fractal()
-            ->item($result, $transformer)
-            ->toJson();
+            ->item($result)
+            ->transformWith($transformer)
+            ->toArray();
     }
 
 }
