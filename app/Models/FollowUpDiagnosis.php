@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class Treatment extends Model
+class FollowUpDiagnosis extends _FollowUp
 {
     public function diagnosis()
     {
         return $this->hasOne(Diagnosis::class);
-    }
-
-    public function visits()
-    {
-        return $this->belongsTo(FollowUpTreatment::class);
     }
 
     public static function transformer()

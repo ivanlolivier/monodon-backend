@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class Question extends Model
+class PatientInterrogatory extends _Model
 {
-    //
+    protected $table = 'patient_interrogation';
+
     public static function transformer()
     {
         // TODO: Implement transformer() method.

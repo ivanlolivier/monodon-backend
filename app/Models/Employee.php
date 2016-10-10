@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-use Illuminate\Foundation\Auth\User;
+use App\Models\Auth\CanAuthenticate;
 
-class Employee extends User implements Authenticatable
+class Employee extends _Model
 {
+    use CanAuthenticate;
+
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);

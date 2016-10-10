@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class FollowUpTreatment extends FollowUp
+class FollowUpTreatment extends _FollowUp
 {
     public function treatment()
     {

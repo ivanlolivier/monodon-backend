@@ -1,9 +1,10 @@
 <?php
 
-use App\Model\Clinic;
-use App\Model\Dentist;
-use App\Model\Employee;
-use App\Model\Patient;
+use App\Models\Auth\User;
+use App\Models\Clinic;
+use App\Models\Dentist;
+use App\Models\Employee;
+use App\Models\Patient;
 use Illuminate\Database\Seeder;
 
 class ClinicsTableSeeder extends Seeder
@@ -18,15 +19,34 @@ class ClinicsTableSeeder extends Seeder
         factory(Clinic::class, 10)->create()->each(function (Clinic $clinic) {
 
             for ($i = 0; $i <= random_int(2, 7); $i++) {
-                $clinic->dentists()->save(factory(Dentist::class)->make());
+                $dentist = factory(Dentist::class)->make();
+
+                $clinic->dentists()->save($dentist);
+
+                $dentist->auth()->save(new User([
+                    "email"    => $dentist->email,
+                    "password" => 'secret',
+                ]));
             }
 
             for ($i = 0; $i <= random_int(8, 15); $i++) {
-                $clinic->patients()->save(factory(Patient::class)->make());
+                $patient = factory(Patient::class)->make();
+                $clinic->patients()->save($patient);
+
+                $patient->auth()->save(new User([
+                    "email"    => $patient->email,
+                    "password" => 'secret',
+                ]));
             }
 
             for ($i = 0; $i <= random_int(3, 10); $i++) {
-                $clinic->employees()->save(factory(Employee::class)->make());
+                $employee = factory(Employee::class)->make();
+                $clinic->employees()->save($employee);
+
+                $employee->auth()->save(new User([
+                    "email"    => $employee->email,
+                    "password" => 'secret',
+                ]));
             }
 
         });

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class Derivation extends Model
+class Derivation extends _Model
 {
     public function diagnosis()
     {

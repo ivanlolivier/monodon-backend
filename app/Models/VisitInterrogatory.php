@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class VisitInterrogatory extends Model
+class VisitInterrogatory extends _Model
 {
     protected $table = 'visit_interrogation';
 

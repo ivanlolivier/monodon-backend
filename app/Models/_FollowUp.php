@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-abstract class FollowUp extends Visit
+abstract class _FollowUp extends Visit
 {
     public function parent()
     {

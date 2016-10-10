@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClinic;
-use App\Model\Clinic;
-use App\Transformers\ClinicTransformer;
-use Illuminate\Http\Request;
+use App\Models\Clinic;
 
 class ClinicController extends Controller
 {

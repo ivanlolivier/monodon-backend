@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-abstract class Visit extends Model
+abstract class _Visit extends _Model
 {
     protected $table = 'visits';
 

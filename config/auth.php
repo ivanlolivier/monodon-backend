@@ -1,7 +1,9 @@
 <?php
 
-use App\Model\Dentist;
-use App\Model\Employee;
+use App\Models\Dentist;
+use App\Models\Employee;
+use App\Models\Patient;
+use App\Models\Auth\User;
 
 return [
 
@@ -17,8 +19,8 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'dentists',
-        'passwords' => 'dentists',
+        'guard'     => 'api',
+        'passwords' => 'users',
     ],
 
     /*
@@ -39,14 +41,24 @@ return [
     */
 
     'guards' => [
-        'dentists' => [
-            'driver'   => 'passport',
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
+
+        'dentist' => [
+            'driver'   => 'authenticatable',
             'provider' => 'dentist',
         ],
 
-        'employees' => [
-            'driver'   => 'passport',
+        'employee' => [
+            'driver'   => 'authenticatable',
             'provider' => 'employee',
+        ],
+
+        'patient' => [
+            'driver'   => 'authenticatable',
+            'provider' => 'patient',
         ],
     ],
 
@@ -70,7 +82,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => \App\Model\Authenticatable::class //Loaded dinamicaly for laravel passport
+            'model'  => User::class,
         ],
 
         'employee' => [
@@ -81,6 +93,11 @@ return [
         'dentist' => [
             'driver' => 'eloquent',
             'model'  => Dentist::class
+        ],
+
+        'patient' => [
+            'driver' => 'eloquent',
+            'model'  => Patient::class
         ],
     ],
 
@@ -104,6 +121,12 @@ return [
     */
 
     'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
         'dentists' => [
             'provider' => 'dentists',
             'table'    => 'password_resets',
@@ -115,43 +138,12 @@ return [
             'table'    => 'password_resets',
             'expire'   => 60,
         ],
+
+        'patient' => [
+            'provider' => 'patients',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+        ],
     ],
 
 ];
-
-
-
-//return [
-//    'defaults' => [
-//        'guard'     => 'api',
-//        'passwords' => 'users',
-//    ],
-//    'guards'   => [
-//        'api' => [
-//            'driver'   => 'passport',
-//            'provider' => 'dentist',
-//        ],
-//    ],
-//    'providers' => [
-//        'dentists' => [
-//            'driver' => 'eloquent',
-//            'model'  => Dentist::class
-//        ],
-//        'employees' => [
-//            'driver' => 'eloquent',
-//            'model'  => Employee::class,
-//        ],
-//    ],
-//    'passwords' => [
-//        'dentists' => [
-//            'provider' => 'dentists',
-//            'table'    => 'password_resets',
-//            'expire'   => 60,
-//        ],
-//        'employees' => [
-//            'provider' => 'employees',
-//            'table'    => 'password_resets',
-//            'expire'   => 60,
-//        ],
-//    ],
-//];

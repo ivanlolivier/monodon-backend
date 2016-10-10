@@ -26,7 +26,7 @@ class CreatePatientsTable extends Migration
             $table->string('photo')->nullable();
 
             $table->string('phones');
-            $table->string('email');
+            $table->string('email')->unique();
 
             $table->text('tags');
 

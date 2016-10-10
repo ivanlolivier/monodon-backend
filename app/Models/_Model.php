@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-abstract class Model extends Eloquent
+abstract class _Model extends Eloquent
 {
     abstract public static function transformer();
 

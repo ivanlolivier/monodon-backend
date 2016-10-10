@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use App\Transformers\ClinicTransformer;
 
-class Clinic extends Model
+class Clinic extends _Model
 {
     protected $fillable = [
         'name',
         'address',
         'phones'
     ];
+
+
+    /*************
+     * RELATIONS *
+     *************/
 
     public function dentists()
     {
@@ -26,6 +31,11 @@ class Clinic extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+
+    /***************
+     * TRANSFORMER *
+     ***************/
 
     public static function transformer()
     {

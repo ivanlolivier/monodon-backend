@@ -1,7 +1,42 @@
 <?php
 
 use App\Http\Controllers\ClinicController;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+/*
+|--------------------------------------------------------------------------
+| Clinics API Routes
+|--------------------------------------------------------------------------
+*/
+Route::post('/clinics', ClinicController::class . '@store');
+Route::get('/clinics/{clinic}', ClinicController::class . '@show');
+Route::group(['middleware' => 'auth:employees'], function () {
+    Route::put('/clinics/{clinic}', ClinicController::class . '@update');
+});
+
+
+Route::group(['middleware' => 'auth:employee'], function () {
+    Route::get('/login/employee', function(){
+        dd(Auth::user());
+    });
+});
+Route::group(['middleware' => 'auth:patient'], function () {
+    Route::get('/login/patient', function(){
+        dd(Auth::user());
+    });
+});
+Route::group(['middleware' => 'auth:dentist'], function () {
+    Route::get('/login/dentist', function(){
+        dd(Auth::user());
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Patients API Routes
+|--------------------------------------------------------------------------
+*/
+
 
 /*
 |--------------------------------------------------------------------------
@@ -9,16 +44,9 @@ use Illuminate\Http\Request;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:employees');
 
 /*
 |--------------------------------------------------------------------------
 | Employees API Routes
 |--------------------------------------------------------------------------
 */
-
-Route::post('clinics', ClinicController::class . '@store');
-Route::get('/clinics/{clinic}', ClinicController::class . '@show');
-Route::put('/clinics/{clinic}', ClinicController::class . '@update');

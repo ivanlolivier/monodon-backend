@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class Message extends Model
+class Message extends _Model
 {
     public function dentist()
     {

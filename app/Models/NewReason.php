@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class NewReason extends Visit
+class NewReason extends _Visit
 {
     public function diagnosis()
     {

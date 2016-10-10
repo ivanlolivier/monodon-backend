@@ -1,32 +1,10 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
-|
-*/
-
-//$factory->define(App\User::class, function (Faker\Generator $faker) {
-//    static $password;
-//
-//    return [
-//        'name' => $faker->name,
-//        'email' => $faker->safeEmail,
-//        'password' => $password ?: $password = bcrypt('secret'),
-//        'remember_token' => str_random(10),
-//    ];
-//});
-
-use App\Model\Clinic;
-use App\Model\Dentist;
-use App\Model\Employee;
-use App\Model\Patient;
-use App\Model\Question;
+use App\Models\Clinic;
+use App\Models\Dentist;
+use App\Models\Employee;
+use App\Models\Patient;
+use App\Models\Question;
 
 $factory->define(Clinic::class, function (Faker\Generator $faker) {
     return [
@@ -41,7 +19,6 @@ $factory->define(Employee::class, function (Faker\Generator $faker) {
         'employee_type_id' => $faker->numberBetween(1, 2),
         'name'             => $faker->name,
         'email'            => $faker->email,
-        'password'         => bcrypt('secret'),
     ];
 });
 
@@ -75,6 +52,5 @@ $factory->define(Dentist::class, function (Faker\Generator $faker) {
         'email'        => $faker->email,
         'phones'       => $faker->phoneNumber,
         'sex'          => $faker->randomElement(['male', 'female']),
-        'password'     => bcrypt('secret'),
     ];
 });

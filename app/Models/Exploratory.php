@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-class Exploratory extends Model
+class Exploratory extends _Model
 {
     protected $table = 'exploratory';
 
