@@ -35,7 +35,7 @@ class User extends _Model implements
             return false;
         }
 
-        $authenticatable = "\\App\\Models\\" . $type;
+        $authenticatable = "\\App\\Models\\" . studly_case(strtolower($type));
 
         if (! class_exists($authenticatable)) {
             return false;
@@ -57,4 +57,3 @@ class User extends _Model implements
         // TODO: Implement transformer() method.
     }
 }
-
