@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClinicController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -36,7 +37,13 @@ Route::group(['middleware' => 'auth:employee'], function () {
 | Patients API Routes
 |--------------------------------------------------------------------------
 */
-
+Route::group([
+    'prefix' => '/patients',
+    'middleware' => 'auth:patient'
+], function () {
+//    Route::get('/', ClinicController::class . '@show');
+    Route::put('/me', PatientController::class . '@show');
+});
 
 /*
 |--------------------------------------------------------------------------
