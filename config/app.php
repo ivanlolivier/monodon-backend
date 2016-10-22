@@ -184,6 +184,9 @@ return [
 
         LaravelFCM\FCMServiceProvider::class,
 
+        //Laravel API Documentation Generator
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+
     ],
 
     /*
