@@ -41,8 +41,7 @@ Route::group([
     'prefix' => '/patients',
     'middleware' => 'auth:patient'
 ], function () {
-//    Route::get('/', ClinicController::class . '@show');
-    Route::put('/me', PatientController::class . '@show');
+    Route::get('/me', PatientController::class . '@show');
 });
 
 /*
