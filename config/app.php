@@ -182,6 +182,8 @@ return [
 
         Spatie\Fractal\FractalServiceProvider::class,
 
+        LaravelFCM\FCMServiceProvider::class,
+
     ],
 
     /*
@@ -230,6 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Fractal' => Spatie\Fractal\FractalFacade::class,
+
+        'FCM'      => LaravelFCM\Facades\FCM::class,
 
     ],
 
