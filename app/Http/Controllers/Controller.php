@@ -14,6 +14,13 @@ class Controller extends BaseController
 
     protected $transformer;
 
+    protected function responseAsJson($result, $code = 200, $transformer = null)
+    {
+        $response_formated = $this->prepareResponse($result, $transformer);
+
+        return response()->json($response_formated, $code);
+    }
+
     protected function prepareResponse($result, $transformer = null)
     {
         if (is_null($transformer)) {

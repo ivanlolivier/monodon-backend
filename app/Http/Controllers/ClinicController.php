@@ -14,7 +14,7 @@ class ClinicController extends Controller
 
     public function show(Clinic $clinic)
     {
-        return response()->json($this->prepareResponse($clinic));
+        return $this->responseAsJson($clinic);
     }
 
     public function store(StoreClinic $request)
@@ -25,7 +25,7 @@ class ClinicController extends Controller
             'phones'  => implode(';', $request->phones),
         ]);
 
-        return response()->json($this->prepareResponse($clinic), 201);
+        return $this->responseAsJson($clinic, 201);
     }
 
     public function update(Clinic $clinic, StoreClinic $request)
@@ -38,7 +38,7 @@ class ClinicController extends Controller
 
         $clinic->update();
 
-        return response()->json($this->prepareResponse($clinic));
+        return $this->responseAsJson($clinic);
     }
 
 }

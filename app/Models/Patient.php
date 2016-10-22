@@ -48,6 +48,11 @@ class Patient extends _Model
         return $this->hasMany(PatientInterrogatory::class);
     }
 
+    public function fcmTokens()
+    {
+        return $this->hasMany(FcmToken::class);
+    }
+
 
     /***************
      * TRANSFORMER *

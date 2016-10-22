@@ -12,7 +12,6 @@ class Clinic extends _Model
         'phones'
     ];
 
-
     /*************
      * RELATIONS *
      *************/
