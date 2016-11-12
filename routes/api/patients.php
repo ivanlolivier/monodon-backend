@@ -10,8 +10,5 @@ Route::group(['middleware' => 'auth:patient'], function () {
 Route::group(['middleware' => 'auth:dentist,employee'], function () {
     Route::get('/{patient}', PatientController::class . '@show');
     Route::post('/', PatientController::class . '@store');
-});
-
-Route::group(['middleware' => 'auth:dentist,employee'], function () {
     Route::put('/{patient}', PatientController::class . '@update');
 });

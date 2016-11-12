@@ -66,4 +66,9 @@ class ClinicController extends _Controller
         return $this->responseAsJson($clinic);
     }
 
+    public function patients()
+    {
+        
+    }
+
 }

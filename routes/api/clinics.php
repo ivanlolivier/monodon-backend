@@ -10,4 +10,5 @@ Route::group(['middleware' => 'auth:employee,dentist,patient'], function () {
 
 Route::group(['middleware' => 'auth:employee'], function () {
     Route::put('/{clinic}', ClinicController::class . '@update');
+    Route::get('/{clinic}/patients', ClinicController::class . '@patients');
 });
