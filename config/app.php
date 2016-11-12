@@ -187,6 +187,8 @@ return [
         //Laravel API Documentation Generator
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+
     ],
 
     /*
