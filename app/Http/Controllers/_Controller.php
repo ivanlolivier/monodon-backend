@@ -14,6 +14,9 @@ abstract class _Controller extends BaseController
 
     protected $transformer;
 
+    const STORAGE_PATH = '/';
+    const STORAGE_DISC = 'public';
+
     protected function responseAsJson($result, $code = 200, $transformer = null)
     {
         $response_formated = $this->prepareResponse($result, $transformer);
@@ -38,6 +41,16 @@ abstract class _Controller extends BaseController
             ->item($result)
             ->transformWith($transformer)
             ->toArray();
+    }
+
+    protected function saveFile($filename, $file)
+    {
+        $file_path = self::STORAGE_PATH . '/' . $filename;
+
+        $disk = Storage::disk(self::STORAGE_DISC);
+        $disk->put($file_path, $file);
+
+        return $file_path;
     }
 
 }

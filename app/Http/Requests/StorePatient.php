@@ -26,8 +26,9 @@ class StorePatient extends FormRequest
         return [
             "name"            => ['required'],
             "surname"         => ['required'],
-            "document.type"   => ['required', 'in:passport,identity_document,driver_license'],
-            "document.number" => ['required'],
+            "document"        => ['array'],
+            "document.type"   => ['in:passport,identity_document,driver_license'],
+            "document.number" => [],
             "birthdate"       => ['required'],
             "sex"             => ['required', 'in:male,female'],
             "photo"           => [],

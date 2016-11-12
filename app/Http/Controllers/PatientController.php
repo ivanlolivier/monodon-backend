@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PatientController extends _Controller
 {
+    use CanUploadFiles;
+
+    const STORAGE_PATH = '/patients';
+    const STORAGE_DISC = 'local';
+
     public function __construct()
     {
         $this->transformer = Patient::transformer();
@@ -77,14 +84,47 @@ class PatientController extends _Controller
      */
     public function update(Patient $patient, StorePatient $request)
     {
-        $patient->fill(array_merge($request->all(), [
-            'document_type' => $request->document['type'],
-            'document'      => $request->document['number'],
-            'phones'        => implode(';', $request->get('phones')),
-            'tags'          => implode(';', $request->get('tags')),
+        $patient->fill(array_merge($request->except(['document', 'phones', 'tags', 'photo']), [
+            'phones' => implode(';', $request->get('phones', [])),
+            'tags'   => implode(';', $request->get('tags', [])),
         ]));
+
+        if ($document = $request->get('document', false)) {
+            $patient->document_type = $document['type'];
+            $patient->document = $document['number'];
+        }
+
+        if ($base64_avatar = $request->get('photo', false)) {
+            $avatar = base64_decode($base64_avatar, true);
+
+            if ($avatar !== false) {
+                $disk = Storage::disk(self::STORAGE_DISC);
+                if ($patient->photo && $disk->exists($patient->photo)) {
+                    $disk->delete($patient->photo);
+                }
+
+                $filename = $patient->id . '-' . time() . '.jpg';
+
+                $patient->photo = $this->saveFile($filename, $avatar);
+            }
+        }
+
         $patient->update();
 
         return $this->responseAsJson($patient);
+    }
+
+    public function photoMe()
+    {
+        return $this->photo(Auth::user());
+    }
+
+    public function photo(Patient $patient)
+    {
+        if (!$patient->photo) {
+            abort(404);
+        }
+
+        return response()->download(storage_path() . '/app/' . $patient->photo, null, [], null);
     }
 }
