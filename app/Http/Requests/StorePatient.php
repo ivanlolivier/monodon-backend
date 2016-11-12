@@ -24,7 +24,16 @@ class StorePatient extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name"            => ['required'],
+            "surname"         => ['required'],
+            "document.type"   => ['required', 'in:passport,identity_document,driver_license'],
+            "document.number" => ['required'],
+            "birthdate"       => ['required'],
+            "sex"             => ['required', 'in:male,female'],
+            "photo"           => [],
+            "phones"          => ['array'],
+            "email"           => ['email'],
+            "tags"            => ['array'],
         ];
     }
 }

@@ -77,7 +77,12 @@ class PatientController extends _Controller
      */
     public function update(Patient $patient, StorePatient $request)
     {
-        $patient->fill($request->all());
+        $patient->fill(array_merge($request->all(), [
+            'document_type' => $request->document['type'],
+            'document'      => $request->document['number'],
+            'phones'        => implode(';', $request->get('phones')),
+            'tags'          => implode(';', $request->get('tags')),
+        ]));
         $patient->update();
 
         return $this->responseAsJson($patient);
