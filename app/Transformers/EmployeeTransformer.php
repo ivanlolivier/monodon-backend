@@ -5,14 +5,12 @@ namespace App\Transformers;
 use App\Models\Clinic;
 use App\Models\Employee;
 use App\Models\EmployeeType;
-use League\Fractal\TransformerAbstract;
 
-class EmployeeTransformer extends TransformerAbstract
+class EmployeeTransformer extends Transformer
 {
-
     public function transform(Employee $model)
     {
-        $output = [
+        $this->output = [
             'id'        => $model->id,
             'name'      => $model->name,
             'email'     => $model->email,
@@ -20,22 +18,9 @@ class EmployeeTransformer extends TransformerAbstract
             'type_id'   => $model->employee_type_id,
         ];
 
-        if ($this->isRelationshipLoaded($model, 'clinic')) {
-            $output['clinic'] = Clinic::transformer()->transform($model->clinic);
-            unset($output['clinic_id']);
-        }
+        $this->replaceRelationship($model, 'clinic', Clinic::transformer());
+        $this->replaceRelationship($model, 'type', EmployeeType::transformer());
 
-        if ($this->isRelationshipLoaded($model, 'type')) {
-            $output['type'] = EmployeeType::transformer()->transform($model->type);
-            unset($output['type_id']);
-        }
-
-        return $output;
+        return $this->output;
     }
-
-    public function isRelationshipLoaded($model, $relation)
-    {
-        return array_key_exists($relation, $model->getRelations());
-    }
-
 }

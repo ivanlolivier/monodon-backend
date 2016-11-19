@@ -3,19 +3,16 @@
 namespace App\Transformers;
 
 use App\Models\EmployeeType;
-use League\Fractal\TransformerAbstract;
 
-class EmployeeTypeTransformer extends TransformerAbstract
+class EmployeeTypeTransformer extends Transformer
 {
-
     public function transform(EmployeeType $model)
     {
-        $output = [
+        $this->output = [
             'name'        => $model->name,
             'description' => $model->description,
         ];
 
-        return $output;
+        return $this->output;
     }
-
 }

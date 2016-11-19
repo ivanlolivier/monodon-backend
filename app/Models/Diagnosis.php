@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Transformers\DiagnosisTransformer;
+
 class Diagnosis extends _Model
 {
     public function derivation()
@@ -16,6 +18,6 @@ class Diagnosis extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new DiagnosisTransformer();
     }
 }

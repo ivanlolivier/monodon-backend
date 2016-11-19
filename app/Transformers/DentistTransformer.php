@@ -3,14 +3,12 @@
 namespace App\Transformers;
 
 use App\Models\Dentist;
-use League\Fractal\TransformerAbstract;
 
-class DentistTransformer extends TransformerAbstract
+class DentistTransformer extends Transformer
 {
-
     public function transform(Dentist $model)
     {
-        $output = [
+        $this->output = [
             'id'           => $model->id,
             'affiliate_id' => $model->affiliate_id,
             'name'         => $model->name,
@@ -20,7 +18,6 @@ class DentistTransformer extends TransformerAbstract
             'sex'          => $model->sex,
         ];
 
-        return $output;
+        return $this->output;
     }
-
 }

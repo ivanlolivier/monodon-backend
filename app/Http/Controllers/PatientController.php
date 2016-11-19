@@ -150,7 +150,9 @@ class PatientController extends _Controller
 
         $clinic->last_appointment = $patient->latestAppointmentInClinic($clinic)->with('dentist')->get();
 
-        dd($clinic->last_appointment);
+        $clinic->last_visit = $patient->lastVisit()->with('dentist')->get();
+
+        dd($clinic->last_visit);
 
         return $this->responseAsJson($clinic, 200, Clinic::transformer());
     }

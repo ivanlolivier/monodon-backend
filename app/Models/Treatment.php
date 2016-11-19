@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Transformers\TreatmentTransformer;
+
 class Treatment extends _Model
 {
     public function diagnosis()
@@ -16,6 +18,6 @@ class Treatment extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new TreatmentTransformer();
     }
 }

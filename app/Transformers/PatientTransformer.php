@@ -3,14 +3,13 @@
 namespace App\Transformers;
 
 use App\Models\Patient;
-use League\Fractal\TransformerAbstract;
 
-class PatientTransformer extends TransformerAbstract
+class PatientTransformer extends Transformer
 {
 
     public function transform(Patient $model)
     {
-        return [
+        $this->output = [
             'id'        => $model->id,
             'name'      => $model->name,
             'surname'   => $model->surname,
@@ -25,6 +24,8 @@ class PatientTransformer extends TransformerAbstract
             'email'     => $model->email,
             'tags'      => explode(';', $model->tags),
         ];
+
+        return $this->output;
     }
 
 }

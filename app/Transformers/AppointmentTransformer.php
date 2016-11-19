@@ -6,14 +6,12 @@ use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Patient;
-use League\Fractal\TransformerAbstract;
 
-class AppointmentTransformer extends TransformerAbstract
+class AppointmentTransformer extends Transformer
 {
-
     public function transform(Appointment $model)
     {
-        $output = [
+        $this->output = [
             'id'          => $model->id,
             'title'       => $model->title,
             'description' => $model->description,
@@ -23,27 +21,10 @@ class AppointmentTransformer extends TransformerAbstract
             'patient_id'  => $model->patient_id,
         ];
 
-        if ($this->isRelationshipLoaded($model, 'clinic')) {
-            $output['clinic'] = Clinic::transformer()->transform($model->clinic);
-            unset($output['clinic_id']);
-        }
+        $this->replaceRelationship($model, 'clinic', Clinic::transformer());
+        $this->replaceRelationship($model, 'dentist', Dentist::transformer());
+        $this->replaceRelationship($model, 'patient', Patient::transformer());
 
-        if ($this->isRelationshipLoaded($model, 'dentist')) {
-            $output['dentist'] = Dentist::transformer()->transform($model->dentist);
-            unset($output['dentist_id']);
-        }
-
-        if ($this->isRelationshipLoaded($model, 'patient')) {
-            $output['patient'] = Patient::transformer()->transform($model->patient);
-            unset($output['patient_id']);
-        }
-
-        return $output;
+        return $this->output;
     }
-
-    public function isRelationshipLoaded($model, $relation)
-    {
-        return array_key_exists($relation, $model->getRelations());
-    }
-
 }

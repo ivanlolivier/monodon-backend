@@ -2,27 +2,24 @@
 
 namespace App\Transformers;
 
-use App\Models\Appointment;
 use App\Models\Clinic;
-use League\Fractal\TransformerAbstract;
+use App\Models\Visit;
 
-class ClinicTransformer extends TransformerAbstract
+class ClinicTransformer extends Transformer
 {
-
     public function transform(Clinic $model)
     {
-        $output = [
+        $this->output = [
             'id'      => $model->id,
             'name'    => $model->name,
             'address' => $model->address,
             'phones'  => explode(';', $model->phones),
         ];
 
-        if (isset($model->last_appointment)) {
-            $output->last_appointment = $model->last_appointment? Appointment::transformer()->transform($model->last_appointment) : null;
+        if (isset($model->last_visit)) {
+            $this->output->last_visit = $model->last_visit? Visit::transformer()->transform($model->last_visit) : null;
         }
 
-        return $output;
+        return $this->output;
     }
-
 }
