@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Patient;
+use App\Transformers\ClinicTransformer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -126,5 +127,15 @@ class PatientController extends _Controller
         }
 
         return response()->download(storage_path() . '/app/' . $patient->photo, null, [], null);
+    }
+
+    public function clinicsMe()
+    {
+        return $this->clinics(Auth::user());
+    }
+
+    public function clinics(Patient $patient)
+    {
+        return $this->responseAsJson($patient->clinics, 200, new ClinicTransformer);
     }
 }

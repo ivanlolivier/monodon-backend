@@ -33,9 +33,14 @@ class Patient extends _Model
      * RELATIONS *
      *************/
 
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class);
+    }
+
     public function visits()
     {
-//        return $this->hasMany(Visit::class);
+        return $this->hasMany(_Visit::class);
     }
 
     public function files()

@@ -12,7 +12,7 @@ class Exploratory extends _Model
 
     public function visit()
     {
-        return $this->hasOne(Visit::class);
+        return $this->hasOne(_Visit::class);
     }
 
     public static function transformer()
