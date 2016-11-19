@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Transformers\AppointmentTransformer;
+
 class Appointment extends _Model
 {
     public function dentist()
@@ -16,6 +18,6 @@ class Appointment extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new AppointmentTransformer();
     }
 }

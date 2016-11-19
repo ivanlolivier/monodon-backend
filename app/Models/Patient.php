@@ -58,6 +58,16 @@ class Patient extends _Model
         return $this->hasMany(FcmToken::class);
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function latestAppointmentInClinic(Clinic $clinic)
+    {
+        return $this->hasOne(Appointment::class)->where('clinic_id', $clinic->id)->latest();
+    }
+
 
     /***************
      * TRANSFORMER *

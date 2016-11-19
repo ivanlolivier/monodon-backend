@@ -2,11 +2,16 @@
 
 use App\Http\Controllers\PatientController;
 
-Route::group(['middleware' => 'auth:patient'], function () {
-    Route::get('/me', PatientController::class . '@me');
-    Route::put('/me', PatientController::class . '@updateMe');
-    Route::get('/me/photo', PatientController::class . '@photoMe');
-    Route::get('/me/clinics', PatientController::class . '@clinicsMe');
+Route::group([
+    'middleware' => 'auth:patient',
+    'prefix'     => '/me'
+], function () {
+    Route::get('/', PatientController::class . '@me');
+    Route::put('/', PatientController::class . '@updateMe');
+    Route::get('/photo', PatientController::class . '@photoMe');
+    Route::get('/clinics', PatientController::class . '@clinicsMe');
+
+    Route::get('/clinics/{clinic}', PatientController::class . '@clinicMe');
 });
 
 Route::group(['middleware' => 'auth:dentist,employee'], function () {

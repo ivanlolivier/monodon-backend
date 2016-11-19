@@ -13,6 +13,10 @@ Route::group(['prefix' => '/patients'], function(){
     require 'api/patients.php';
 });
 
+Route::group(['prefix' => '/employees'], function(){
+    require 'api/employees.php';
+});
+
 Route::get('push', function(){
     $notification = (new PayloadNotificationBuilder('Titulo de la notificacion'))
         ->setBody('Hola, soy el cuerpo de la notificación')

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Auth\CanAuthenticate;
+use App\Transformers\EmployeeTransformer;
 
 class Employee extends _Model
 {
@@ -12,9 +13,14 @@ class Employee extends _Model
     {
         return $this->belongsTo(Clinic::class);
     }
+    
+    public function type()
+    {
+        return $this->hasOne();
+    }
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new EmployeeTransformer();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Auth\CanAuthenticate;
+use App\Transformers\DentistTransformer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dentist extends _Model
@@ -16,6 +17,6 @@ class Dentist extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new DentistTransformer();
     }
 }
