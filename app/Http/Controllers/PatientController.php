@@ -148,11 +148,7 @@ class PatientController extends _Controller
         /** @var Patient $patient */
         $patient = Auth::user();
 
-        DB::enableQueryLog();
-
         $clinic->last_appointment = $patient->latestAppointmentInClinic($clinic)->with('dentist')->get();
-
-        dd(DB::getQueryLog());
 
         dd($clinic->last_appointment);
 

@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\EmployeeTypeController;
 use LaravelFCM\Facades\FCM;
-use LaravelFCM\Message\OptionsBuilder;
-use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
 Route::group(['prefix' => '/clinics'], function () {
@@ -16,6 +15,8 @@ Route::group(['prefix' => '/patients'], function(){
 Route::group(['prefix' => '/employees'], function(){
     require 'api/employees.php';
 });
+
+Route::get('employee_types', EmployeeTypeController::class . '@index');
 
 Route::get('push', function(){
     $notification = (new PayloadNotificationBuilder('Titulo de la notificacion'))
