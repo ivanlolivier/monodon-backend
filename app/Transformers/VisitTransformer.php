@@ -16,6 +16,7 @@ class VisitTransformer extends Transformer
         $this->output = [
             'id'   => $model->id,
             'type' => $model->type,
+            'created_at' => $model->created_at->toDateString(),
 
             'patient_id'   => $model->patient_id,
             'dentist_id'   => $model->dentist_id,
