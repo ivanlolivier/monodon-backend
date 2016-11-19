@@ -17,7 +17,7 @@ class ClinicTransformer extends Transformer
         ];
 
         if (isset($model->last_visit)) {
-            $this->output->last_visit = $model->last_visit? Visit::transformer()->transform($model->last_visit) : null;
+            $this->output['last_visit'] = Visit::transformer()->transform($model->last_visit);
         }
 
         return $this->output;

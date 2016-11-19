@@ -63,9 +63,9 @@ class Patient extends _Model
         return $this->hasMany(Appointment::class);
     }
 
-    public function latestAppointmentInClinic(Clinic $clinic)
+    public function lastVisitInClinic(Clinic $clinic)
     {
-        return $this->hasOne(Appointment::class)->where('clinic_id', $clinic->id)->latest();
+        return $this->hasOne(Visit::class)->where('clinic_id', $clinic->id)->latest();
     }
 
 
