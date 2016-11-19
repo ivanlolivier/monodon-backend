@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class EmployeeController extends _Controller
 {
@@ -20,6 +21,9 @@ class EmployeeController extends _Controller
 
     public function show(Employee $employee)
     {
+        $employee->load('clinic');
+        $employee->load('type');
+
         return $this->responseAsJson($employee);
     }
 }

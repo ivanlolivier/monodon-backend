@@ -25,17 +25,17 @@ class AppointmentTransformer extends TransformerAbstract
 
         if ($this->isRelationshipLoaded($model, 'clinic')) {
             $output['clinic'] = Clinic::transformer()->transform($model->clinic);
-            unset($output->clinic_id);
+            unset($output['clinic_id']);
         }
 
         if ($this->isRelationshipLoaded($model, 'dentist')) {
             $output['dentist'] = Dentist::transformer()->transform($model->dentist);
-            unset($output->dentist_id);
+            unset($output['dentist_id']);
         }
 
         if ($this->isRelationshipLoaded($model, 'patient')) {
             $output['patient'] = Patient::transformer()->transform($model->patient);
-            unset($output->patient_id);
+            unset($output['patient_id']);
         }
 
         return $output;
@@ -43,7 +43,7 @@ class AppointmentTransformer extends TransformerAbstract
 
     public function isRelationshipLoaded($model, $relation)
     {
-        return isset($model->relations[$relation]);
+        return array_key_exists($relation, $model->getRelations());
     }
 
 }

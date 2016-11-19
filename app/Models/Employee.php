@@ -16,7 +16,7 @@ class Employee extends _Model
     
     public function type()
     {
-        return $this->hasOne();
+        return $this->belongsTo(EmployeeType::class, 'employee_type_id');
     }
 
     public static function transformer()
