@@ -2,9 +2,10 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Cors;
 use App\Http\Middleware\LogAfterRequest;
+use Barryvdh\Cors\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 
 class Kernel extends HttpKernel
 {
@@ -16,7 +17,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        CheckForMaintenanceMode::class,
+        HandleCors::class,
     ];
 
     /**
@@ -29,7 +31,6 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             LogAfterRequest::class,
-            Cors::class
         ],
     ];
 

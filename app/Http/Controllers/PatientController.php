@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
-use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Patient;
-use App\Transformers\ClinicTransformer;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use DB;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends _Controller
