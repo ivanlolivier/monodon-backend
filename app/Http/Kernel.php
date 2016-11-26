@@ -18,7 +18,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         CheckForMaintenanceMode::class,
-        HandleCors::class,
     ];
 
     /**
@@ -31,6 +30,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             LogAfterRequest::class,
+            HandleCors::class,
         ],
     ];
 
