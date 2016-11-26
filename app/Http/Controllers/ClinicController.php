@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClinic;
 use App\Models\Clinic;
+use App\Models\Patient;
+use App\Transformers\PatientTransformer;
 
 class ClinicController extends _Controller
 {
@@ -66,9 +68,11 @@ class ClinicController extends _Controller
         return $this->responseAsJson($clinic);
     }
 
-    public function patients()
+    public function patients(Clinic $clinic)
     {
-        
+        $patients = $clinic->patients;
+
+        return $this->responseAsJson($patients, Patient::transformer());
     }
 
 }
