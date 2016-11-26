@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\_Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -37,10 +38,14 @@ abstract class _Controller extends BaseController
                 ->toArray();
         }
 
-        return fractal()
-            ->item($result)
-            ->transformWith($transformer)
-            ->toArray();
+        if ($result instanceof _Model) {
+            return fractal()
+                ->item($result)
+                ->transformWith($transformer)
+                ->toArray();
+        }
+
+        return $result;
     }
 
     protected function saveFile($filename, $file)

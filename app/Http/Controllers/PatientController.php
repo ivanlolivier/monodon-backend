@@ -6,6 +6,7 @@ use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Clinic;
 use App\Models\Patient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -147,5 +148,17 @@ class PatientController extends _Controller
         $clinic->last_visit = $patient->lastVisitInClinic($clinic)->with('dentist')->first();
 
         return $this->responseAsJson($clinic, 200, Clinic::transformer());
+    }
+    
+    public function information(Request $request)
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $patient->informations()->create([
+            'information' => $request->get('information'),
+        ]);
+
+        return $this->responseAsJson([], 201);
     }
 }

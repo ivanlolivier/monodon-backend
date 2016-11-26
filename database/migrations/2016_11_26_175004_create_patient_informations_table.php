@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePatientFcmTokensTable extends Migration
+class CreatePatientInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePatientFcmTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('patient_fcm_tokens', function (Blueprint $table) {
+        Schema::create('patient_informations', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients');
 
-            $table->string('fcm_token');
+            $table->text('information');
+
+            $table->dateTime('read_at')->nullable();
 
             $table->timestamps();
         });
@@ -32,6 +34,6 @@ class CreatePatientFcmTokensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('patient_fcm_tokens');
+        Schema::dropIfExists('patient_informations');
     }
 }

@@ -68,6 +68,11 @@ class Patient extends _Model
         return $this->hasOne(Visit::class)->where('clinic_id', $clinic->id)->latest();
     }
 
+    public function informations()
+    {
+        return $this->hasMany(PatientInformation::class);
+    }
+
 
     /***************
      * TRANSFORMER *
