@@ -70,9 +70,7 @@ class ClinicController extends _Controller
 
     public function patients(Clinic $clinic)
     {
-        $patients = $clinic->patients;
-
-        return $this->responseAsJson($patients, Patient::transformer());
+        return $this->responseAsJson($clinic->patients, Patient::transformer());
     }
 
 }
