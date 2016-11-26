@@ -19,7 +19,7 @@ class PatientTransformer extends Transformer
             ],
             'birthdate' => $model->birthdate->toDateString(),
             'sex'       => $model->sex,
-            'photo'     => $model->photo ? url('/api/patients/me/photo') : null,
+            'photo'     => $model->photo ? url('/patients/me/photo') : null,
             'phones'    => explode(';', $model->phones),
             'email'     => $model->email,
             'tags'      => explode(';', $model->tags),
