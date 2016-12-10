@@ -6,6 +6,6 @@ trait CanAuthenticate
 {
     public function auth()
     {
-        return $this->morphMany(User::class, 'authenticatable');
+        return $this->morphOne(User::class, 'authenticatable');
     }
 }

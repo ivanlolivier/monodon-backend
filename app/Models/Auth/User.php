@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
@@ -18,10 +19,11 @@ class User extends _Model implements
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, HasApiTokens;
+    use Authenticatable, Authorizable, CanResetPassword, HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'email', 'password',
+        'email',
+        'password',
     ];
 
     public function setPasswordAttribute($pass)
@@ -29,15 +31,17 @@ class User extends _Model implements
         $this->attributes['password'] = Hash::make($pass);
     }
 
-    public function findForPassport($email)
+    public function findForPassport($email, $type = false)
     {
-        if (! $type = app(Request::class)->get('type', false)){
-            return false;
+        if (!$type) {
+            if (!$type = app(Request::class)->get('type', false)) {
+                return false;
+            }
         }
 
         $authenticatable = "\\App\\Models\\" . studly_case(strtolower($type));
 
-        if (! class_exists($authenticatable)) {
+        if (!class_exists($authenticatable)) {
             return false;
         }
 
@@ -46,7 +50,7 @@ class User extends _Model implements
             ->where('authenticatable_type', get_class(new $authenticatable))
             ->first();
     }
-
+    
     public function authenticatable()
     {
         return $this->morphTo();

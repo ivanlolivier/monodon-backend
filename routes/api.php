@@ -1,8 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeTypeController;
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\PayloadNotificationBuilder;
+
+Route::post('password/email', ForgotPasswordController::class . '@sendResetLinkEmail');
+Route::put('password/reset', ResetPasswordController::class . '@reset');
+
 
 Route::group(['prefix' => '/clinics'], function () {
     require 'api/clinics.php';
