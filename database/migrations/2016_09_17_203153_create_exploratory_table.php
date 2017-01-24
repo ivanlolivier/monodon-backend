@@ -19,7 +19,8 @@ class CreateExploratoryTable extends Migration
             $table->unsignedInteger('visit_id');
             $table->foreign('visit_id')->references('id')->on('visits');
 
-            $table->json('mouth_photo');
+//            $table->json('mouth_photo');
+            $table->text('mouth_photo');
 
             $table->timestamps();
         });

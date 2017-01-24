@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeTypeController;
 use LaravelFCM\Facades\FCM;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
 Route::post('password/email', ForgotPasswordController::class . '@sendResetLinkEmail');
@@ -25,14 +27,28 @@ Route::group(['prefix' => '/employees'], function () {
 Route::get('employee_types', EmployeeTypeController::class . '@index');
 
 Route::get('push', function () {
-    $notification = (new PayloadNotificationBuilder('Titulo de la notificacion'))
-        ->setBody('Hola, soy el cuerpo de la notificación')
-        ->setSound('default')
-        ->build();
+//    $notification = (new PayloadNotificationBuilder('Se te cayo un diente'))
+//        ->setBody('Hola, soy el cuerpo de la notificación de nuevo diente')
+//        ->setSound('default')
+//        ->build();
 
-    $token = "eZviev6PkkM:APA91bHP-cKhWelKXO3LXQb4T3Oa8Fw1a2yz8pHdpWhUadei2xmTFfnifNpuQR1uyXjpuW7eAC8k2NFmcXGriNl1MnayBogdlZ_ETAET9hO8429YKceZIurVCg8T7K-s8R2VPzgo7d3z";
+    $optionBuiler = new OptionsBuilder();
+    $optionBuiler->setTimeToLive(60*20);
 
-    $downstreamResponse = FCM::sendTo($token, null, $notification);
+    $notificationBuilder = new PayloadNotificationBuilder('my title');
+    $notificationBuilder->setBody('Hello world')
+        ->setSound('default');
+
+    $dataBuilder = new PayloadDataBuilder();
+    $dataBuilder->addData(['a_data' => 'my_data']);
+
+    $option = $optionBuiler->build();
+    $notification = $notificationBuilder->build();
+    $data = $dataBuilder->build();
+
+    $token = "fLur_i7rLco:APA91bFYKQkFqkEBUWBAB9thZ4ddAkQmgrMs372Abpqqpcnabi4-Xu7OvLOfz4SoxjN3dJQzUglfc-rexZzGD1ExOKK-QANeDoVXgUhIHYv3bDX-zNtEl0LIHkp6G3UK2GM_hcptigCk";
+
+    $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
     dd($downstreamResponse);
 });

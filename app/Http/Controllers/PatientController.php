@@ -145,19 +145,21 @@ class PatientController extends _Controller
         /** @var Patient $patient */
         $patient = Auth::user();
 
+        if (!$patient->clinics->contains($clinic->id)) {
+            return $this->responseAsJson(['message' => 'You can\'t access to the information of this clinic'], 403);
+        }
+
         $clinic->last_visit = $patient->lastVisitInClinic($clinic)->with('dentist')->first();
 
         return $this->responseAsJson($clinic, 200, Clinic::transformer());
     }
-    
+
     public function information(Request $request)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
 
-        $patient->informations()->create([
-            'information' => $request->get('information'),
-        ]);
+        $patient->informations()->create(['information' => $request->get('information')]);
 
         return $this->responseAsJson([], 201);
     }
