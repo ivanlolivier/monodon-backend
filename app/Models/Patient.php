@@ -73,6 +73,16 @@ class Patient extends _Model
         return $this->hasMany(PatientInformation::class);
     }
 
+    public function notificationsScheduled()
+    {
+        return $this->hasMany(NotificationScheduled::class);
+    }
+
+    public function notificationsSent()
+    {
+        return $this->hasManyThrough(NotificationSent::class, NotificationScheduled::class, 'patient_id', 'notification_id');
+    }
+
 
     /***************
      * TRANSFORMER *

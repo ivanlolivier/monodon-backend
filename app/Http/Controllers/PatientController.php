@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Clinic;
+use App\Models\NotificationSent;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,5 +163,15 @@ class PatientController extends _Controller
         $patient->informations()->create(['information' => $request->get('information')]);
 
         return $this->responseAsJson([], 201);
+    }
+    
+    public function notifications()
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $notifications = $patient->notificationsSent()->with('scheduled')->get();
+
+        return $this->responseAsJson($notifications, 200, NotificationSent::transformer());
     }
 }
