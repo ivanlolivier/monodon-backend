@@ -3,6 +3,7 @@
 namespace App\Models\Auth;
 
 use App\Models\_Model;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -59,5 +60,10 @@ class User extends _Model implements
     public static function transformer()
     {
         // TODO: Implement transformer() method.
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($this->email, $token));
     }
 }
