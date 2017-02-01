@@ -16,6 +16,7 @@ Route::group([
     Route::get('/clinics/{clinic}', PatientController::class . '@clinicMe');
 
     Route::get('/notifications', PatientController::class . '@notifications');
+    Route::put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
 });
 
 Route::group(['middleware' => 'auth:dentist,employee'], function () {

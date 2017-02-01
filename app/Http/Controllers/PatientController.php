@@ -7,6 +7,7 @@ use App\Http\Requests\StorePatient;
 use App\Models\Clinic;
 use App\Models\NotificationSent;
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -164,7 +165,7 @@ class PatientController extends _Controller
 
         return $this->responseAsJson([], 201);
     }
-    
+
     public function notifications()
     {
         /** @var Patient $patient */
@@ -173,5 +174,23 @@ class PatientController extends _Controller
         $notifications = $patient->notificationsSent()->with('scheduled')->get();
 
         return $this->responseAsJson($notifications, 200, NotificationSent::transformer());
+    }
+
+    public function updateNotification(NotificationSent $notificationSent, Request $request)
+    {
+        $action = $request->get('action');
+
+        if ($action == 'read') {
+            $notificationSent->read_at = new Carbon;
+        }
+
+        if ($action == 'answer') {
+            $notificationSent->answer_at = new Carbon;
+            $notificationSent->answer = $request->get('value');
+        }
+
+        $notificationSent->save();
+
+        return $this->responseAsJson($notificationSent, 200, NotificationSent::transformer());
     }
 }
