@@ -17,7 +17,7 @@ class NotificationScheduled extends _Model
 
     public function sent()
     {
-        return $this->hasOne(NotificationSent::class);
+        return $this->hasOne(NotificationSent::class, 'id', 'notification_id');
     }
 
     public static function transformer()

@@ -15,7 +15,7 @@ class NotificationsSeeder extends Seeder
     public function run()
     {
         factory(NotificationScheduled::class, 50)->create([
-            'sent_at' => Carbon::create()->format('Y-m-d H:i:s')
+            'send_at' => Carbon::create()->format('Y-m-d H:i:s')
         ])->each(function (NotificationScheduled $notification) {
 
             $notification_sent = [
@@ -27,7 +27,7 @@ class NotificationsSeeder extends Seeder
             $answered = rand(0, 1);
 
             if ($read) {
-                $override['read_at'] = Carbon::create()->format('Y-m-d H:i:s');
+                $notification_sent['read_at'] = Carbon::create()->format('Y-m-d H:i:s');
             }
 
             if ($read && $answered) {
@@ -46,8 +46,8 @@ class NotificationsSeeder extends Seeder
                     $answer = rand(0, 100);
                 }
 
-                $override['answered_at'] = Carbon::create()->format('Y-m-d H:i:s');
-                $override['answer'] = $answer;
+                $notification_sent['answered_at'] = Carbon::create()->format('Y-m-d H:i:s');
+                $notification_sent['answer'] = $answer;
             }
 
             $notification->sent()->create($notification_sent);
