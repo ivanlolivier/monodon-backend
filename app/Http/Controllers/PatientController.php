@@ -171,9 +171,28 @@ class PatientController extends _Controller
         /** @var Patient $patient */
         $patient = Auth::user();
 
-        $notifications = $patient->notificationsSent()->with('scheduled')->get();
+        $notifications_unanswered = $patient->notificationsSent()
+            ->with('scheduled')
+            ->whereNull('answered_at')
+            ->orderBy('sent_at', 'desc')
+            ->get();
 
-        return $this->responseAsJson($notifications, 200, NotificationSent::transformer());
+        $notifications_answered = $patient->notificationsSent()
+            ->with('scheduled')
+            ->whereNotNull('answered_at')
+            ->orderBy('sent_at', 'desc')
+            ->get();
+
+        $unanswered = $this->prepareResponse($notifications_unanswered, NotificationSent::transformer());
+
+        $answered = $this->prepareResponse($notifications_answered, NotificationSent::transformer());
+
+        return response()->json([
+            'data' => [
+                'unanswered' => $unanswered['data'],
+                'answered'   => $answered['data'],
+            ]
+        ], 200);
     }
 
     public function updateNotification(NotificationSent $notificationSent, Request $request)
