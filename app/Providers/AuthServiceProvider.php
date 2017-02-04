@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Guards\AuthenticatableGuard;
+use App\Models\Clinic;
+use App\Policies\ClinicPolicy;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Clinic::class => ClinicPolicy::class,
     ];
 
     /**

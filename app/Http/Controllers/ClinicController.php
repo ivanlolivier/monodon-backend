@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClinic;
 use App\Models\Clinic;
+use App\Models\Dentist;
+use App\Models\Employee;
 use App\Models\Patient;
 use App\Transformers\PatientTransformer;
+use Illuminate\Support\Facades\Auth;
 
 class ClinicController extends _Controller
 {
@@ -24,6 +27,8 @@ class ClinicController extends _Controller
      */
     public function show(Clinic $clinic)
     {
+        $this->authorize('show', $clinic);
+
         return $this->responseAsJson($clinic);
     }
 
@@ -57,6 +62,8 @@ class ClinicController extends _Controller
      */
     public function update(Clinic $clinic, StoreClinic $request)
     {
+        $this->authorize('show', $clinic);
+
         $clinic->fill([
             'name'    => $request->name,
             'address' => $request->address,
@@ -70,7 +77,20 @@ class ClinicController extends _Controller
 
     public function patients(Clinic $clinic)
     {
-        return $this->responseAsJson($clinic->patients, 200, Patient::transformer());
+        $this->authorize('patients', $clinic);
+
+        $patients = $clinic->patients()->get();
+
+        return $this->responseAsJson($patients, 200, Patient::transformer());
+    }
+
+    public function dentists(Clinic $clinic)
+    {
+        $this->authorize('dentists', $clinic);
+
+        $dentists = $clinic->dentists()->get();
+
+        return $this->responseAsJson($dentists, 200, Dentist::transformer());
     }
 
 }

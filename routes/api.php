@@ -1,39 +1,43 @@
 <?php
 
+/** @var Router $router */
+
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeTypeController;
+use Illuminate\Routing\Router;
+
+$router->post('password/email', ForgotPasswordController::class . '@sendResetLinkEmail');
+$router->put('password/reset', ResetPasswordController::class . '@reset');
+
+$router->get('employee_types', EmployeeTypeController::class . '@index');
+
+$router->group(['prefix' => '/employees'], function (Router $router) {
+    require 'api/employees.php';
+});
+
+$router->group(['prefix' => '/clinics'], function (Router $router) {
+    require 'api/clinics.php';
+});
+
+$router->group(['prefix' => '/patients'], function (Router $router) {
+    require 'api/patients.php';
+});
+
+
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
-Route::post('password/email', ForgotPasswordController::class . '@sendResetLinkEmail');
-Route::put('password/reset', ResetPasswordController::class . '@reset');
-
-
-Route::group(['prefix' => '/clinics'], function () {
-    require 'api/clinics.php';
-});
-
-Route::group(['prefix' => '/patients'], function () {
-    require 'api/patients.php';
-});
-
-Route::group(['prefix' => '/employees'], function () {
-    require 'api/employees.php';
-});
-
-Route::get('employee_types', EmployeeTypeController::class . '@index');
-
-Route::get('push', function () {
+$router->get('push', function () {
 //    $notification = (new PayloadNotificationBuilder('Se te cayo un diente'))
 //        ->setBody('Hola, soy el cuerpo de la notificación de nuevo diente')
 //        ->setSound('default')
 //        ->build();
 
     $optionBuiler = new OptionsBuilder();
-    $optionBuiler->setTimeToLive(60*20);
+    $optionBuiler->setTimeToLive(60 * 20);
 
     $notificationBuilder = new PayloadNotificationBuilder('my title');
     $notificationBuilder->setBody('Hello world')
