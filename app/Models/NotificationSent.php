@@ -13,6 +13,7 @@ class NotificationSent extends _Model
         'answer_at',
         'created_at',
         'updated_at',
+        'answered_at',
     ];
 
     /**

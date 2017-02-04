@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\NotificationScheduled;
-use App\Models\NotificationSent;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
