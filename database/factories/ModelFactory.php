@@ -3,8 +3,11 @@
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Employee;
+use App\Models\NotificationScheduled;
+use App\Models\NotificationSent;
 use App\Models\Patient;
 use App\Models\Question;
+use Carbon\Carbon;
 
 $factory->define(Clinic::class, function (Faker\Generator $faker) {
     return [
@@ -52,5 +55,14 @@ $factory->define(Dentist::class, function (Faker\Generator $faker) {
         'email'        => $faker->email,
         'phones'       => $faker->phoneNumber,
         'sex'          => $faker->randomElement(['male', 'female']),
+    ];
+});
+
+$factory->define(NotificationScheduled::class, function (Faker\Generator $faker) {
+    return [
+        'patient_id'       => '1',
+        'title'            => $faker->title,
+        'message'          => $faker->sentence,
+        'possible_answers' => $faker->randomElement(['YES-NO', 'OK', 'RANGE']),
     ];
 });
