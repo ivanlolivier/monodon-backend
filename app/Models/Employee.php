@@ -13,7 +13,7 @@ class Employee extends _Model
     {
         return $this->belongsTo(Clinic::class);
     }
-    
+
     public function type()
     {
         return $this->belongsTo(EmployeeType::class, 'employee_type_id');
@@ -22,5 +22,10 @@ class Employee extends _Model
     public static function transformer()
     {
         return new EmployeeTransformer();
+    }
+
+    public function worksOn(Clinic $clinic)
+    {
+        return $this->clinic_id == $clinic->id;
     }
 }

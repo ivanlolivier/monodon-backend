@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Http\Guards\AuthenticatableGuard;
+use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Policies\AppointmentPolicy;
 use App\Policies\ClinicPolicy;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -23,7 +25,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Clinic::class => ClinicPolicy::class,
+        Clinic::class      => ClinicPolicy::class,
+        Appointment::class => AppointmentPolicy::class,
     ];
 
     /**
@@ -47,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Make an instance of the token guard.
      *
-     * @param  array  $config
+     * @param  array $config
      * @return RequestGuard
      */
     protected function makeGuard(array $config)

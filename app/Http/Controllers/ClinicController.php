@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClinic;
+use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Employee;
 use App\Models\Patient;
+use App\Transformers\AppointmentTransformer;
 use App\Transformers\PatientTransformer;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,7 +64,7 @@ class ClinicController extends _Controller
      */
     public function update(Clinic $clinic, StoreClinic $request)
     {
-        $this->authorize('show', $clinic);
+        $this->authorize('update', $clinic);
 
         $clinic->fill([
             'name'    => $request->name,

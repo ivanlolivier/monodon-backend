@@ -1,26 +1,29 @@
 <?php
 
 use App\Http\Controllers\PatientController;
+use Illuminate\Routing\Router;
 
-Route::group([
+/** @var Router $router */
+
+$router->group([
     'middleware' => 'auth:patient',
     'prefix'     => '/me'
-], function () {
-    Route::get('/', PatientController::class . '@me');
-    Route::put('/', PatientController::class . '@updateMe');
+], function (Router $router) {
+    $router->get('/', PatientController::class . '@me');
+    $router->put('/', PatientController::class . '@updateMe');
 
-    Route::get('/photo', PatientController::class . '@photoMe');
-    Route::post('/information', PatientController::class . '@information');
+    $router->get('/photo', PatientController::class . '@photoMe');
+    $router->post('/information', PatientController::class . '@information');
 
-    Route::get('/clinics', PatientController::class . '@clinicsMe');
-    Route::get('/clinics/{clinic}', PatientController::class . '@clinicMe');
+    $router->get('/clinics', PatientController::class . '@clinicsMe');
+    $router->get('/clinics/{clinic}', PatientController::class . '@clinicMe');
 
-    Route::get('/notifications', PatientController::class . '@notifications');
-    Route::put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
+    $router->get('/notifications', PatientController::class . '@notifications');
+    $router->put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
 });
 
-Route::group(['middleware' => 'auth:dentist,employee'], function () {
-    Route::get('/{patient}', PatientController::class . '@show');
-    Route::post('/', PatientController::class . '@store');
-    Route::put('/{patient}', PatientController::class . '@update');
+$router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {
+    $router->get('/{patient}', PatientController::class . '@show');
+    $router->post('/', PatientController::class . '@store');
+    $router->put('/{patient}', PatientController::class . '@update');
 });

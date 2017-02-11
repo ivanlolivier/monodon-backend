@@ -19,4 +19,9 @@ class Dentist extends _Model
     {
         return new DentistTransformer();
     }
+
+    public function worksOn(Clinic $clinic)
+    {
+        return $this->clinics()->get()->contains('id', $clinic->id);
+    }
 }

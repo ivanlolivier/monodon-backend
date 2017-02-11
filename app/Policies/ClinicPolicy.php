@@ -15,7 +15,7 @@ class ClinicPolicy
     public function show($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {
-            return $user->clinic->id == $clinic->id;
+            return $user->worksOn($clinic);
         }
 
         if (
@@ -31,7 +31,7 @@ class ClinicPolicy
     public function update($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {
-            return $user->clinic->id == $clinic->id;
+            return $user->worksOn($clinic);
         }
 
         return false;
@@ -40,7 +40,7 @@ class ClinicPolicy
     public function patients($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {
-            return $user->clinic->id == $clinic->id;
+            return $user->worksOn($clinic);
         }
 
         if ($user instanceof Dentist) {
@@ -53,7 +53,16 @@ class ClinicPolicy
     public function dentists($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {
-            return $user->clinic->id == $clinic->id;
+            return $user->worksOn($clinic);
+        }
+
+        return false;
+    }
+
+    public function appointments($user, Clinic $clinic)
+    {
+        if ($user instanceof Employee) {
+            return $user->worksOn($clinic);
         }
 
         return false;

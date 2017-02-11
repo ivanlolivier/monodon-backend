@@ -98,4 +98,9 @@ class Patient extends _Model
      * PUBLIC FUNCTIONS *
      ********************/
 
+    public function isSeenAt(Clinic $clinic)
+    {
+        return $this->clinics()->get()->contains('id', $clinic->id);
+    }
+
 }

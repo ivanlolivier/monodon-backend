@@ -1,16 +1,22 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClinicController;
+use Illuminate\Routing\Router;
 
-Route::post('/', ClinicController::class . '@store');
+/** @var Router $router */
 
-Route::group(['middleware' => 'auth:employee,dentist,patient'], function () {
-    Route::get('/{clinic}', ClinicController::class . '@show');
+$router->post('/', ClinicController::class . '@store');
+
+$router->group(['middleware' => 'auth:employee,dentist,patient'], function (Router $router) {
+    $router->get('/{clinic}', ClinicController::class . '@show');
 });
 
-Route::group(['middleware' => 'auth:employee'], function () {
-    Route::put('/{clinic}', ClinicController::class . '@update');
-    Route::get('/{clinic}/patients', ClinicController::class . '@patients');
+$router->group(['middleware' => 'auth:employee'], function (Router $router) {
+    $router->put('/{clinic}', ClinicController::class . '@update');
+    $router->get('/{clinic}/patients', ClinicController::class . '@patients');
+    $router->get('/{clinic}/dentists', ClinicController::class . '@dentists');
 
-    Route::get('/{clinic}/dentists', ClinicController::class . '@dentists');
+    $router->get('/{clinic}/appointments', AppointmentController::class . '@listForClinic');
+    $router->post('/{clinic}/appointments', AppointmentController::class . '@createForClinic');
 });
