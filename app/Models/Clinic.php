@@ -9,7 +9,9 @@ class Clinic extends _Model
     protected $fillable = [
         'name',
         'address',
-        'phones'
+        'phones',
+        'email',
+        'logo'
     ];
 
     /*************
@@ -30,7 +32,7 @@ class Clinic extends _Model
     {
         return $this->hasMany(Employee::class);
     }
-    
+
     public function appointments()
     {
         return $this->hasMany(Appointment::class);

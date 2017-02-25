@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StoreClinic;
-use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
-use App\Models\Employee;
 use App\Models\Patient;
-use App\Transformers\AppointmentTransformer;
-use App\Transformers\PatientTransformer;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ClinicController extends _Controller
 {
+    use CanUploadFiles;
+
+    const STORAGE_PATH = '/clinics';
+    const STORAGE_DISC = 'local';
+
     public function __construct()
     {
         $this->transformer = Clinic::transformer();
@@ -67,10 +69,27 @@ class ClinicController extends _Controller
         $this->authorize('update', $clinic);
 
         $clinic->fill([
-            'name'    => $request->name,
-            'address' => $request->address,
-            'phones'  => implode(';', $request->phones),
+            'name'    => $request->get('name', null),
+            'address' => $request->get('address', null),
+            'phones'  => implode(';', $request->get('phones', [])),
+            'email'   => $request->get('email', null)
         ]);
+
+        if ($base64_logo = $request->get('logo', false)) {
+            $logo = base64_decode($base64_logo, true);
+
+            if ($logo !== false) {
+                $disk = Storage::disk(self::STORAGE_DISC);
+
+                if ($clinic->logo && $disk->exists($clinic->logo)) {
+                    $disk->delete($clinic->logo);
+                }
+
+                $filename = $clinic->id . '-' . time() . '.jpg';
+
+                $clinic->logo = $this->saveFile($filename, $logo);
+            }
+        }
 
         $clinic->update();
 

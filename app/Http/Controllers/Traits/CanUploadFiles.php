@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 
 trait CanUploadFiles
 {
-    protected function saveFile($filename, $file)
+    public function saveFile($filename, $file)
     {
         $file_path = self::STORAGE_PATH . '/' . $filename;
 

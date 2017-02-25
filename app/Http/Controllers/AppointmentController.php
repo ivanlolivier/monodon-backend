@@ -60,6 +60,8 @@ class AppointmentController extends _Controller
             ], 422);
         }
 
+//        if ($dentist->)
+
         $appointment = new Appointment($request->only('title', 'description', 'datetime'));
         $appointment->dentist_id = $request->get('dentist_id');
         $appointment->patient_id = $request->get('patient_id');
