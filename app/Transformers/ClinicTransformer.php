@@ -14,7 +14,7 @@ class ClinicTransformer extends Transformer
             'name'    => $model->name,
             'address' => $model->address,
             'phones'  => explode(';', $model->phones),
-            'email'   => $model->address,
+            'email'   => $model->email,
             'logo'    => url('/storage/' . $model->logo),
         ];
 
