@@ -14,7 +14,7 @@ class ClinicController extends _Controller
     use CanUploadFiles;
 
     const STORAGE_PATH = '/clinics';
-    const STORAGE_DISC = 'local';
+    const STORAGE_DISC = 'public';
 
     public function __construct()
     {
