@@ -26,7 +26,8 @@ class StoreClinic extends FormRequest
         return [
             'name'    => ['required', 'max:255'],
             'address' => ['required', 'max:255'],
-            'phones'  => ['array']
+            'phones'  => ['array'],
+            'email'   => ['email']
         ];
     }
 }
