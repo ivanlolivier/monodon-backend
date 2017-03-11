@@ -20,8 +20,34 @@ class AppointmentPolicy
         return false;
     }
 
-    public function createForClinic($user, Appointment $appointment, Clinic $clinic)
+    public function createForClinic($user, Clinic $clinic)
     {
+        if ($user instanceof Employee) {
+            return $user->worksOn($clinic);
+        }
+
+        return false;
+    }
+
+    public function updateForClinic($user, Appointment $appointment, Clinic $clinic)
+    {
+        if ($appointment->clinic_id != $clinic->id) {
+            return false;
+        }
+
+        if ($user instanceof Employee) {
+            return $user->worksOn($clinic);
+        }
+
+        return false;
+    }
+
+    public function deleteForClinic($user, Appointment $appointment, Clinic $clinic)
+    {
+        if ($appointment->clinic_id != $clinic->id) {
+            return false;
+        }
+
         if ($user instanceof Employee) {
             return $user->worksOn($clinic);
         }

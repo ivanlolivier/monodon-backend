@@ -38,6 +38,11 @@ class Clinic extends _Model
         return $this->hasMany(Appointment::class);
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
 
     /***************
      * TRANSFORMER *

@@ -39,7 +39,7 @@ class LogAfterRequest
 
         $log->info('app.request', [
             'request'  => [
-                'body'    => $request->except(['image', 'photo', 'password', 'password_confirmation']),
+                'body'    => $request->except(['image', 'photo', 'logo', 'password', 'password_confirmation']),
                 'method'  => $request->method(),
                 'url'     => $request->url(),
                 'headers' => $request->headers

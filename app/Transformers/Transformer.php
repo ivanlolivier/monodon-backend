@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
+use Illuminate\Database\Eloquent\Collection;
 
 abstract class Transformer extends TransformerAbstract
 {
@@ -17,8 +18,19 @@ abstract class Transformer extends TransformerAbstract
         }
 
         if ($this->isRelationshipLoaded($model, $relation)) {
-            $this->output[$relation] = $transformer->transform($model->{$relation});
-            unset($this->output[$field]);
+            $this->output[$relation] = null;
+            if ($model->{$relation}) {
+
+                $this->output[$relation] = ($model->{$relation} instanceof Collection) ?
+                    $model->{$relation}->transform(function ($item) use ($transformer) {
+                        return $transformer->transform($item);
+                    }) :
+                    $transformer->transform($model->{$relation});
+            }
+
+            if (key_exists($field, $this->output)) {
+                unset($this->output[$field]);
+            }
         }
     }
 
