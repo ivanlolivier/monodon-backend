@@ -20,6 +20,8 @@ $router->group([
 
     $router->get('/notifications', PatientController::class . '@notifications');
     $router->put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
+
+    $router->get('/appointments', PatientController::class . '@nextAppointments');
 });
 
 $router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {

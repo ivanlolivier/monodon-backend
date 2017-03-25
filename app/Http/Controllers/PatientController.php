@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
+use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\NotificationSent;
 use App\Models\Patient;
@@ -211,5 +212,15 @@ class PatientController extends _Controller
         $notificationSent->save();
 
         return $this->responseAsJson($notificationSent, 200, NotificationSent::transformer());
+    }
+
+    public function nextAppointments()
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $next_appointments = $patient->appointments()->whereDate('datetime', '>=', Carbon::now())->get();
+
+        return $this->responseAsJson($next_appointments, 200, Appointment::transformer());
     }
 }
