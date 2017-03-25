@@ -219,7 +219,11 @@ class PatientController extends _Controller
         /** @var Patient $patient */
         $patient = Auth::user();
 
-        $next_appointments = $patient->appointments()->whereDate('datetime', '>=', Carbon::now())->get();
+        $next_appointments = $patient->appointments()
+            ->with('clinic')
+            ->with('dentist')
+            ->whereDate('datetime', '>=', Carbon::now())
+            ->get();
 
         return $this->responseAsJson($next_appointments, 200, Appointment::transformer());
     }
