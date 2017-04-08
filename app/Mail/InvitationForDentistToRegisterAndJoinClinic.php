@@ -28,16 +28,17 @@ class InvitationForDentistToRegisterAndJoinClinic extends CommonBaseMail
 
         $this->introLines = [
             $this->employee->name . ' te ha agregado como dentista de la clinica ' . $this->clinic->name,
-            'Si eres dentista en esa clinica haz click en el botón "Aceptar", sino en "Cancelar".'
+            'En ' . $this->clinic->name . ' utilizan Monodon para administrar la clinica y registrar las interacciones con los pacientes',
+            'Si eres dentista en esa clinica haz click en el botón "Aceptar" para registrarte en Monodon y tener acceso a la clinica, sino en "Cancelar".'
         ];
 
         $this->buttons = [
             [
-                'text' => 'Aceptar',
+                'label' => 'Aceptar',
                 'url'  => "http://www.monodon.uy/#/invitations/{$this->invitation->token}/accept",
             ],
             [
-                'text' => 'Cancelar',
+                'label' => 'Cancelar',
                 'url'  => "http://www.monodon.uy/#/invitations/{$this->invitation->token}/reject",
             ]
         ];

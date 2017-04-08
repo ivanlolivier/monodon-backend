@@ -67,4 +67,13 @@ class ClinicPolicy
 
         return false;
     }
+
+    public function invite_dentist($user, Clinic $clinic)
+    {
+        if ($user instanceof Employee) {
+            return $user->worksOn($clinic);
+        }
+
+        return false;
+    }
 }

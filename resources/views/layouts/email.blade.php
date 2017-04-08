@@ -127,21 +127,29 @@
         }
     </style>
 </head>
-<body class="" style="font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #f6f6f6; margin: 0; padding: 0;">
-<table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6; background-image: url('{{ url('/img/background.png') }}');" width="100%">
+<body class=""
+      style="font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #f6f6f6; margin: 0; padding: 0;">
+<table border="0" cellpadding="0" cellspacing="0" class="body"
+       style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6; background-image: url('{{ url('/img/background.png') }}');"
+       width="100%">
     <tr>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
-        <td class="container" style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; Margin: 0 auto !important; max-width: 580px; padding: 10px; width: 580px;" width="580" valign="top">
+        <td class="container"
+            style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; Margin: 0 auto !important; max-width: 580px; padding: 10px; width: 580px;"
+            width="580" valign="top">
             <div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
 
-                <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #fff; border-radius: 3px;" width="100%">
+                <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #fff; border-radius: 3px;"
+                       width="100%">
                     <tr>
                         <td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;" valign="top">
-                            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+                            <table border="0" cellpadding="0" cellspacing="0"
+                                   style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; text-align: center;" valign="top">
-                                        <img src="http://159.203.245.80/img/logo.png" alt="Prolegis" style="width: 200px;">
-                                        <h1 style="color: #A19D9D; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: center; line-height: 1.3; word-break: normal; font-size: 25px; font-style: italic; padding: 0; margin: 0 0 0 -90px;" align="center">
+                                        <img src="{{url('/img/monodon-logo-no-background.png')}}" alt="Monodon" style="width: 200px;">
+                                        <h1 style="color: #A19D9D; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: center; line-height: 1.3; word-break: normal; font-size: 25px; font-style: italic; padding: 0; margin: 0 0 0 -90px;"
+                                            align="center">
                                             @yield('title')
                                         </h1>
 
@@ -154,10 +162,13 @@
                 </table>
 
                 <div class="footer" style="clear: both; padding-top: 10px; text-align: center; width: 100%;">
-                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+                    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;"
+                           width="100%">
                         <tr>
-                            <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-top: 10px; padding-bottom: 10px; font-size: 12px; color: #999999; text-align: center;" valign="top" align="center">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">© 2016 Prolegis</span>
+                            <td class="content-block"
+                                style="font-family: sans-serif; vertical-align: top; padding-top: 10px; padding-bottom: 10px; font-size: 12px; color: #999999; text-align: center;"
+                                valign="top" align="center">
+                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">© 2017 Monodon</span>
                             </td>
                         </tr>
                     </table>

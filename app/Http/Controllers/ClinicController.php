@@ -121,7 +121,7 @@ class ClinicController extends _Controller
 
     public function sendInvitationToDentist(Clinic $clinic, Request $request)
     {
-        $this->authorize('invite-dentist', $clinic);
+        $this->authorize('invite_dentist', $clinic);
 
         $this->validate($request, [
             'email' => ['required']
