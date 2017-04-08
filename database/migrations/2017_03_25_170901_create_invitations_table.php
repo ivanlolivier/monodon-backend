@@ -22,10 +22,12 @@ class CreateInvitationsTable extends Migration
             $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
 
-            $table->string('token');
-            $table->string('email')->unique();
+            $table->unsignedInteger('dentist_id')->nullable();
+            $table->foreign('dentist_id')->references('id')->on('dentists');
 
-            $table->timestamp('sent_at')->nullable();
+            $table->string('token');
+            $table->string('email');
+
             $table->timestamp('used_at')->nullable();
             $table->timestamp('expired_at')->nullable();
 

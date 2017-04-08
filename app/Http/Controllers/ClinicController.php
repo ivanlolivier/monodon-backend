@@ -136,8 +136,11 @@ class ClinicController extends _Controller
         $dentist = Dentist::where('email', $request->get('email'));
 
         $email = $dentist->exists() ?
-            new InvitationForDentistToJoinClinic($invitation, $clinic, $request->user(), $dentist) :
+            new InvitationForDentistToJoinClinic($invitation, $clinic, $request->user(), $dentist->get()) :
             new InvitationForDentistToRegisterAndJoinClinic($invitation, $clinic, $request->user());
+
+        $invitation->dentist()->associate($dentist->get());
+        $invitation->save();
 
         Mail::to($request->get('email'))->send($email);
 
