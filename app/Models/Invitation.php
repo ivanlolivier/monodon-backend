@@ -38,7 +38,7 @@ class Invitation extends _Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function detist()
+    public function dentist()
     {
         return $this->belongsTo(Dentist::class);
     }
