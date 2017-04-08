@@ -46,8 +46,8 @@ class InvitationForDentistToRegisterAndJoinClinic extends CommonBaseMail
 
         $this->outroLines = [
             'También puedes copiar y pegar o hacer click en estos links:',
-            $this->buttons[0]['text'] . ': ' . $this->buttons[0]['url'],
-            $this->buttons[1]['text'] . ': ' . $this->buttons[1]['url'],
+            $this->buttons[0]['label'] . ': ' . $this->buttons[0]['url'],
+            $this->buttons[1]['label'] . ': ' . $this->buttons[1]['url'],
         ];
 
         return $this->view('email.common');
