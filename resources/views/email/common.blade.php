@@ -17,16 +17,16 @@
                 <tr>
                     <td align="center">
                         <?php
-                        switch ($button->level) {
-                            case 'success':
-                                $actionColor = '#22BC66';
-                                break;
-                            case 'error':
-                                $actionColor = '#dc4d2f';
-                                break;
-                            default:
+//                        switch ($button->level) {
+//                            case 'success':
+//                                $actionColor = '#22BC66';
+//                                break;
+//                            case 'error':
+//                                $actionColor = '#dc4d2f';
+//                                break;
+//                            default:
                                 $actionColor = '#3869D4';
-                        }
+//                        }
                         ?>
 
                         <a href="{{ $button->url }}"
