@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StoreClinic;
+use App\Mail\InvitationForDentistToJoinClinic;
+use App\Mail\InvitationForDentistToRegisterAndJoinClinic;
 use App\Models\Clinic;
 use App\Models\Dentist;
+use App\Models\Invitation;
 use App\Models\Patient;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ClinicController extends _Controller
@@ -112,6 +117,31 @@ class ClinicController extends _Controller
         $dentists = $clinic->dentists()->get();
 
         return $this->responseAsJson($dentists, 200, Dentist::transformer());
+    }
+
+    public function sendInvitationToDentist(Clinic $clinic, Request $request)
+    {
+        $this->authorize('invite-dentist', $clinic);
+
+        $this->validate($request, [
+            'email' => ['required']
+        ]);
+
+        $invitation = new Invitation(['email' => $request->get('email')]);
+        $invitation->clinic()->associate($clinic);
+        $invitation->employee()->associate($request->user());
+        $invitation->generateToken();
+        $invitation->save();
+
+        $dentist = Dentist::where('email', $request->get('email'));
+
+        $email = $dentist->exists() ?
+            new InvitationForDentistToJoinClinic($invitation, $clinic, $request->user(), $dentist) :
+            new InvitationForDentistToRegisterAndJoinClinic($invitation, $clinic, $request->user());
+
+        Mail::to($request->get('email'))->send($email);
+
+        return $this->responseAsJson([], 201);
     }
 
 }

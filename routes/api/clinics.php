@@ -26,8 +26,10 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
 //            $router->delete('/{appointment}', AppointmentController::class . '@deleteForClinic');
         });
 
-        $router->get('/dentists', ClinicController::class . '@dentists');
-
+        $router->group(['prefix' => '/dentists'], function (Router $router) {
+            $router->get('/', ClinicController::class . '@dentists');
+            $router->post('/', ClinicController::class . '@sendInvitationToDentist');
+        });
 
         $router->group(['prefix' => '/appointments'], function (Router $router) {
             $router->get('/', AppointmentController::class . '@listForClinic');
