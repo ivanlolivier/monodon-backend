@@ -26,11 +26,11 @@ class InvitationForDentistToRegisterAndJoinClinic extends CommonBaseMail
 
     public function build()
     {
-        $this->title = 'Trabajas en la clinica' . $this->clinic->name . '?';
+        $this->title = 'Trabajas en la clinica "' . $this->clinic->name . '"?';
 
         $this->introLines = [
-            $this->employee->name . ' te ha agregado como dentista de la clinica ' . $this->clinic->name,
-            'En ' . $this->clinic->name . ' utilizan Monodon para administrar la clinica y registrar las interacciones con los pacientes',
+            $this->employee->name . ' te ha agregado como dentista de la clinica "' . $this->clinic->name . '"',
+            'En "' . $this->clinic->name . '" utilizan Monodon para administrar la clinica y registrar las interacciones con los pacientes',
             'Si eres dentista en esa clinica haz click en el botón "Aceptar" para registrarte en Monodon y tener acceso a la clinica, sino en "Cancelar".'
         ];
 

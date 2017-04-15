@@ -128,6 +128,22 @@ class ClinicController extends _Controller
         return $this->responseAsJson($invitations, 200, Invitation::transformer());
     }
 
+    public function invitation(Clinic $clinic, Request $request)
+    {
+        $this->authorize('see_invitations', $clinic);
+
+        if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
+            return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
+        }
+
+        /** @var Invitation $invitation */
+        if (!$invitation = $clinic->invitations()->where('token', $token)->first()) {
+            return $this->responseAsJson(['errors' => 'Invalid token'], 403);
+        }
+
+        return $this->responseAsJson($invitation, 200, Invitation::transformer());
+    }
+
     public function sendInvitationToDentist(Clinic $clinic, Request $request)
     {
         $this->authorize('invite_dentist', $clinic);
@@ -161,11 +177,12 @@ class ClinicController extends _Controller
 
     public function linkDentist(Clinic $clinic, Request $request)
     {
-        $token = $request->headers->get('MONODON-INVITATION-TOKEN');
+        if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
+            return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
+        }
 
-        $invitation = $clinic->invitations()->where('token', $token)->first();
-
-        if (!$invitation) {
+        /** @var Invitation $invitation */
+        if (!$invitation = $clinic->invitations()->where('token', $token)->first()) {
             return $this->responseAsJson(['errors' => 'Invalid token'], 403);
         }
 

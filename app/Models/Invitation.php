@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Transformers\InvitationTransformer;
+
 class Invitation extends _Model
 {
 
@@ -49,7 +51,7 @@ class Invitation extends _Model
 
     public static function transformer()
     {
-        //No needed
+        return new InvitationTransformer();
     }
 
     public function generateToken()
