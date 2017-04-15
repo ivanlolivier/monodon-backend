@@ -119,6 +119,15 @@ class ClinicController extends _Controller
         return $this->responseAsJson($dentists, 200, Dentist::transformer());
     }
 
+    public function invitations(Clinic $clinic)
+    {
+        $this->authorize('see_invitations', $clinic);
+
+        $invitations = $clinic->invitations()->where('accepted', '!=', true)->get();
+
+        return $this->responseAsJson($invitations, 200, Invitation::transformer());
+    }
+
     public function sendInvitationToDentist(Clinic $clinic, Request $request)
     {
         $this->authorize('invite_dentist', $clinic);
@@ -139,7 +148,7 @@ class ClinicController extends _Controller
 
         if ($dentist->exists()) {
             $dentist = $dentist->get();
-            $invitation->dentist()->associate($dentist->get());
+            $invitation->dentist()->associate($dentist);
             $invitation->save();
 
             $email = new InvitationForDentistToJoinClinic($invitation, $clinic, $request->user(), $dentist);
@@ -148,6 +157,47 @@ class ClinicController extends _Controller
         Mail::to($request->get('email'))->send($email);
 
         return $this->responseAsJson([], 201);
+    }
+
+    public function linkDentist(Clinic $clinic, Request $request)
+    {
+        $token = $request->headers->get('MONODON-INVITATION-TOKEN');
+
+        $invitation = $clinic->invitations()->where('token', $token)->first();
+
+        if (!$invitation) {
+            return $this->responseAsJson(['errors' => 'Invalid token'], 403);
+        }
+
+        if ($request->get('dentist') != $invitation->dentist_id) {
+            return $this->responseAsJson(['errors' => 'Incorrect dentist id'], 400);
+        }
+
+        $clinic->dentists()->attach($invitation->dentist_id);
+
+        $invitation->accept();
+
+        return $this->responseAsJson([]);
+    }
+
+    public function createDentist(Clinic $clinic, Request $request)
+    {
+        if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
+            return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
+        }
+
+        /** @var Invitation $invitation */
+        if (!$invitation = $clinic->invitations()->where('token', $token)->first()) {
+            return $this->responseAsJson(['errors' => 'Invalid token'], 403);
+        }
+
+        $dentist = Dentist::create($request->all());
+
+        $clinic->dentists()->attach($dentist->id);
+
+        $invitation->accept();
+
+        return $this->responseAsJson($dentist, 201, Dentist::transformer());
     }
 
 }

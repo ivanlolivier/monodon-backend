@@ -76,4 +76,13 @@ class ClinicPolicy
 
         return false;
     }
+
+    public function see_invitations($user, Clinic $clinic)
+    {
+        if ($user instanceof Employee) {
+            return $user->worksOn($clinic);
+        }
+
+        return false;
+    }
 }

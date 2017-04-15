@@ -43,6 +43,11 @@ class Clinic extends _Model
         return $this->hasMany(Message::class);
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
 
     /***************
      * TRANSFORMER *

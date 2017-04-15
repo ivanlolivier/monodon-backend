@@ -57,4 +57,22 @@ class Invitation extends _Model
         $this->token = str_random(self::TOKEN_LENGTH);
     }
 
+    public function accept()
+    {
+        $this->used_at = $this->freshTimestamp();
+        $this->accepted = true;
+        $this->token = '';
+
+        return $this->save();
+    }
+
+    public function reject()
+    {
+        $this->used_at = $this->freshTimestamp();
+        $this->accepted = false;
+        $this->token = '';
+
+        return $this->save();
+    }
+
 }
