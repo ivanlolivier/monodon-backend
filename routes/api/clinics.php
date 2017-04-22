@@ -11,7 +11,7 @@ $router->post('/', ClinicController::class . '@store');
 
 $router->group(['prefix' => '/{clinic}'], function (Router $router) {
 
-    $router->get('/invitations', ClinicController::class . '@invitation');
+    $router->get('/invitations/{token}', ClinicController::class . '@invitation');
 
     $router->group(['middleware' => 'auth:employee,dentist,patient'], function (Router $router) {
         $router->get('/', ClinicController::class . '@show');
