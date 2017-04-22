@@ -37,11 +37,11 @@ class InvitationForDentistToJoinClinic extends CommonBaseMail
         $this->buttons = [
             [
                 'text' => 'Aceptar',
-                'url'  => "http://www.monodon.uy/#/invitations/{$this->invitation->token}/accept",
+                'url'  => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/accept",
             ],
             [
                 'text' => 'Cancelar',
-                'url'  => "http://www.monodon.uy/#/invitations/{$this->invitation->token}/reject",
+                'url'  => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/reject",
             ]
         ];
 
