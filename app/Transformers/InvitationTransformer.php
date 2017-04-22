@@ -24,7 +24,7 @@ class InvitationTransformer extends Transformer
 
         $this->replaceRelationship($model, 'clinic', Clinic::transformer());
         $this->replaceRelationship($model, 'dentist', Dentist::transformer());
-        $this->replaceRelationship($model, 'patient', Employee::transformer());
+        $this->replaceRelationship($model, 'employee', Employee::transformer());
 
         return $this->output;
     }

@@ -142,6 +142,8 @@ class ClinicController extends _Controller
             return $this->responseAsJson(['errors' => 'Invalid token'], 403);
         }
 
+        $invitation->load('clinic')->load('dentist')->load('employee');
+
         return $this->responseAsJson($invitation, 200, Invitation::transformer());
     }
 
