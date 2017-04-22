@@ -128,14 +128,14 @@ class ClinicController extends _Controller
         return $this->responseAsJson($invitations, 200, Invitation::transformer());
     }
 
-    public function invitation(Clinic $clinic, Request $request)
+    public function invitation(Clinic $clinic, $token)
     {
-//        if (!$token) {
-//            return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
-//        }
-        if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
+        if (!$token) {
             return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
         }
+//        if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
+//            return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
+//        }
 
         /** @var Invitation $invitation */
         if (!$invitation = $clinic->invitations()->where('token', $token)->first()) {
