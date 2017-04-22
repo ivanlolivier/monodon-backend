@@ -130,7 +130,7 @@ class ClinicController extends _Controller
 
     public function invitation(Clinic $clinic, Request $request)
     {
-        $this->authorize('see_invitations', $clinic);
+//        $this->authorize('see_invitations', $clinic);
 
         if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
             return $this->responseAsJson(['errors' => 'Token is mandatory'], 400);
