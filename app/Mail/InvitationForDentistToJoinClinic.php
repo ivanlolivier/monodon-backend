@@ -23,6 +23,8 @@ class InvitationForDentistToJoinClinic extends CommonBaseMail
         $this->clinic = $clinic;
         $this->employee = $employee;
         $this->dentist = $dentist;
+
+        $this->subject = 'Invitación a Monodon';
     }
 
     public function build()
@@ -36,12 +38,12 @@ class InvitationForDentistToJoinClinic extends CommonBaseMail
 
         $this->buttons = [
             [
-                'text' => 'Aceptar',
-                'url'  => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/accept",
+                'label' => 'Aceptar',
+                'url'   => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/accept",
             ],
             [
-                'text' => 'Cancelar',
-                'url'  => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/reject",
+                'label' => 'Cancelar',
+                'url'   => "http://www.monodon.uy/#/invitations/{$this->clinic->id}:{$this->invitation->token}/reject",
             ]
         ];
 
