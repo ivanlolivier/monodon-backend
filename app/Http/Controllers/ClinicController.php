@@ -181,7 +181,13 @@ class ClinicController extends _Controller
         $email = new InvitationForDentistToRegisterAndJoinClinic($invitation, $clinic, $request->user());
 
         if ($dentist->exists()) {
+            /** @var Dentist $dentist */
             $dentist = $dentist->first();
+
+            if ($dentist->worksOn($clinic)) {
+                return $this->responseAsJson(['errors' => 'The dentist is already associated with the clinic'], 400);
+            }
+
             $invitation->dentist()->associate($dentist);
             $invitation->save();
 

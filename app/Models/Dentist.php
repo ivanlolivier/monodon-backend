@@ -19,24 +19,14 @@ class Dentist extends _Model
         'sex'
     ];
 
-    
+
     /*************
      * RELATIONS *
      *************/
 
     public function clinics()
     {
-        return $this->belongsToMany(Clinic::class);
-    }
-
-    public static function transformer()
-    {
-        return new DentistTransformer();
-    }
-
-    public function worksOn(Clinic $clinic)
-    {
-        return $this->clinics()->get()->contains('id', $clinic->id);
+        return $this->belongsToMany(Clinic::class)->withTimestamps();
     }
 
 
@@ -47,5 +37,21 @@ class Dentist extends _Model
     public function setPhonesAttribute($value)
     {
         $this->attributes['phones'] = implode(';', $value);
+    }
+
+
+    /***************
+     * TRANSFORMER *
+     ***************/
+
+    public static function transformer()
+    {
+        return new DentistTransformer();
+    }
+
+
+    public function worksOn(Clinic $clinic)
+    {
+        return $this->clinics()->get()->contains('id', $clinic->id);
     }
 }

@@ -14,19 +14,19 @@ class Clinic extends _Model
         'logo'
     ];
 
-    
+
     /*************
      * RELATIONS *
      *************/
 
     public function dentists()
     {
-        return $this->belongsToMany(Dentist::class);
+        return $this->belongsToMany(Dentist::class)->withTimestamps();
     }
 
     public function patients()
     {
-        return $this->belongsToMany(Patient::class);
+        return $this->belongsToMany(Patient::class)->withTimestamps();
     }
 
     public function employees()
