@@ -166,7 +166,7 @@ class ClinicController extends _Controller
         $email = new InvitationForDentistToRegisterAndJoinClinic($invitation, $clinic, $request->user());
 
         if ($dentist->exists()) {
-            $dentist = $dentist->get();
+            $dentist = $dentist->first();
             $invitation->dentist()->associate($dentist);
             $invitation->save();
 
