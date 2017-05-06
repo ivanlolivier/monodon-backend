@@ -10,6 +10,20 @@ class Dentist extends _Model
 {
     use SoftDeletes, CanAuthenticate;
 
+    protected $fillable = [
+        'name',
+        'surname',
+        'affiliate_id',
+        'email',
+        'phones',
+        'sex'
+    ];
+
+    
+    /*************
+     * RELATIONS *
+     *************/
+
     public function clinics()
     {
         return $this->belongsToMany(Clinic::class);
@@ -23,5 +37,15 @@ class Dentist extends _Model
     public function worksOn(Clinic $clinic)
     {
         return $this->clinics()->get()->contains('id', $clinic->id);
+    }
+
+
+    /************
+     * MUTATORS *
+     ************/
+
+    public function setPhonesAttribute($value)
+    {
+        $this->attributes['phones'] = implode(';', $value);
     }
 }

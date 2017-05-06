@@ -14,6 +14,7 @@ class Clinic extends _Model
         'logo'
     ];
 
+    
     /*************
      * RELATIONS *
      *************/
@@ -46,6 +47,16 @@ class Clinic extends _Model
     public function invitations()
     {
         return $this->hasMany(Invitation::class);
+    }
+
+
+    /************
+     * MUTATORS *
+     ************/
+
+    public function setPhonesAttribute($value)
+    {
+        $this->attributes['phones'] = implode(';', $value);
     }
 
 
