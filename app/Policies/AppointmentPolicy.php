@@ -4,7 +4,10 @@ namespace App\Policies;
 
 use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Models\Dentist;
 use App\Models\Employee;
+use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AppointmentPolicy
@@ -54,4 +57,22 @@ class AppointmentPolicy
 
         return false;
     }
+
+    public function cancel($user, Appointment $appointment)
+    {
+        if ($user instanceof Patient && $user->id != $appointment->patient_id) {
+            return false;
+        }
+
+        if ($user instanceof Dentist && $user->id != $appointment->dentist_id) {
+            return false;
+        }
+
+        if ($user instanceof Employee && $user->clinic_id != $appointment->clinic_id) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

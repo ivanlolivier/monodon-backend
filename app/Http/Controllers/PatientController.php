@@ -230,6 +230,14 @@ class PatientController extends _Controller
 
     public function cancelAppointment(Appointment $appointment)
     {
+        $this->authorize('cancel', $appointment);
+
+        if ($appointment->datetime->diffInHours(Carbon::now()) <= 12) {
+            return $this->responseAsJson(['message' => 'CANT_CANCEL_APPOINTMENT_IS_TO_SOON'], 403);
+        }
+
         $appointment->delete();
+
+        return $this->responseAsJson([], 204);
     }
 }
