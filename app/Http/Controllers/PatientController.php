@@ -227,4 +227,9 @@ class PatientController extends _Controller
 
         return $this->responseAsJson($next_appointments, 200, Appointment::transformer());
     }
+
+    public function cancelAppointment(Appointment $appointment)
+    {
+        $appointment->delete();
+    }
 }

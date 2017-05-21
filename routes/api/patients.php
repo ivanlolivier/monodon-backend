@@ -22,6 +22,7 @@ $router->group([
     $router->put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
 
     $router->get('/appointments', PatientController::class . '@nextAppointments');
+    $router->delete('/appointments/{appointment}', PatientController::class . '@cancelAppointment');
 });
 
 $router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {

@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Models\Clinic;
 use App\Models\Dentist;
 
 class DentistTransformer extends Transformer
@@ -17,6 +18,8 @@ class DentistTransformer extends Transformer
             'phones'       => explode(';', $model->phones),
             'sex'          => $model->sex,
         ];
+
+        $this->replaceRelationship($model, 'clinics', Clinic::transformer());
 
         return $this->output;
     }

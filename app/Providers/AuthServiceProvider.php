@@ -5,10 +5,14 @@ namespace App\Providers;
 use App\Http\Guards\AuthenticatableGuard;
 use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Models\Dentist;
 use App\Models\Message;
+use App\Models\Question;
 use App\Policies\AppointmentPolicy;
 use App\Policies\ClinicPolicy;
+use App\Policies\DentistPolicy;
 use App\Policies\MessagePolicy;
+use App\Policies\QuestionPolicy;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -30,6 +34,8 @@ class AuthServiceProvider extends ServiceProvider
         Clinic::class      => ClinicPolicy::class,
         Appointment::class => AppointmentPolicy::class,
         Message::class     => MessagePolicy::class,
+        Dentist::class     => DentistPolicy::class,
+        Question::class    => QuestionPolicy::class,
     ];
 
     /**

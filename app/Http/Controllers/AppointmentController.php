@@ -15,7 +15,10 @@ class AppointmentController extends _Controller
     {
         $this->authorize('listForClinic', [Appointment::class, $clinic]);
 
-        $appointments = $clinic->appointments()->with('dentist')->with('patient')->get();
+        $appointments = $clinic->appointments()
+            ->with('dentist')
+            ->with('patient')
+            ->get();
 
         return $this->responseAsJson($appointments, 200, Appointment::transformer());
     }

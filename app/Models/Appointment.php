@@ -3,9 +3,27 @@
 namespace App\Models;
 
 use App\Transformers\AppointmentTransformer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Appointment extends _Model
 {
+    use SoftDeletes;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($appointment) {
+            $canceller = Auth::user();
+
+            $appointment->deleted_by_type = get_class($canceller);
+            $appointment->deleted_by_id = $canceller->id;
+
+            $appointment->save();
+        });
+    }
+
     protected $fillable = [
         'title',
         'description',
@@ -31,6 +49,11 @@ class Appointment extends _Model
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function cancelled_by()
+    {
+        return $this->morphTo();
     }
 
     public static function transformer()

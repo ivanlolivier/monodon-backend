@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Transformers\QuestionTransformer;
+
 class Question extends _Model
 {
-    //
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new QuestionTransformer();
     }
 }
