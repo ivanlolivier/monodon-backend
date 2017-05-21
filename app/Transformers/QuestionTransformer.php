@@ -12,6 +12,7 @@ class QuestionTransformer extends Transformer
             'id'       => $model->id,
             'question' => $model->question,
             'type'     => $model->type,
+            'group'    => $model->group
         ];
 
         return $this->output;
