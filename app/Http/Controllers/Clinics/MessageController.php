@@ -55,6 +55,9 @@ class MessageController extends _Controller
             $message->patients()->attach($request->get('patients', false));
         }
 
+        //TODO: ver bien esto!
+        $message->send();
+
         return $this->responseAsJson($message, 201);
     }
 }

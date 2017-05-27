@@ -3,6 +3,11 @@
 namespace App\Models;
 
 use App\Transformers\MessageTransformer;
+use LaravelFCM\Facades\FCM;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Message\Topics;
 
 class Message extends _Model
 {
@@ -43,5 +48,31 @@ class Message extends _Model
     public static function transformer()
     {
         return new MessageTransformer();
+    }
+
+    public function send()
+    {
+        $optionBuiler = new OptionsBuilder();
+        $optionBuiler->setTimeToLive(60 * 20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('Tienes un mensaje de tu clinica');
+        $notificationBuilder->setBody('Asunto: ' . $this->title);
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData([
+            'id'               => 1,
+            'title'            => 'Mensaje de ',
+            'message'          => $this->message,
+            'possible_answers' => 'OK'
+        ]);
+
+        $option = $optionBuiler->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $topic = new Topics();
+        $topic->topic('global');
+
+        FCM::sendToTopic($topic, $option, $notification, $data);
     }
 }

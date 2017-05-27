@@ -56,6 +56,7 @@ use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
+use LaravelFCM\Message\Topics;
 
 $router->get('push', function () {
     $optionBuiler = new OptionsBuilder();
@@ -66,7 +67,13 @@ $router->get('push', function () {
         ->setSound('default');
 
     $dataBuilder = new PayloadDataBuilder();
-    $dataBuilder->addData(['a_data' => 'my_data']);
+    $dataBuilder->addData([
+        'id'               => 1,
+        'title'            => 'Puntos en las encias',
+        'message'          => 'del 1 al 10 como describirias el dolor en la zona de los puntos ? ',
+        'possible_answers' => 'OK',
+        'read_at'          => 'hace 9 dias'
+    ]);
 
     $option = $optionBuiler->build();
     $notification = $notificationBuilder->build();
@@ -74,5 +81,12 @@ $router->get('push', function () {
 
     $token = "fLur_i7rLco:APA91bFYKQkFqkEBUWBAB9thZ4ddAkQmgrMs372Abpqqpcnabi4-Xu7OvLOfz4SoxjN3dJQzUglfc-rexZzGD1ExOKK-QANeDoVXgUhIHYv3bDX-zNtEl0LIHkp6G3UK2GM_hcptigCk";
 
-    FCM::sendTo($token, $option, $notification, $data);
+//    $a = FCM::sendTo($token, $option, $notification, $data);
+
+    $topic = new Topics();
+    $topic->topic('global');
+
+    $topicResponse = FCM::sendToTopic($topic, $option, $notification, $data);
+
+    dd($topicResponse);
 });
