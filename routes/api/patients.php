@@ -21,6 +21,10 @@ $router->group([
     $router->get('/notifications', PatientController::class . '@notifications');
     $router->put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
 
+    $router->get('/messages', PatientController::class . '@messages');
+    $router->get('/messages/{message}', PatientController::class . '@message');
+    $router->get('/clinics/{clinic}/messages', PatientController::class . '@messages');
+
     $router->get('/appointments', PatientController::class . '@nextAppointments');
     $router->delete('/appointments/{appointment}', PatientController::class . '@cancelAppointment');
 });

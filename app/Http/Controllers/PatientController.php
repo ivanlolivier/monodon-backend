@@ -6,6 +6,7 @@ use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Models\Message;
 use App\Models\NotificationSent;
 use App\Models\Patient;
 use Carbon\Carbon;
@@ -28,7 +29,9 @@ class PatientController extends _Controller
     /**
      * Show patient (me)
      *
-     * Shows logged patient's info
+     * Shows logged patient's info$router->get('/messages', PatientController::class . '@messages');
+     * $router->get('/messages/{message}', PatientController::class . '@message');
+     * $router->get('/clinics/{clinic}/messages', PatientController::class . '@messagesForClinic');
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -239,5 +242,35 @@ class PatientController extends _Controller
         $appointment->delete();
 
         return $this->responseAsJson([], 204);
+    }
+
+    public function messages()
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $messages = $patient->messages()->get();
+
+        return $this->responseAsJson($messages, 200, Message::transformer());
+    }
+
+    public function message($id)
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $message = $patient->messages()->where('messages.id', $id)->first();
+
+        return $this->responseAsJson($message, 200, Message::transformer());
+    }
+
+    public function messagesForClinic(Clinic $clinic)
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $message = $patient->messages()->where('clinic_id', $clinic->id)->get();
+
+        return $this->responseAsJson($message, 200, Message::transformer());
     }
 }
