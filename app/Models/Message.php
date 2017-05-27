@@ -60,8 +60,8 @@ class Message extends _Model
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([
-            'id'               => 1,
-            'title'            => 'Mensaje de ',
+            'id'               => $this->id,
+            'title'            => $this->title,
             'message'          => $this->message,
             'possible_answers' => 'OK'
         ]);
