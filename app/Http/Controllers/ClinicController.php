@@ -76,7 +76,7 @@ class ClinicController extends _Controller
         $clinic->fill([
             'name'    => $request->get('name', null),
             'address' => $request->get('address', null),
-            'phones'  => implode(';', $request->get('phones', [])),
+            'phones'  => $request->get('phones', ''),
             'email'   => $request->get('email', null)
         ]);
 
