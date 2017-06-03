@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\Clinic;
 use App\Models\Dentist;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DentistController extends _Controller
 {
+    public function __construct()
+    {
+        $this->transformer = Dentist::transformer();
+    }
+
     public function me()
     {
         $this->authorize('me', Dentist::class);
@@ -31,5 +37,19 @@ class DentistController extends _Controller
         $clinics = $dentist->clinics()->get();
 
         return $this->responseAsJson($clinics, 200, Clinic::transformer());
+    }
+
+    public function updateMe(Request $request)
+    {
+        return $this->update(Auth::user(), $request);
+    }
+
+    public function update(Dentist $dentist, Request $request)
+    {
+        $dentist->fill($request->all());
+
+        $dentist->save();
+
+        return $this->responseAsJson($dentist);
     }
 }

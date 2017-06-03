@@ -9,6 +9,8 @@ class Employee extends _Model
 {
     use CanAuthenticate;
 
+    protected $fillable = ['name', 'email'];
+
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);
