@@ -240,7 +240,8 @@ return [
 
         'Fractal' => Spatie\Fractal\FractalFacade::class,
 
-        'FCM' => LaravelFCM\Facades\FCM::class,
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
 
     ],
 

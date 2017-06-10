@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Transformers\MessageTransformer;
+use Illuminate\Support\Facades\Config;
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
@@ -52,12 +53,20 @@ class Message extends _Model
 
     public function send()
     {
+        $this->sent_at = $this->freshTimestamp();
+        $this->save();
+
+        //OPTIONS
         $optionBuiler = new OptionsBuilder();
         $optionBuiler->setTimeToLive(60 * 20);
+        $option = $optionBuiler->build();
 
+        //NOTIFICATION
         $notificationBuilder = new PayloadNotificationBuilder('Tienes un mensaje de tu clinica');
         $notificationBuilder->setBody('Asunto: ' . $this->title);
+        $notification = $notificationBuilder->build();
 
+        //DATA
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([
             'id'               => $this->id,
@@ -65,14 +74,25 @@ class Message extends _Model
             'message'          => $this->message,
             'possible_answers' => 'OK'
         ]);
-
-        $option = $optionBuiler->build();
-        $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $topic = new Topics();
-        $topic->topic('global');
+        /**
+         * SENDING THE MESSAGE
+         */
 
-        FCM::sendToTopic($topic, $option, $notification, $data);
+        if ($this->is_broadcast) {
+            $global_topic = Config::get('message-topics.global');
+
+            $topic = new Topics();
+            $topic->topic($global_topic);
+
+            return FCM::sendToTopic($topic, $option, $notification, $data);
+        }
+
+        $tokens = $this->patients()->with('fcmTokens')->get()->reduce(function ($carry, Patient $patient) {
+            return array_merge($carry, $patient->fcmTokens->pluck('fcm_token')->toArray());
+        }, []);
+
+        return FCM::sendTo($tokens, $option, $notification, $data);
     }
 }

@@ -52,10 +52,9 @@ class MessageController extends _Controller
         $message = $clinic->messages()->save($message);
 
         if (!$request->get('is_broadcast')) {
-            $message->patients()->attach($request->get('patients', false));
+            $message->patients()->attach($request->get('patients'));
         }
 
-        //TODO: ver bien esto!
         $message->send();
 
         return $this->responseAsJson($message, 201);

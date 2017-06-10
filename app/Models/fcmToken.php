@@ -6,6 +6,8 @@ class FcmToken extends _Model
 {
     protected $table = 'patient_fcm_tokens';
 
+    protected $fillable = ['fcm_token'];
+
     /*************
      * RELATIONS *
      *************/

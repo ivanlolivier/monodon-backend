@@ -285,6 +285,8 @@ class PatientController extends _Controller
         $fcmToken = new FcmToken();
         $fcmToken->fill(['fcm_token' => $request->get('token')]);
 
+        $patient->fcmTokens()->delete();
+
         $patient->fcmTokens()->save($fcmToken);
 
         return $this->responseAsJson([], 204);
