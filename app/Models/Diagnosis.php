@@ -11,7 +11,7 @@ class Diagnosis extends _Model
         return $this->hasOne(Derivation::class);
     }
 
-    public function treatments()
+    public function treatment_assigned()
     {
         return $this->hasMany(Treatment::class);
     }

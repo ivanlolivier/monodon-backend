@@ -7,21 +7,6 @@ use App\Transformers\VisitTransformer;
 class Visit extends _Model
 {
 
-    public function parent()
-    {
-        return $this->belongsTo(Visit::class, 'id', 'parent_visit_id');
-    }
-
-    public function treatment()
-    {
-        return $this->belongsTo(Treatment::class);
-    }
-
-    public function diagnosis()
-    {
-        return $this->belongsTo(Diagnosis::class);
-    }
-
     public function patient()
     {
         return $this->belongsTo(Patient::class);
@@ -35,6 +20,16 @@ class Visit extends _Model
     public function clinic()
     {
         return $this->belongsTo(Clinic::class);
+    }
+
+    public function diagnosis()
+    {
+        return $this->belongsTo(Diagnosis::class);
+    }
+
+    public function progress()
+    {
+        return $this->belongsTo(Progress::class);
     }
 
     public static function transformer()

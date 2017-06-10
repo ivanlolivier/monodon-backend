@@ -89,9 +89,13 @@ class Message extends _Model
             return FCM::sendToTopic($topic, $option, $notification, $data);
         }
 
-        $tokens = $this->patients()->with('fcmTokens')->get()->reduce(function ($carry, Patient $patient) {
+        $tokens = array_filter($this->patients()->with('fcmTokens')->get()->reduce(function ($carry, Patient $patient) {
             return array_merge($carry, $patient->fcmTokens->pluck('fcm_token')->toArray());
-        }, []);
+        }, []));
+
+        if (empty($tokens)) {
+            return false;
+        }
 
         return FCM::sendTo($tokens, $option, $notification, $data);
     }
