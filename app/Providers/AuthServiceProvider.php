@@ -7,11 +7,13 @@ use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Message;
+use App\Models\Patient;
 use App\Models\Question;
 use App\Policies\AppointmentPolicy;
 use App\Policies\ClinicPolicy;
 use App\Policies\DentistPolicy;
 use App\Policies\MessagePolicy;
+use App\Policies\PatientPolicy;
 use App\Policies\QuestionPolicy;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -36,6 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         Message::class     => MessagePolicy::class,
         Dentist::class     => DentistPolicy::class,
         Question::class    => QuestionPolicy::class,
+        Patient::class     => PatientPolicy::class,
     ];
 
     /**

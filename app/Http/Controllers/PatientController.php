@@ -6,6 +6,7 @@ use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\StorePatient;
 use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Models\FcmToken;
 use App\Models\Message;
 use App\Models\NotificationSent;
 use App\Models\Patient;
@@ -29,9 +30,7 @@ class PatientController extends _Controller
     /**
      * Show patient (me)
      *
-     * Shows logged patient's info$router->get('/messages', PatientController::class . '@messages');
-     * $router->get('/messages/{message}', PatientController::class . '@message');
-     * $router->get('/clinics/{clinic}/messages', PatientController::class . '@messagesForClinic');
+     * Shows logged patient's info
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -272,5 +271,22 @@ class PatientController extends _Controller
         $message = $patient->messages()->where('clinic_id', $clinic->id)->get();
 
         return $this->responseAsJson($message, 200, Message::transformer());
+    }
+
+    public function addFCMToken(Request $request)
+    {
+        $this->authorize('addFCMToken', Patient::class);
+
+        $this->validate($request, ["token" => "required"]);
+
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $fcmToken = new FcmToken();
+        $fcmToken->fill(['fcm_token' => $request->get('token')]);
+
+        $patient->fcmTokens()->save($fcmToken);
+
+        return $this->responseAsJson([], 204);
     }
 }

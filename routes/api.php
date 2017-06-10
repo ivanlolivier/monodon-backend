@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EmployeeTypeController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\TreatmentController;
 use Illuminate\Routing\Router;
 
 /******************
@@ -20,6 +21,7 @@ $router->put('password/reset', ResetPasswordController::class . '@reset');
 $router->get('employee_types', EmployeeTypeController::class . '@index');
 $router->group(['middleware' => 'auth:dentist'], function (Router $router) {
     $router->get('/questions', QuestionController::class . '@index');
+    $router->get('/treatments', TreatmentController::class . '@index');
 });
 
 

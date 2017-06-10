@@ -10,13 +10,11 @@ class TreatmentTransformer extends Transformer
     public function transform(Treatment $model)
     {
         $this->output = [
-            'id'           => $model->id,
-            'name'         => $model->name,
-            'code'         => $model->code,
-            'diagnosis_id' => $model->diagnosis_id,
+            'id'          => $model->id,
+            'name'        => $model->name,
+            'code'        => $model->code,
+            'description' => $model->description,
         ];
-
-        $this->replaceRelationship($model, 'diagnosis', Diagnosis::transformer());
 
         return $this->output;
     }
