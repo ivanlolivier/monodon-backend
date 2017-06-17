@@ -11,6 +11,11 @@ class TreatmentAssigned extends _Model
         return $this->belongsTo(Treatment::class);
     }
 
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
     public static function transformer()
     {
         return new TreatmentAssignedTransformer();

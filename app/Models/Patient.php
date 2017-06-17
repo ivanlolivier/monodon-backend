@@ -88,6 +88,16 @@ class Patient extends _Model
         return $this->belongsToMany(Message::class);
     }
 
+    public function treatmentsAssigned()
+    {
+        return $this->hasMany(TreatmentAssigned::class);
+    }
+
+    public function activeTreatments()
+    {
+        return $this->treatmentsAssigned()->where('is_finished', false);
+    }
+
 
     /***************
      * TRANSFORMER *

@@ -7,6 +7,7 @@ use App\Models\NotificationScheduled;
 use App\Models\NotificationSent;
 use App\Models\Patient;
 use App\Models\Question;
+use App\Models\Treatment;
 use Carbon\Carbon;
 
 $factory->define(Clinic::class, function (Faker\Generator $faker) {
@@ -64,5 +65,12 @@ $factory->define(NotificationScheduled::class, function (Faker\Generator $faker)
         'title'            => $faker->title,
         'message'          => $faker->sentence,
         'possible_answers' => $faker->randomElement(['YES-NO', 'OK', 'RANGE']),
+    ];
+});
+
+$factory->define(Treatment::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'code' => $faker->numberBetween(),
     ];
 });
