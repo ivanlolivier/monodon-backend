@@ -207,7 +207,7 @@ class PatientController extends _Controller
         }
 
         if ($action == 'answer') {
-            $notificationSent->answer_at = new Carbon;
+            $notificationSent->answered_at = new Carbon;
             $notificationSent->answer = $request->get('value');
         }
 
