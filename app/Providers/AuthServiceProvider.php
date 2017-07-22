@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\Patient;
 use App\Models\Question;
 use App\Models\Treatment;
+use App\Models\Visit;
 use App\Policies\AppointmentPolicy;
 use App\Policies\ClinicPolicy;
 use App\Policies\DentistPolicy;
@@ -17,6 +18,7 @@ use App\Policies\MessagePolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\QuestionPolicy;
 use App\Policies\TreatmentPolicy;
+use App\Policies\VisitPolicy;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -42,6 +44,7 @@ class AuthServiceProvider extends ServiceProvider
         Question::class    => QuestionPolicy::class,
         Patient::class     => PatientPolicy::class,
         Treatment::class   => TreatmentPolicy::class,
+        Visit::class       => VisitPolicy::class,
     ];
 
     /**

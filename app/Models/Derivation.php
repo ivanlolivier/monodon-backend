@@ -2,8 +2,17 @@
 
 namespace App\Models;
 
+use App\Transformers\DerivationTransformer;
+
 class Derivation extends _Model
 {
+    protected $fillable = [
+        'contact_name',
+        'contact_phone',
+        'contact_email',
+        'reason'
+    ];
+
     public function diagnosis()
     {
         return $this->belongsTo(Diagnosis::class);
@@ -11,6 +20,6 @@ class Derivation extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new DerivationTransformer();
     }
 }

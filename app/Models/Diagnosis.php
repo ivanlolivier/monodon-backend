@@ -6,6 +6,10 @@ use App\Transformers\DiagnosisTransformer;
 
 class Diagnosis extends _Model
 {
+    protected $table = 'diagnosis';
+
+    protected $fillable = ['type', 'description', 'parent_diagnosis_id'];
+
     public function derivation()
     {
         return $this->hasOne(Derivation::class);
@@ -14,6 +18,11 @@ class Diagnosis extends _Model
     public function treatment_assigned()
     {
         return $this->hasMany(Treatment::class);
+    }
+
+    public function isDerivation()
+    {
+        return $this->type == 'derivation';
     }
 
     public static function transformer()

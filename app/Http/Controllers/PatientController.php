@@ -222,8 +222,7 @@ class PatientController extends _Controller
         $patient = Auth::user();
 
         $next_appointments = $patient->appointments()
-            ->with('clinic')
-            ->with('dentist')
+            ->with(['clinic', 'dentist'])
             ->whereDate('datetime', '>=', Carbon::now())
             ->get();
 

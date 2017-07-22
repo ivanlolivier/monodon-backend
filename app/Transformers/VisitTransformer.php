@@ -5,18 +5,20 @@ namespace App\Transformers;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Diagnosis;
+use App\Models\Exploratory;
 use App\Models\Patient;
 use App\Models\Treatment;
 use App\Models\Visit;
+use App\Models\VisitInterrogatory;
 
 class VisitTransformer extends Transformer
 {
     public function transform(Visit $model)
     {
         $this->output = [
-            'id'   => $model->id,
-            'type' => $model->type,
-            'created_at' => $model->created_at->toDateString(),
+            'id'         => $model->id,
+            'type'       => $model->type,
+            'created_at' => $model->created_at->toDateTimeString(),
 
             'patient_id'   => $model->patient_id,
             'dentist_id'   => $model->dentist_id,
@@ -32,6 +34,9 @@ class VisitTransformer extends Transformer
         $this->replaceRelationship($model, 'diagnosis', Diagnosis::transformer());
         $this->replaceRelationship($model, 'treatment', Treatment::transformer());
         $this->replaceRelationship($model, 'parent', Visit::transformer());
+
+        $this->replaceRelationship($model, 'exploratory', Exploratory::transformer());
+        $this->replaceRelationship($model, 'interrogatory', VisitInterrogatory::transformer());
 
         return $this->output;
     }

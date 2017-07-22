@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExploratoryTable extends Migration
+class AddVisitIdToNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,9 @@ class CreateExploratoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('exploratory', function (Blueprint $table) {
-            $table->increments('id');
-
+        Schema::table('notifications', function (Blueprint $table) {
             $table->unsignedInteger('visit_id')->nullable();
             $table->foreign('visit_id')->references('id')->on('visits');
-
-//            $table->json('mouth_photo');
-            $table->text('mouth_photo');
-
-            $table->timestamps();
         });
     }
 
@@ -33,6 +26,9 @@ class CreateExploratoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('exploratory');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropIndex('notifications_visit_id_foreign');
+            $table->dropColumn('visit_id');
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExploratoryTable extends Migration
+class CreateNotificationPeriodicitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateExploratoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('exploratory', function (Blueprint $table) {
+        Schema::create('notification_periodicities', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->unsignedInteger('visit_id')->nullable();
-            $table->foreign('visit_id')->references('id')->on('visits');
-
-//            $table->json('mouth_photo');
-            $table->text('mouth_photo');
-
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ class CreateExploratoryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('exploratory');
+        Schema::dropIfExists('notification_periodicities');
     }
 }

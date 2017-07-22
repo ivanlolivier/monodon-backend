@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\VisitController;
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
@@ -35,4 +36,6 @@ $router->group(['middleware' => 'auth:dentist,employee'], function (Router $rout
     $router->get('/{patient}', PatientController::class . '@show');
     $router->post('/', PatientController::class . '@store');
     $router->put('/{patient}', PatientController::class . '@update');
+
+    $router->post('/{patient}/visits', VisitController::class . '@create');
 });

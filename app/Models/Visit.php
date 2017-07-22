@@ -32,6 +32,16 @@ class Visit extends _Model
         return $this->belongsTo(Progress::class);
     }
 
+    public function exploratory()
+    {
+        return $this->hasOne(Exploratory::class);
+    }
+
+    public function interrogatory()
+    {
+        return $this->hasMany(VisitInterrogatory::class);
+    }
+
     public static function transformer()
     {
         return new VisitTransformer();
