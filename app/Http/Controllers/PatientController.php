@@ -10,6 +10,7 @@ use App\Models\FcmToken;
 use App\Models\Message;
 use App\Models\NotificationSent;
 use App\Models\Patient;
+use App\Models\Visit;
 use App\Transformers\VisitTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -307,6 +308,6 @@ class PatientController extends _Controller
             ])
             ->get();
 
-        return $this->responseAsJson($visits, 200, VisitTransformer::class);
+        return $this->responseAsJson($visits, 200, Visit::transformer());
     }
 }
