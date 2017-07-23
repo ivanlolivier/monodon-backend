@@ -32,7 +32,6 @@ class VisitTransformer extends Transformer
         $this->replaceRelationship($model, 'clinic', Clinic::transformer());
         $this->replaceRelationship($model, 'diagnosis', Diagnosis::transformer());
         $this->replaceRelationship($model, 'parent', Visit::transformer());
-
         $this->replaceRelationship($model, 'exploratory', Exploratory::transformer());
         $this->replaceRelationship($model, 'interrogatory', VisitInterrogatory::transformer());
 
