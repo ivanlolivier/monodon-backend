@@ -292,8 +292,10 @@ class PatientController extends _Controller
         return $this->responseAsJson([], 204);
     }
 
-    public function visits(Patient $patient)
+    public function visits()
     {
+        $patient = Auth::user();
+
         $visits = $patient->visits()
             ->with([
                 'clinic',
