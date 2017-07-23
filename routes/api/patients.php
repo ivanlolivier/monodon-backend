@@ -30,6 +30,8 @@ $router->group([
     $router->delete('/appointments/{appointment}', PatientController::class . '@cancelAppointment');
 
     $router->post('/fcm', PatientController::class . '@addFCMToken');
+
+    $router->get('/visits', PatientController::class . '@visits');
 });
 
 $router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {

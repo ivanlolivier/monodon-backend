@@ -10,6 +10,7 @@ use App\Models\FcmToken;
 use App\Models\Message;
 use App\Models\NotificationSent;
 use App\Models\Patient;
+use App\Transformers\VisitTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -289,5 +290,22 @@ class PatientController extends _Controller
         $patient->fcmTokens()->save($fcmToken);
 
         return $this->responseAsJson([], 204);
+    }
+
+    public function visits(Patient $patient)
+    {
+        $visits = $patient->visits()
+            ->with([
+                'clinic',
+                'dentist',
+                'diagnosis',
+                'treatment',
+                'parent',
+                'exploratory',
+                'interrogatory',
+            ])
+            ->get();
+
+        return $this->responseAsJson($visits, 200, VisitTransformer::class);
     }
 }
