@@ -40,7 +40,7 @@ class Patient extends _Model
 
     public function visits()
     {
-        return $this->hasMany(_Visit::class);
+        return $this->hasMany(Visit::class);
     }
 
     public function files()
