@@ -24,7 +24,6 @@ class VisitTransformer extends Transformer
             'dentist_id'   => $model->dentist_id,
             'clinic_id'    => $model->clinic_id,
             'diagnosis_id' => $model->diagnosis_id,
-            'treatment_id' => $model->treatment_id,
             'parent_id'    => $model->parent_visit_id,
         ];
 
@@ -32,7 +31,6 @@ class VisitTransformer extends Transformer
         $this->replaceRelationship($model, 'dentist', Dentist::transformer());
         $this->replaceRelationship($model, 'clinic', Clinic::transformer());
         $this->replaceRelationship($model, 'diagnosis', Diagnosis::transformer());
-        $this->replaceRelationship($model, 'treatment', Treatment::transformer());
         $this->replaceRelationship($model, 'parent', Visit::transformer());
 
         $this->replaceRelationship($model, 'exploratory', Exploratory::transformer());

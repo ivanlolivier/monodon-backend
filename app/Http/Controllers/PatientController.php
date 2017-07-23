@@ -301,7 +301,6 @@ class PatientController extends _Controller
                 'clinic',
                 'dentist',
                 'diagnosis',
-                'treatment',
                 'parent',
                 'exploratory',
                 'interrogatory',
