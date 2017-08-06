@@ -17,7 +17,7 @@ class DiagnosisTransformer extends Transformer
         ];
 
         $this->replaceRelationship($model, 'derivation', Derivation::transformer());
-        $this->replaceRelationship($model, 'treatment_assigned', TreatmentAssigned::transformer());
+        $this->replaceRelationship($model, 'treatments_assigned', TreatmentAssigned::transformer());
 
         return $this->output;
     }

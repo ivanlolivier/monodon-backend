@@ -15,14 +15,19 @@ class Diagnosis extends _Model
         return $this->hasOne(Derivation::class);
     }
 
-    public function treatment_assigned()
+    public function treatments_assigned()
     {
-        return $this->hasMany(Treatment::class);
+        return $this->hasMany(TreatmentAssigned::class);
     }
 
     public function isDerivation()
     {
         return $this->type == 'derivation';
+    }
+
+    public function isTreatment()
+    {
+        return $this->type == 'treatment';
     }
 
     public static function transformer()

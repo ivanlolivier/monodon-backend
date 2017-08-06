@@ -7,6 +7,7 @@ use App\Models\Clinic;
 use App\Models\Derivation;
 use App\Models\Diagnosis;
 use App\Models\Patient;
+use App\Models\TreatmentAssigned;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,7 @@ class VisitController extends _Controller
             unset($diagnosis_request['parent_diagnosis']);
         }
         $diagnosis = Diagnosis::create($diagnosis_request);
+
         if ($diagnosis->isDerivation()) {
             $derivation_contact = $diagnosis_request['contact'];
             $derivation = Derivation::create([
@@ -48,7 +50,25 @@ class VisitController extends _Controller
             ]);
             $diagnosis->derivation()->save($derivation);
             $diagnosis->load('derivation');
+
+        } elseif ($diagnosis->isTreatment()) {
+            $assignments = $diagnosis_request['treatments'];
+
+            $treatments = collect($assignments)
+                ->map(function ($assignment) use ($diagnosis, $patient) {
+                    return (new TreatmentAssigned())->fill([
+                        'patient_id'     => $patient->id,
+                        'treatment_id'   => $assignment['treatment'],
+                        'buccal_zone_id' => $assignment['buccal_zone'],
+                        'is_finished'    => false,
+                    ]);
+                });
+
+            $diagnosis->treatments_assigned()->saveMany($treatments);
+
+            $diagnosis->load(['treatments_assigned.treatment', 'treatments_assigned.buccal_zone']);
         }
+
         $visit->diagnosis()->associate($diagnosis);
 
         $visit->save();
