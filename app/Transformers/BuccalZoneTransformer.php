@@ -9,6 +9,7 @@ class BuccalZoneTransformer extends Transformer
     public function transform(BuccalZone $model)
     {
         $this->output = [
+            'id'   => $model->id,
             'name' => $model->name,
         ];
 
