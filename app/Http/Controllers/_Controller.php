@@ -26,6 +26,11 @@ abstract class _Controller extends BaseController
         return response()->json($response_formated, $code);
     }
 
+    protected function response204()
+    {
+        return $this->responseAsJson([], 204);
+    }
+
     protected function prepareResponse($result, $transformer = null)
     {
         if (is_null($transformer)) {

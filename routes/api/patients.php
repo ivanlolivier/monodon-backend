@@ -21,6 +21,7 @@ $router->group([
 
     $router->get('/notifications', PatientController::class . '@notifications');
     $router->put('/notifications/{notificationSent}', PatientController::class . '@updateNotification');
+    $router->delete('/clinics/{clinic}', PatientController::class . '@revokeAccessToClinic');
 
     $router->get('/messages', PatientController::class . '@messages');
     $router->get('/messages/{message}', PatientController::class . '@message');
@@ -32,6 +33,7 @@ $router->group([
     $router->post('/fcm', PatientController::class . '@addFCMToken');
 
     $router->get('/visits', PatientController::class . '@visits');
+
 });
 
 $router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {

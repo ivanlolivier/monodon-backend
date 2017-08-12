@@ -15,6 +15,7 @@ use App\Transformers\VisitTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends _Controller
@@ -241,7 +242,7 @@ class PatientController extends _Controller
 
         $appointment->delete();
 
-        return $this->responseAsJson([], 204);
+        return $this->response204();
     }
 
     public function messages()
@@ -290,7 +291,7 @@ class PatientController extends _Controller
 
         $patient->fcmTokens()->save($fcmToken);
 
-        return $this->responseAsJson([], 204);
+        return $this->response204();
     }
 
     public function visits()
@@ -309,5 +310,20 @@ class PatientController extends _Controller
             ->get();
 
         return $this->responseAsJson($visits, 200, Visit::transformer());
+    }
+
+    public function revokeAccessToClinic(Clinic $clinic)
+    {
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $patient->clinics()->detach($clinic->id);
+
+//        DB::table('clinic_patient')
+//            ->where('patient_id', $patient->id)
+//            ->where('clinic_id', $clinic->id)
+//            ->update(['deleted_at' => DB::raw('NOW()')]);
+
+        return $this->response204();
     }
 }

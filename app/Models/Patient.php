@@ -35,7 +35,10 @@ class Patient extends _Model
 
     public function clinics()
     {
-        return $this->belongsToMany(Clinic::class);
+        return $this
+            ->belongsToMany(Clinic::class)
+//            ->whereNull('clinic_patient.deleted_at')
+            ->withTimestamps();
     }
 
     public function visits()
