@@ -8,6 +8,10 @@ class TreatmentAssigned extends _Model
 {
     protected $table = 'treatments_assigned';
 
+    protected $casts = [
+        'is_finished' => 'boolean'
+    ];
+
     protected $fillable = [
         'patient_id',
         'treatment_id',

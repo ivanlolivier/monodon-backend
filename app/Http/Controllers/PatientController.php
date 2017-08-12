@@ -302,6 +302,8 @@ class PatientController extends _Controller
                 'clinic',
                 'dentist',
                 'diagnosis.derivation',
+                'diagnosis.treatments_assigned.buccal_zone',
+                'diagnosis.treatments_assigned.treatment',
                 'parent',
             ])
             ->get();
