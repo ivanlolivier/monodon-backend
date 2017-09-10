@@ -29,7 +29,7 @@ class InvitationForDentistToJoinClinic extends CommonBaseMail
 
     public function build()
     {
-        $this->title = 'Trabajas en la clinica "' . $this->clinic->name . '"?';
+        $this->title = '¿Trabajas en la clinica "' . $this->clinic->name . '"?';
 
         $this->introLines = [
             $this->employee->name . ' te ha agregado como dentista de la clinica "' . $this->clinic->name . '"',
@@ -47,11 +47,10 @@ class InvitationForDentistToJoinClinic extends CommonBaseMail
             ]
         ];
 
-
         $this->outroLines = [
             'También puedes copiar y pegar o hacer click en estos links:',
-            $this->buttons[0]['label'] . ': <a href="' . $this->buttons[0]['url'] . '">' . $this->buttons[0]['url'] . '</a>',
-            $this->buttons[1]['label'] . ': <a href="' . $this->buttons[1]['url'] . '">' . $this->buttons[1]['url'] . '</a>',
+            $this->buttons[0]['label'] . ': ' . $this->buttons[0]['url'],
+            $this->buttons[1]['label'] . ': ' . $this->buttons[1]['url'],
         ];
 
         return $this->view('email.common');

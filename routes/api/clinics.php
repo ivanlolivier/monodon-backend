@@ -14,6 +14,11 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
     $router->get('/invitations/{token}', ClinicController::class . '@invitation');
     $router->patch('/invitations/{token}', ClinicController::class . '@updateInvitation');
 
+    $router->patch('/linkdentists', ClinicController::class . '@linkDentist');
+    $router->group(['prefix' => '/dentists'], function (Router $router) {
+        $router->post('/', ClinicController::class . '@registerDentistAndJoinClinic');
+    });
+
     $router->group(['middleware' => 'auth:employee,dentist,patient'], function (Router $router) {
         $router->get('/', ClinicController::class . '@show');
     });
@@ -34,10 +39,8 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
             $router->post('/', ClinicController::class . '@sendInvitationToDentist');
         });
 
-        $router->patch('/linkdentists', ClinicController::class . '@linkDentist');
         $router->group(['prefix' => '/dentists'], function (Router $router) {
             $router->get('/', ClinicController::class . '@dentists');
-            $router->post('/', ClinicController::class . '@createDentist');
         });
 
         $router->group(['prefix' => '/appointments'], function (Router $router) {

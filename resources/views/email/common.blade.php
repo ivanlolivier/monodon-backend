@@ -17,16 +17,16 @@
                 <tr>
                     <td align="center">
                         <?php
-//                        switch ($button['level']) {
-//                            case 'success':
-//                                $actionColor = '#22BC66';
-//                                break;
-//                            case 'error':
-//                                $actionColor = '#dc4d2f';
-//                                break;
-//                            default:
-                                $actionColor = '#3869D4';
-//                        }
+                        //                        switch ($button['level']) {
+                        //                            case 'success':
+                        //                                $actionColor = '#22BC66';
+                        //                                break;
+                        //                            case 'error':
+                        //                                $actionColor = '#dc4d2f';
+                        //                                break;
+                        //                            default:
+                        $actionColor = '#3869D4';
+                        //                        }
                         ?>
 
                         <a href="{{ $button['url'] }}"
@@ -45,7 +45,7 @@
 
 
     @foreach ($outroLines as $line)
-        <p style="margin-top: 0; color: #74787E; font-size: 16px; line-height: 1.5em; text-align: center;">
+        <p style="margin-top: 0; color: #74787E; font-size: 12px; line-height: 1.4em; text-align: center;">
             {{ $line }}
         </p>
     @endforeach

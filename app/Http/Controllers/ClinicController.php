@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
+use App\Http\Requests\CreateDentistRequest;
 use App\Http\Requests\StoreClinic;
 use App\Mail\InvitationForDentistToJoinClinic;
 use App\Mail\InvitationForDentistToRegisterAndJoinClinic;
+use App\Models\Auth\User;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Invitation;
@@ -210,9 +212,9 @@ class ClinicController extends _Controller
             return $this->responseAsJson(['errors' => 'INVALID_TOKEN'], 403);
         }
 
-        if ($request->get('dentist') != $invitation->dentist_id) {
-            return $this->responseAsJson(['errors' => 'INVALID_DENTIST_ID'], 400);
-        }
+//        if ($request->get('dentist') != $invitation->dentist_id) {
+//            return $this->responseAsJson(['errors' => 'INVALID_DENTIST_ID'], 400);
+//        }
 
         $clinic->dentists()->attach($invitation->dentist_id);
 
@@ -221,7 +223,7 @@ class ClinicController extends _Controller
         return $this->responseAsJson([]);
     }
 
-    public function createDentist(Clinic $clinic, Request $request)
+    public function registerDentistAndJoinClinic(Clinic $clinic, CreateDentistRequest $request)
     {
         if (!$token = $request->headers->get('MONODON-INVITATION-TOKEN')) {
             return $this->responseAsJson(['errors' => 'TOKEN_IS_MANDATORY'], 400);
@@ -233,6 +235,7 @@ class ClinicController extends _Controller
         }
 
         $dentist = Dentist::create($request->all());
+        $dentist->auth()->create($request->only(['email', 'password']));
 
         $clinic->dentists()->attach($dentist->id);
 

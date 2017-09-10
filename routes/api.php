@@ -17,9 +17,9 @@ use Illuminate\Routing\Router;
 $router->post('password/email', ForgotPasswordController::class . '@sendResetLinkEmail');
 $router->put('password/reset', ResetPasswordController::class . '@reset');
 
-/*******************
- * LISTS ENDPOINTS *
- *******************/
+/***********************
+ * ENDPOINTS FOR LISTS *
+ ***********************/
 $router->get('employee_types', EmployeeTypeController::class . '@index');
 $router->group(['middleware' => 'auth:dentist'], function (Router $router) {
     $router->get('/questions', QuestionController::class . '@index');
