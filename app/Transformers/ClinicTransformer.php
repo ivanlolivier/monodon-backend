@@ -17,8 +17,8 @@ class ClinicTransformer extends Transformer
             'email'       => $model->email,
             'logo'        => $model->logo ? url('/storage/' . $model->logo) : null,
             'coordinates' => [
-                'latitude'  => '-56.0692276',
-                'longitude' => '-34.7969135'
+                'latitude'  => '-34.7969135',
+                'longitude' => '-56.0692276'
             ]
         ];
 
