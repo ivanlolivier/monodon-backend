@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\Clinics\MessageController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
@@ -29,7 +30,7 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
         $router->group(['prefix' => '/patients'], function (Router $router) {
             $router->get('/', ClinicController::class . '@patients');
             //TODO: ver como dar de alta un paciente
-//            $router->post('/', AppointmentController::class . '@createForClinic');
+            $router->post('/', PatientController::class . '@createForClinic');
 //            $router->put('/{appointment}', AppointmentController::class . '@updateForClinic');
 //            $router->delete('/{appointment}', AppointmentController::class . '@deleteForClinic');
         });

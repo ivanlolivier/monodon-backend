@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Transformers\PatientInformationTransformer;
+
 class PatientInformation extends _Model
 {
     protected $fillable = ['information'];
@@ -11,8 +13,12 @@ class PatientInformation extends _Model
         return $this->belongsTo(Patient::class);
     }
 
+    /***************
+     * TRANSFORMER *
+     ***************/
+
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new PatientInformationTransformer();
     }
 }

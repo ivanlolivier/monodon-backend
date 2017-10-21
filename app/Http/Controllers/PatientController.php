@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
+use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\StorePatient;
 use App\Models\Appointment;
 use App\Models\Clinic;
@@ -325,5 +326,17 @@ class PatientController extends _Controller
 //            ->update(['deleted_at' => DB::raw('NOW()')]);
 
         return $this->response204();
+    }
+
+    public function createForClinic(Clinic $clinic, CreatePatientRequest $request)
+    {
+        $this->authorize('createForClinic', [Patient::class, $clinic]);
+
+        //ver si existe un paciente
+        //crear pacientClinic
+
+        $patient = '';
+
+        return $this->responseAsJson($patient, 201);
     }
 }
