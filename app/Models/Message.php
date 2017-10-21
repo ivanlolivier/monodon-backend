@@ -69,6 +69,7 @@ class Message extends _Model
         //DATA
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([
+            'type'             => 'message',
             'id'               => $this->id,
             'title'            => $this->title,
             'message'          => $this->message,

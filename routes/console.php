@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\SendPatientNotifications;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('send-patient-notifications', function () {
+    (new SendPatientNotifications)->handle();
+})->describe('Sends push notifications to the patients');
