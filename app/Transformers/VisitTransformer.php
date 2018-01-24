@@ -6,6 +6,7 @@ use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Diagnosis;
 use App\Models\Exploratory;
+use App\Models\NotificationScheduled;
 use App\Models\Patient;
 use App\Models\Treatment;
 use App\Models\Visit;
@@ -25,6 +26,10 @@ class VisitTransformer extends Transformer
             'clinic_id'    => $model->clinic_id,
             'diagnosis_id' => $model->diagnosis_id,
             'parent_id'    => $model->parent_visit_id,
+
+            'indications' => $model->notificationsScheduled->transform(function ($item) {
+                return (NotificationScheduled::transformer())->transform($item);
+            })
         ];
 
         $this->replaceRelationship($model, 'patient', Patient::transformer());

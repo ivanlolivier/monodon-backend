@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Transformers\NotificationScheduledTransformer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use LaravelFCM\Facades\FCM;
@@ -13,6 +14,17 @@ class NotificationScheduled extends _Model
 {
     protected $table = 'notifications';
 
+    protected $fillable = [
+        'title',
+        'message',
+        'possible_answers',
+        'type',
+        'time_to_send',
+        'start_sending',
+        'finish_sending',
+        'patient_id',
+    ];
+
     /**
      * RELATIONS
      */
@@ -22,6 +34,16 @@ class NotificationScheduled extends _Model
         return $this->belongsTo(Patient::class);
     }
 
+    public function visit()
+    {
+        return $this->belongsTo(Visit::class);
+    }
+
+    public function periodicity()
+    {
+        return $this->hasMany(NotificationPeriodicity::class, 'notification_id');
+    }
+
     public function sents()
     {
         return $this->hasMany(NotificationSent::class, 'notification_id');
@@ -29,7 +51,7 @@ class NotificationScheduled extends _Model
 
     public static function transformer()
     {
-        // TODO: Implement transformer() method.
+        return new NotificationScheduledTransformer();
     }
 
     public function send()

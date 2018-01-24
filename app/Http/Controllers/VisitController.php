@@ -6,6 +6,7 @@ use App\Http\Requests\CreateVisitRequest;
 use App\Models\Clinic;
 use App\Models\Derivation;
 use App\Models\Diagnosis;
+use App\Models\NotificationScheduled;
 use App\Models\Patient;
 use App\Models\TreatmentAssigned;
 use App\Models\Visit;
@@ -50,8 +51,9 @@ class VisitController extends _Controller
             ]);
             $diagnosis->derivation()->save($derivation);
             $diagnosis->load('derivation');
+        }
 
-        } elseif ($diagnosis->isTreatment()) {
+        if ($diagnosis->isTreatment()) {
             $assignments = $diagnosis_request['treatments'];
 
             $treatments = collect($assignments)
@@ -84,6 +86,30 @@ class VisitController extends _Controller
         })->toArray();
         $visit->interrogatory()->createMany($interrogatory);
         $visit->load('interrogatory.question');
+
+        // Indications
+        Collect($request->get('indications'))->each(function ($notificationFields) use ($patient, $visit) {
+            /** @var NotificationScheduled $notification */
+            $notification = $visit->notificationsScheduled()->create([
+                'patient_id'       => $patient->id,
+                'title'            => $notificationFields['title'],
+                'message'          => $notificationFields['message'],
+                'possible_answers' => $notificationFields['possible_answers'],
+                'type'             => $notificationFields['type'],
+                'time_to_send'     => $notificationFields['time_to_send'],
+                'start_sending'    => $notificationFields['start_sending'],
+                'finish_sending'   => array_key_exists('finish_sending', $notificationFields) ? $notificationFields['finish_sending'] : null,
+            ]);
+
+            if (array_key_exists('periodicity', $notificationFields)) {
+                Collect($notificationFields['periodicity'])->each(function ($period) use ($notification) {
+                    $notification->periodicity()->create([
+                        'value' => $period
+                    ]);
+                });
+            }
+        });
+        $visit->load('notificationsScheduled.periodicity');
 
         return $this->responseAsJson($visit, 201);
     }

@@ -47,6 +47,11 @@ class Visit extends _Model
         return $this->hasMany(VisitInterrogatory::class);
     }
 
+    public function notificationsScheduled()
+    {
+        return $this->hasMany(NotificationScheduled::class);
+    }
+
     public static function transformer()
     {
         return new VisitTransformer();
