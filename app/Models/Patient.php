@@ -101,6 +101,11 @@ class Patient extends _Model
         return $this->treatmentsAssigned()->where('is_finished', false);
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
 
     /***************
      * TRANSFORMER *

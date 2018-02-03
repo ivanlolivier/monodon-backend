@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Models\Patient;
+use App\Models\Subscription;
 
 class PatientTransformer extends Transformer
 {
@@ -17,6 +18,8 @@ class PatientTransformer extends Transformer
                 $photo = url('/storage/' . $model->photo);
             }
         }
+
+        $model->load('subscriptions');
 
         $this->output = [
             'id'        => $model->id,
@@ -33,6 +36,8 @@ class PatientTransformer extends Transformer
             'email'     => $model->email,
             'tags'      => explode(';', $model->tags),
         ];
+
+        $this->replaceRelationship($model, 'subscriptions', Subscription::transformer());
 
         return $this->output;
     }

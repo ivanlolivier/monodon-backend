@@ -20,7 +20,6 @@ abstract class Transformer extends TransformerAbstract
         if ($this->isRelationshipLoaded($model, $relation)) {
             $this->output[$relation] = null;
             if ($model->{$relation}) {
-
                 $this->output[$relation] = ($model->{$relation} instanceof Collection) ?
                     $model->{$relation}->transform(function ($item) use ($transformer) {
                         return $transformer->transform($item);
