@@ -15,6 +15,7 @@ class NotificationSentTransformer extends Transformer
             'possible_answers' => $model->scheduled->possible_answers,
             'sent_at'          => $model->sent_at ? $model->sent_at->diffForHumans() : null,
             'read_at'          => $model->read_at ? $model->read_at->diffForHumans() : null,
+            'answer'           => $model->answer,
             'answered_at'      => $model->answered_at ? $model->answered_at->diffForHumans() : null,
         ];
 

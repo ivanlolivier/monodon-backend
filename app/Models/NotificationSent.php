@@ -10,10 +10,9 @@ class NotificationSent extends _Model
     protected $dates = [
         'sent_at',
         'read_at',
-        'answer_at',
+        'answered_at',
         'created_at',
         'updated_at',
-        'answered_at',
     ];
 
     /**
