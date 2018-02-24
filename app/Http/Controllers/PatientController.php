@@ -10,6 +10,7 @@ use App\Models\Clinic;
 use App\Models\FcmToken;
 use App\Models\Message;
 use App\Models\NotificationSent;
+use App\Models\NotificationTopic;
 use App\Models\Patient;
 use App\Models\Visit;
 use App\Transformers\VisitTransformer;
@@ -40,7 +41,29 @@ class PatientController extends _Controller
      */
     public function me()
     {
-        return $this->responseAsJson(Auth::user());
+        /** @var Patient $patient */
+        $patient = Auth::user();
+
+        $patient->load('subscriptions.topic');
+
+        $topics = NotificationTopic::where(['defaultSubscribed' => 1])
+            ->whereNotIn('id', $patient->subscriptions->pluck('notification_topic_id'))
+            ->get();
+
+        $patient_formated = $this->prepareResponse($patient);
+        $patient_formated['data']['clinicIds'] = $patient->clinics()->pluck('clinics.id');
+
+        $subscriptions = collect($patient_formated['data']['subscriptions']->toArray());
+        $subscriptions_inherited = $topics->map(function ($topic) {
+            return [
+                "subscribed" => true,
+                "topic"      => NotificationTopic::transformer()->transform($topic)
+            ];
+        });
+        $patient_formated['data']['subscriptions'] = $subscriptions->merge($subscriptions_inherited);
+
+
+        return response()->json($patient_formated, 200);
     }
 
     /**

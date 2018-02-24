@@ -17,6 +17,7 @@ abstract class Transformer extends TransformerAbstract
             $field = $relation . '_id';
         }
 
+
         if ($this->isRelationshipLoaded($model, $relation)) {
             $this->output[$relation] = null;
             if ($model->{$relation}) {
