@@ -5,6 +5,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BuccalZoneController;
+use App\Http\Controllers\DiagnosisTypesController;
 use App\Http\Controllers\EmployeeTypeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuestionController;
@@ -25,6 +26,7 @@ $router->group(['middleware' => 'auth:dentist'], function (Router $router) {
     $router->get('/questions', QuestionController::class . '@index');
     $router->get('/treatments', TreatmentController::class . '@index');
     $router->get('/buccal_zones', BuccalZoneController::class . '@index');
+    $router->get('/diagnosis_types', DiagnosisTypesController::class . '@index');
     $router->get('/notifications/answer_types', NotificationController::class . '@answer_types');
 });
 
