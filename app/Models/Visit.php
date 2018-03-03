@@ -32,6 +32,11 @@ class Visit extends _Model
         return $this->belongsTo(Diagnosis::class);
     }
 
+    public function treatments()
+    {
+        return $this->HasMany(TreatmentAssigned::class);
+    }
+
     public function progress()
     {
         return $this->belongsTo(Progress::class);

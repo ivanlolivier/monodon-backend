@@ -41,6 +41,9 @@ class VisitController extends _Controller
         }
         $diagnosis = Diagnosis::create($diagnosis_request);
 
+        $diagnosis->predefined()->sync($diagnosis_request['predefined']);
+        $diagnosis->load('predefined');
+
         if ($diagnosis->isDerivation()) {
             $derivation_contact = $diagnosis_request['contact'];
             $derivation = Derivation::create([
@@ -53,8 +56,11 @@ class VisitController extends _Controller
             $diagnosis->load('derivation');
         }
 
+        $visit->diagnosis()->associate($diagnosis);
+        $visit->save();
+
         if ($diagnosis->isTreatment()) {
-            $assignments = $diagnosis_request['treatments'];
+            $assignments = $request->get('treatments');
 
             $treatments = collect($assignments)
                 ->map(function ($assignment) use ($diagnosis, $patient) {
@@ -66,14 +72,9 @@ class VisitController extends _Controller
                     ]);
                 });
 
-            $diagnosis->treatments_assigned()->saveMany($treatments);
-
-            $diagnosis->load(['treatments_assigned.treatment', 'treatments_assigned.buccal_zone']);
+            $visit->treatments()->saveMany($treatments);
+            $visit->load(['treatments.treatment', 'treatments.buccal_zone']);
         }
-
-        $visit->diagnosis()->associate($diagnosis);
-
-        $visit->save();
 
         $visit->exploratory()->create(['mouth_photo' => $request->get('exploratory')]);
         $visit->load('exploratory');

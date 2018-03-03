@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Models\Derivation;
 use App\Models\Diagnosis;
+use App\Models\PredefinedDiagnosis;
 use App\Models\TreatmentAssigned;
 
 class DiagnosisTransformer extends Transformer
@@ -16,6 +17,7 @@ class DiagnosisTransformer extends Transformer
             'type'        => $model->type,
         ];
 
+        $this->replaceRelationship($model, 'predefined', PredefinedDiagnosis::transformer());
         $this->replaceRelationship($model, 'derivation', Derivation::transformer());
         $this->replaceRelationship($model, 'treatments_assigned', TreatmentAssigned::transformer());
 

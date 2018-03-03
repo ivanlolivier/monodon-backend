@@ -8,7 +8,7 @@ use App\Models\Diagnosis;
 use App\Models\Exploratory;
 use App\Models\NotificationScheduled;
 use App\Models\Patient;
-use App\Models\Treatment;
+use App\Models\TreatmentAssigned;
 use App\Models\Visit;
 use App\Models\VisitInterrogatory;
 
@@ -29,7 +29,11 @@ class VisitTransformer extends Transformer
 
             'indications' => $model->notificationsScheduled->transform(function ($item) {
                 return (NotificationScheduled::transformer())->transform($item);
-            })
+            }),
+
+            'treatments' => $model->treatments->transform(function ($item) {
+                return (TreatmentAssigned::transformer())->transform($item);
+            }),
         ];
 
         $this->replaceRelationship($model, 'patient', Patient::transformer());

@@ -2,11 +2,11 @@
 
 namespace App\Transformers;
 
-use App\Models\DiagnosisType;
+use App\Models\PredefinedDiagnosis;
 
-class DiagnosisTypeTransformer extends Transformer
+class PredefinedDiagnosisTransformer extends Transformer
 {
-    public function transform(DiagnosisType $model)
+    public function transform(PredefinedDiagnosis $model)
     {
         $this->output = [
             'id'   => $model->id,

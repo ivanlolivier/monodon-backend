@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DiagnosisType;
+use App\Models\PredefinedDiagnosis;
 
 class DiagnosisTypesController extends _Controller
 {
     public function index()
     {
-        $diagnosis_types = DiagnosisType::all();
+        $diagnosis_types = PredefinedDiagnosis::all();
 
-        return $this->responseAsJson($diagnosis_types, 200, DiagnosisType::transformer());
+        return $this->responseAsJson($diagnosis_types, 200, PredefinedDiagnosis::transformer());
     }
 }

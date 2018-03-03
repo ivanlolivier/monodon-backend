@@ -35,9 +35,9 @@ class TreatmentAssigned extends _Model
         return $this->belongsTo(Patient::class);
     }
 
-    public function diagnosis()
+    public function visit()
     {
-        return $this->belongsTo(Diagnosis::class);
+        return $this->belongsTo(Visit::class);
     }
 
     public static function transformer()
