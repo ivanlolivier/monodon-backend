@@ -41,8 +41,10 @@ class VisitController extends _Controller
         }
         $diagnosis = Diagnosis::create($diagnosis_request);
 
-        $diagnosis->predefined()->sync($diagnosis_request['predefined']);
-        $diagnosis->load('predefined');
+        if ($diagnosis->isPredefined()) {
+            $diagnosis->predefined()->sync($diagnosis_request['predefined']);
+            $diagnosis->load('predefined');
+        }
 
         if ($diagnosis->isDerivation()) {
             $derivation_contact = $diagnosis_request['contact'];
@@ -59,7 +61,7 @@ class VisitController extends _Controller
         $visit->diagnosis()->associate($diagnosis);
         $visit->save();
 
-        if ($diagnosis->isTreatment()) {
+        if ($diagnosis->isPredefined()) {
             $assignments = $request->get('treatments');
 
             $treatments = collect($assignments)

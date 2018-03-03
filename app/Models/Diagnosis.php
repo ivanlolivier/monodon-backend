@@ -25,9 +25,9 @@ class Diagnosis extends _Model
         return $this->type == 'derivation';
     }
 
-    public function isTreatment()
+    public function isPredefined()
     {
-        return $this->type == 'treatment';
+        return $this->type == 'predefined';
     }
 
     public static function transformer()
