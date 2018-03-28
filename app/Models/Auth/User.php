@@ -14,11 +14,14 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use OwenIt\Auditing\Contracts\UserResolver;
+use Illuminate\Support\Facades\Auth;
 
 class User extends _Model implements
     AuthenticatableContract,
     AuthorizableContract,
-    CanResetPasswordContract
+    CanResetPasswordContract,
+    UserResolver
 {
     use Authenticatable, Authorizable, CanResetPassword, HasApiTokens, Notifiable;
 
@@ -51,7 +54,7 @@ class User extends _Model implements
             ->where('authenticatable_type', get_class(new $authenticatable))
             ->first();
     }
-    
+
     public function authenticatable()
     {
         return $this->morphTo();
@@ -65,5 +68,16 @@ class User extends _Model implements
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($this->email, $token));
+    }
+
+    public static function resolveId()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return null;
+        }
+
+        return $user->id;
     }
 }

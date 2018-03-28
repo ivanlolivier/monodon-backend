@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Monodon',
+    'name' => 'MONODON',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,7 +190,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         Barryvdh\Cors\ServiceProvider::class,
-
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ],
 
     /*
