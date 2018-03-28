@@ -6,6 +6,7 @@ use App\Transformers\VisitTransformer;
 
 class Visit extends _Model
 {
+    
     public function parent()
     {
         return $this->belongsTo(Visit::class, 'parent_visit_id');
