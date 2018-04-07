@@ -24,9 +24,7 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
         $router->get('/', ClinicController::class . '@show');
     });
 
-    $router->group(['middleware' => 'auth:employee'], function (Router $router) {
-        $router->put('/', ClinicController::class . '@update');
-
+    $router->group(['middleware' => 'auth:employee,dentist'], function (Router $router) {
         $router->group(['prefix' => '/patients'], function (Router $router) {
             $router->get('/', ClinicController::class . '@patients');
             //TODO: ver como dar de alta un paciente
@@ -34,6 +32,10 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
 //            $router->put('/{appointment}', AppointmentController::class . '@updateForClinic');
 //            $router->delete('/{appointment}', AppointmentController::class . '@deleteForClinic');
         });
+    });
+
+    $router->group(['middleware' => 'auth:employee'], function (Router $router) {
+        $router->put('/', ClinicController::class . '@update');
 
         $router->group(['prefix' => '/invitations'], function (Router $router) {
             $router->get('/', ClinicController::class . '@invitations');
