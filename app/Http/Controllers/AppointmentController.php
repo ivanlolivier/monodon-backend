@@ -73,7 +73,7 @@ class AppointmentController extends _Controller
         $message = $clinic->messages()->save($message);
         $message->patients()->attach($patient->id);
     
-        $message->send();
+        $message->send('appointment');
 
         return $this->responseAsJson($appointment, 201, Appointment::transformer());
     }
