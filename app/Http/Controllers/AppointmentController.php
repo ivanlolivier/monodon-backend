@@ -71,7 +71,7 @@ class AppointmentController extends _Controller
     
         /** @var Message $message */
         $message = $clinic->messages()->save($message);
-        $message->patients()->attach($patient_id);
+        $message->patients()->attach($patient->id);
     
         $message->send();
 
