@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Patient;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class AppointmentController extends _Controller
