@@ -58,6 +58,21 @@ class AppointmentController extends _Controller
         $appointment->patient_id = $request->get('patient_id');
 
         $clinic->appointments()->save($appointment);
+        
+        setlocale(LC_TIME, 'Spanish');
+
+        $message = new Message([
+            'title' => 'Nueva cita agendada',
+            'message' => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\de F \\a \\las H:i')}",
+            'is_broadcast' => false
+        ]);
+        $message->employee_id = $request->user()->id;
+    
+        /** @var Message $message */
+        $message = $clinic->messages()->save($message);
+        $message->patients()->attach($patient_id);
+    
+        $message->send();
 
         return $this->responseAsJson($appointment, 201, Appointment::transformer());
     }
