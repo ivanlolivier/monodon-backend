@@ -51,7 +51,7 @@ class Message extends _Model
         return new MessageTransformer();
     }
 
-    public function send()
+    public function send($type = 'message')
     {
         $this->sent_at = $this->freshTimestamp();
         $this->save();
@@ -69,7 +69,7 @@ class Message extends _Model
         //DATA
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([
-            'type'             => 'message',
+            'type'             => $type,
             'id'               => $this->id,
             'title'            => $this->title,
             'message'          => $this->message,
