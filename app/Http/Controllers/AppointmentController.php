@@ -64,7 +64,7 @@ class AppointmentController extends _Controller
 
         $message = new Message([
             'title' => 'Nueva cita agendada',
-            'message' => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\de F \\a \\las H:i')}",
+            'message' => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\d\\e F \\a \\l\\a\\s H:i \\h\\s')}",
             'is_broadcast' => false
         ]);
         $message->employee_id = $request->user()->id;
