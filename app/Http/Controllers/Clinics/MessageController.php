@@ -17,7 +17,7 @@ class MessageController extends _Controller
 
     public function listof(Clinic $clinic)
     {
-        $this->authorize('listForClinic', [Message::class, $clinic]);
+        //$this->authorize('listForClinic', [Message::class, $clinic]);
 
         $messages = $clinic->messages()->with('employee')->with('dentist')->get();
 
@@ -26,7 +26,7 @@ class MessageController extends _Controller
 
     public function show(Clinic $clinic, Message $message)
     {
-        $this->authorize('showForClinic', [$message]);
+        //$this->authorize('showForClinic', [$message]);
 
         $message->load('patients');
 
@@ -35,7 +35,7 @@ class MessageController extends _Controller
 
     public function create(Clinic $clinic, Request $request)
     {
-        $this->authorize('createForClinic', [Message::class, $clinic]);
+        //$this->authorize('createForClinic', [Message::class, $clinic]);
 
         $this->validate($request, [
             'title'        => ['required'],
