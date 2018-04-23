@@ -29,6 +29,12 @@ class Dentist extends _Model
         return $this->belongsToMany(Clinic::class)->withTimestamps();
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+
+    }
+
 
     /************
      * MUTATORS *
