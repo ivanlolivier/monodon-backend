@@ -47,7 +47,9 @@ class DentistController extends _Controller
         /** @var Dentist $dentist */
         $dentist = Auth::user();
 
-        $appointments = $dentist->appointments()->get();
+        $clinic_id = request()->header('CLINIC-ID');
+
+        $appointments = $dentist->appointments()->with('patient')->where('clinic_id', $clinic_id)->get();
 
         return $this->responseAsJson($appointments, 200, Appointment::transformer());
     }
