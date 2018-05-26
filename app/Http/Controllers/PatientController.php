@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\StorePatient;
+use App\Http\Requests\UpdateTopicSubscriptionRequest;
 use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\FcmToken;
@@ -13,11 +14,9 @@ use App\Models\NotificationSent;
 use App\Models\NotificationTopic;
 use App\Models\Patient;
 use App\Models\Visit;
-use App\Transformers\VisitTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends _Controller
@@ -27,7 +26,7 @@ class PatientController extends _Controller
     const STORAGE_PATH = '/patients';
     const STORAGE_DISC = 'public';
 
-    public function __construct()
+    function __construct()
     {
         $this->transformer = Patient::transformer();
     }
@@ -39,7 +38,7 @@ class PatientController extends _Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    function me()
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -74,7 +73,7 @@ class PatientController extends _Controller
      * @param Patient $patient
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Patient $patient)
+    function show(Patient $patient)
     {
         return $this->responseAsJson($patient);
     }
@@ -87,7 +86,7 @@ class PatientController extends _Controller
      * @param StorePatient $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StorePatient $request)
+    function store(StorePatient $request)
     {
         $patient = Patient::create($request->all());
 
@@ -102,9 +101,14 @@ class PatientController extends _Controller
      * @param StorePatient $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateMe(StorePatient $request)
+    function updateMe(StorePatient $request)
     {
         return $this->update(Auth::user(), $request);
+    }
+
+    function updateMeTopics(UpdateTopicSubscriptionRequest $request)
+    {
+        return $this->updateTopicSubscriptions(Auth::user(), $request);
     }
 
     /**
@@ -116,9 +120,9 @@ class PatientController extends _Controller
      * @param StorePatient $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Patient $patient, StorePatient $request)
+    function update(Patient $patient, StorePatient $request)
     {
-        $patient->fill(array_merge($request->except(['document', 'phones', 'tags', 'photo']), [
+        $patient->fill(array_merge($request->except(['document', 'phones', 'tags', 'photo', 'subscriptions']), [
             'phones' => implode(';', $request->get('phones', [])),
             'tags'   => implode(';', $request->get('tags', [])),
         ]));
@@ -143,17 +147,54 @@ class PatientController extends _Controller
             }
         }
 
+        if ($subscriptions = $request->get('subscriptions', false)) {
+            $patient->subscriptions()->delete();
+
+            $subscriptions = collect($subscriptions)->map(function ($subscription) {
+                $subscription['notification_topic_id'] = $subscription['topic']['id'];
+
+                return $subscription;
+            })->toArray();
+
+            $patient->subscriptions()->createMany($subscriptions);
+        }
+
         $patient->update();
 
-        return $this->responseAsJson($patient);
+        $patient->load('subscriptions.topic');
+
+        $patient_formated = $this->prepareResponse($patient);
+        $patient_formated['data']['clinicIds'] = $patient->clinics()->pluck('clinics.id');
+
+        $topics = NotificationTopic::whereNotIn('id', $patient->subscriptions->pluck('notification_topic_id'))->get();
+
+        $subscriptions = collect($patient_formated['data']['subscriptions']->toArray());
+        $subscriptions_inherited = $topics->map(function ($topic) {
+            return [
+                "subscribed" => $topic->defaultSubscribed == 1,
+                "topic"      => NotificationTopic::transformer()->transform($topic)
+            ];
+        });
+        $patient_formated['data']['subscriptions'] = $subscriptions->merge($subscriptions_inherited);
+
+
+        return response()->json($patient_formated, 200);
     }
 
-    public function photoMe()
+    function updateTopicSubscriptions(Patient $patient, UpdateTopicSubscriptionRequest $request)
+    {
+        $patient->load('subscriptions.topic');
+
+
+        return $this->responseAsJson($patient->subscriptions, 200, NotificationSent::transformer());
+    }
+
+    function photoMe()
     {
         return $this->photo(Auth::user());
     }
 
-    public function photo(Patient $patient)
+    function photo(Patient $patient)
     {
         if (!$patient->photo) {
             abort(404);
@@ -162,17 +203,17 @@ class PatientController extends _Controller
         return response()->download(storage_path() . '/app/' . $patient->photo, null, [], null);
     }
 
-    public function clinicsMe()
+    function clinicsMe()
     {
         return $this->clinics(Auth::user());
     }
 
-    public function clinics(Patient $patient)
+    function clinics(Patient $patient)
     {
         return $this->responseAsJson($patient->clinics, 200, Clinic::transformer());
     }
 
-    public function clinicMe(Clinic $clinic)
+    function clinicMe(Clinic $clinic)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -186,7 +227,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($clinic, 200, Clinic::transformer());
     }
 
-    public function information(Request $request)
+    function information(Request $request)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -196,7 +237,7 @@ class PatientController extends _Controller
         return $this->responseAsJson([], 201);
     }
 
-    public function notifications()
+    function notifications()
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -225,7 +266,7 @@ class PatientController extends _Controller
         ], 200);
     }
 
-    public function updateNotification(NotificationSent $notificationSent, Request $request)
+    function updateNotification(NotificationSent $notificationSent, Request $request)
     {
         $action = $request->get('action');
 
@@ -243,7 +284,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($notificationSent, 200, NotificationSent::transformer());
     }
 
-    public function nextAppointments()
+    function nextAppointments()
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -256,7 +297,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($next_appointments, 200, Appointment::transformer());
     }
 
-    public function cancelAppointment(Appointment $appointment)
+    function cancelAppointment(Appointment $appointment)
     {
         $this->authorize('cancel', $appointment);
 
@@ -269,7 +310,7 @@ class PatientController extends _Controller
         return $this->response204();
     }
 
-    public function messages()
+    function messages()
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -279,7 +320,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($messages, 200, Message::transformer());
     }
 
-    public function message($id)
+    function message($id)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -289,7 +330,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($message, 200, Message::transformer());
     }
 
-    public function messagesForClinic(Clinic $clinic)
+    function messagesForClinic(Clinic $clinic)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -299,7 +340,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($message, 200, Message::transformer());
     }
 
-    public function addFCMToken(Request $request)
+    function addFCMToken(Request $request)
     {
         $this->authorize('addFCMToken', Patient::class);
 
@@ -318,7 +359,7 @@ class PatientController extends _Controller
         return $this->response204();
     }
 
-    public function visits()
+    function visits()
     {
         $patient = Auth::user();
 
@@ -336,7 +377,7 @@ class PatientController extends _Controller
         return $this->responseAsJson($visits, 200, Visit::transformer());
     }
 
-    public function revokeAccessToClinic(Clinic $clinic)
+    function revokeAccessToClinic(Clinic $clinic)
     {
         /** @var Patient $patient */
         $patient = Auth::user();
@@ -351,7 +392,7 @@ class PatientController extends _Controller
         return $this->response204();
     }
 
-    public function createForClinic(Clinic $clinic, CreatePatientRequest $request)
+    function createForClinic(Clinic $clinic, CreatePatientRequest $request)
     {
         $this->authorize('createForClinic', [Patient::class, $clinic]);
 

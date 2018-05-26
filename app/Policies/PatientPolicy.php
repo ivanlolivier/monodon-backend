@@ -26,4 +26,10 @@ class PatientPolicy
         return false;
     }
 
+    public function generateCda($dentist, $patient)
+    {
+        return $dentist instanceof Dentist;
+//        TODO: agregar que el paciente se atienda con el dentista
+    }
+
 }

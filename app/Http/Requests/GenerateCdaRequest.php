@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTopicSubscriptionRequest extends FormRequest
+class GenerateCdaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,7 @@ class UpdateTopicSubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'         => ['required'],
-            'surname'      => ['required'],
-            'affiliate_id' => ['required'],
-            'email'        => ['required', 'email'],
-            'phones'       => ['array'],
-            'sex'          => ['required', 'in:male,female'],
+            'visitId' => ['exists:visits,id'],
         ];
     }
 }
