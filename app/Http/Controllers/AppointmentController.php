@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Patient;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class AppointmentController extends _Controller
@@ -58,6 +59,21 @@ class AppointmentController extends _Controller
         $appointment->patient_id = $request->get('patient_id');
 
         $clinic->appointments()->save($appointment);
+        
+        setlocale(LC_TIME, 'Spanish');
+
+        $message = new Message([
+            'title' => 'Nueva cita agendada',
+            'message' => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\d\\e F \\a \\l\\a\\s H:i \\h\\s')}",
+            'is_broadcast' => false
+        ]);
+        $message->employee_id = $request->user()->id;
+    
+        /** @var Message $message */
+        $message = $clinic->messages()->save($message);
+        $message->patients()->attach($patient->id);
+    
+        $message->send('appointment');
 
         return $this->responseAsJson($appointment, 201, Appointment::transformer());
     }

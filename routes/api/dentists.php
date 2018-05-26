@@ -13,4 +13,5 @@ $router->group([
     $router->put('/', DentistController::class . '@updateMe');
 
     $router->get('/clinics', DentistController::class . '@clinics');
+    $router->get('/appointments', DentistController::class . '@appointments');
 });

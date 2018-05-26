@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use Illuminate\Http\Request;
@@ -37,6 +38,20 @@ class DentistController extends _Controller
         $clinics = $dentist->clinics()->get();
 
         return $this->responseAsJson($clinics, 200, Clinic::transformer());
+    }
+
+    public function appointments()
+    {
+//        $this->authorize('appointments', Dentist::class);
+
+        /** @var Dentist $dentist */
+        $dentist = Auth::user();
+
+        $clinic_id = request()->header('CLINIC-ID');
+
+        $appointments = $dentist->appointments()->with('patient')->where('clinic_id', $clinic_id)->get();
+
+        return $this->responseAsJson($appointments, 200, Appointment::transformer());
     }
 
     public function updateMe(Request $request)
