@@ -27,7 +27,6 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
     $router->group(['middleware' => 'auth:employee,dentist'], function (Router $router) {
         $router->group(['prefix' => '/patients'], function (Router $router) {
             $router->get('/', ClinicController::class . '@patients');
-            //TODO: ver como dar de alta un paciente
             $router->post('/', PatientController::class . '@createForClinic');
         });
     });

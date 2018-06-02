@@ -24,7 +24,7 @@ class CreateAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => ['required'],
+            'title'       => [],
             'description' => [],
             'date'        => ['required', 'date_format:Y-m-d', 'after:today'],
             'time'        => ['required', 'date_format:H:i'],

@@ -392,6 +392,7 @@ class PatientController extends _Controller
         return $this->response204();
     }
 
+    //TODO: implement it
     function createForClinic(Clinic $clinic, CreatePatientRequest $request)
     {
         $this->authorize('createForClinic', [Patient::class, $clinic]);
