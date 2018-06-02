@@ -29,6 +29,10 @@ class AppointmentPolicy
             return $user->worksOn($clinic);
         }
 
+        if ($user instanceof Dentist) {
+            return $user->worksOn($clinic);
+        }
+
         return false;
     }
 
