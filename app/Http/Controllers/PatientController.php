@@ -397,6 +397,20 @@ class PatientController extends _Controller
     {
         $this->authorize('createForClinic', [Patient::class, $clinic]);
 
+        /**
+         * Fields:
+         *   name
+         *   surname
+         *   document_type
+         *   document
+         *   birthdate
+         *   sex
+         *   photo
+         *   phones
+         *   email
+         *   tags
+         */
+
         //ver si existe un paciente
         //crear pacientClinic
 
