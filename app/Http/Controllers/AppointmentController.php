@@ -31,7 +31,9 @@ class AppointmentController extends _Controller
         $this->validate($request, [
             'title'       => ['required'],
             'description' => [],
-            'datetime'    => ['required', 'date'],
+            'date'        => ['required', 'date_format:Y-m-d', 'after:today'],
+            'time'        => ['required', 'date_format:H:i'],
+            'duration'    => ['required', 'integer', 'min:1'],
             'dentist_id'  => ['required', 'exists:dentists,id'],
             'patient_id'  => ['required', 'exists:patients,id'],
         ]);
@@ -54,25 +56,30 @@ class AppointmentController extends _Controller
 
         //TODO: Control that the dentist and the patient are free at the time of the appointment
 
-        $appointment = new Appointment($request->only('title', 'description', 'datetime'));
+        $appointment = new Appointment([
+            'title'       => $request->get('title'),
+            'description' => $request->get('description'),
+            'datetime'    => $request->get('date') . ' ' . $request->get('time'),
+            'duration'    => $request->get('duration'),
+        ]);
         $appointment->dentist_id = $request->get('dentist_id');
         $appointment->patient_id = $request->get('patient_id');
 
         $clinic->appointments()->save($appointment);
-        
+
         setlocale(LC_TIME, 'Spanish');
 
         $message = new Message([
-            'title' => 'Nueva cita agendada',
-            'message' => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\d\\e F \\a \\l\\a\\s H:i \\h\\s')}",
+            'title'        => 'Nueva cita agendada',
+            'message'      => "Tienes una nueva cita agendada con el dentista {$dentist->name} para el día {$appointment->datetime->format('l jS \\d\\e F \\a \\l\\a\\s H:i \\h\\s')}",
             'is_broadcast' => false
         ]);
         $message->employee_id = $request->user()->id;
-    
+
         /** @var Message $message */
         $message = $clinic->messages()->save($message);
         $message->patients()->attach($patient->id);
-    
+
         $message->send('appointment');
 
         return $this->responseAsJson($appointment, 201, Appointment::transformer());
