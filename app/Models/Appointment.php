@@ -28,12 +28,14 @@ class Appointment extends _Model
         'title',
         'description',
         'datetime',
+        'duration',
     ];
 
     protected $dates = [
         'datetime',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     public function clinic()

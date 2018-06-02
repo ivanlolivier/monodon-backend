@@ -59,7 +59,7 @@ class AppointmentController extends _Controller
         $appointment = new Appointment([
             'title'       => $request->get('title'),
             'description' => $request->get('description'),
-            'datetime'    => $request->get('date') . ' ' . $request->get('time'),
+            'datetime'    => $request->get('date') . ' ' . $request->get('time') . ':00',
             'duration'    => $request->get('duration'),
         ]);
         $appointment->dentist_id = $request->get('dentist_id');
