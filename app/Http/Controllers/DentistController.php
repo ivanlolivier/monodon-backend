@@ -42,8 +42,6 @@ class DentistController extends _Controller
 
     public function appointments()
     {
-//        $this->authorize('appointments', Dentist::class);
-
         /** @var Dentist $dentist */
         $dentist = Auth::user();
 
