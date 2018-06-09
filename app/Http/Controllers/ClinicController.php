@@ -7,7 +7,6 @@ use App\Http\Requests\CreateDentistRequest;
 use App\Http\Requests\StoreClinic;
 use App\Mail\InvitationForDentistToJoinClinic;
 use App\Mail\InvitationForDentistToRegisterAndJoinClinic;
-use App\Models\Auth\User;
 use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Invitation;
@@ -195,6 +194,7 @@ class ClinicController extends _Controller
 
             $email = new InvitationForDentistToJoinClinic($invitation, $clinic, $request->user(), $dentist);
         }
+
 
         Mail::to($request->get('email'))->send($email);
 

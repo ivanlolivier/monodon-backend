@@ -30,6 +30,7 @@ class CreatePatientRequest extends FormRequest
             "document_type" => ['required', 'in:passport,identity_document,driver_license'],
             "document"      => ['required'],
             "birthdate"     => ['required', 'date'],
+            "phones"        => ['required', 'array'],
             "sex"           => ['required', 'in:male,female'],
             "photo"         => [],
             "tags"          => ['array'],

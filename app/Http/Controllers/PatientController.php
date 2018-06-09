@@ -6,6 +6,8 @@ use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\StorePatient;
 use App\Http\Requests\UpdateTopicSubscriptionRequest;
+use App\Mail\InformingUserCreatedInClinic;
+use App\Mail\InformingUserCreatedInClinicWithSendingPassword;
 use App\Models\Appointment;
 use App\Models\Clinic;
 use App\Models\FcmToken;
@@ -17,6 +19,7 @@ use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends _Controller
@@ -392,29 +395,43 @@ class PatientController extends _Controller
         return $this->response204();
     }
 
-    //TODO: implement it
     function createForClinic(Clinic $clinic, CreatePatientRequest $request)
     {
         $this->authorize('createForClinic', [Patient::class, $clinic]);
 
-        /**
-         * Fields:
-         *   name
-         *   surname
-         *   document_type
-         *   document
-         *   birthdate
-         *   sex
-         *   photo
-         *   phones
-         *   email
-         *   tags
-         */
+        //TODO: missing integration with EMPI
 
-        //ver si existe un paciente
-        //crear pacientClinic
+        /** @var Patient $patient */
+        $patient = Patient::where([['document', '=', $request->get('document')], ['document_type', '=', $request->get('document_type')]])->first();
+        if (!$patient) {
+            $patient = Patient::create($request->toArray());
 
-        $patient = '';
+            $password = 'secret';
+
+            $patient->auth()->create(['email' => $request->get('email'), 'password' => $password]);
+            $email = new InformingUserCreatedInClinicWithSendingPassword($patient, $password, $clinic, $request->user());
+        } else {
+            $email = new InformingUserCreatedInClinic($patient, $clinic, $request->user());
+        }
+
+        if ($base64_avatar = $request->get('photo', false)) {
+            $avatar = base64_decode($base64_avatar, true);
+
+            if ($avatar !== false) {
+                $filename = $patient->id . '-' . time() . '.jpg';
+                $patient->photo = $this->saveFile($filename, $avatar);
+            }
+        }
+
+        $patient->clinics()->attach($clinic->id);
+
+        //generar el user
+
+
+        //mandar el mail avisandole
+
+        Mail::to($patient->email)->send($email);
+
 
         return $this->responseAsJson($patient, 201);
     }

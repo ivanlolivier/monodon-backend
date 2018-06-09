@@ -28,6 +28,11 @@ class Patient extends _Model
         'birthdate',
     ];
 
+    public function setPhonesAttribute($value)
+    {
+        $this->attributes['phones'] = implode(';', $value);
+    }
+
 
     /*************
      * RELATIONS *

@@ -168,7 +168,7 @@
                             <td class="content-block"
                                 style="font-family: sans-serif; vertical-align: top; padding-top: 10px; padding-bottom: 10px; font-size: 12px; color: #999999; text-align: center;"
                                 valign="top" align="center">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">© 2017 Monodon</span>
+                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">© 2018 Monodon</span>
                             </td>
                         </tr>
                     </table>

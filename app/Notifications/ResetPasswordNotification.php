@@ -23,6 +23,7 @@ class ResetPasswordNotification extends Notification
     public function via($notifiable)
     {
         return ['mail'];
+
     }
 
     public function toMail()
