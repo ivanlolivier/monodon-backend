@@ -4,16 +4,10 @@ namespace App\Mail;
 
 use App\Models\Clinic;
 use App\Models\Patient;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Config;
 
-class InformingUserCreatedInClinicWithSendingPassword extends Mailable
+class InformingUserCreatedInClinicWithSendingPassword extends CommonBaseMail
 {
-    use Queueable, SerializesModels;
-
     public $patient;
     public $password;
     public $clinic;

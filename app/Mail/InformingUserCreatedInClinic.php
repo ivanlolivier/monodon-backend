@@ -4,16 +4,10 @@ namespace App\Mail;
 
 use App\Models\Clinic;
 use App\Models\Patient;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Config;
 
-class InformingUserCreatedInClinic extends Mailable
+class InformingUserCreatedInClinic extends CommonBaseMail
 {
-    use Queueable, SerializesModels;
-
     public $patient;
     public $clinic;
     public $inviter;
@@ -33,7 +27,8 @@ class InformingUserCreatedInClinic extends Mailable
 
         $this->introLines = [
             $this->inviter->name . ' te ha agregado como paciente de la clinica "' . $this->clinic->name . '"',
-            'Recuerda que contamos con una app movile para ti donde podrás ver la información de tus tratamientos, recibir recordatorios e indicaciones y más. Puedes descargar la app con el siguiente link (actualmente solo disponible para celulares Android).'
+            'Recuerda que contamos con una app movile para ti donde podrás ver la información de tus tratamientos, recibir recordatorios e indicaciones y más.',
+            'Puedes descargar la app con el siguiente link (actualmente solo disponible para celulares Android).'
         ];
 
         $this->buttons = [
