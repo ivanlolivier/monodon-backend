@@ -29,7 +29,7 @@ class ResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->line('You are receiving this email because we received a password reset request for your account.')
-            ->action('Reset Password', env('FRONTEND_BASE_URL') . '/password/reset' . $this->email . '/' . $this->token)
+            ->action('Reset Password', env('FRONTEND_BASE_URL') . '/password/reset/' . $this->email . '/' . $this->token)
             ->line('If you did not request a password reset, no further action is required.');
     }
 }
