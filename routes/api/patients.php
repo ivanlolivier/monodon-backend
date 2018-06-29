@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CdaController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\VisitController;
 use Illuminate\Routing\Router;
@@ -42,4 +43,5 @@ $router->group(['middleware' => 'auth:dentist,employee'], function (Router $rout
     $router->put('/{patient}', PatientController::class . '@update');
 
     $router->post('/{patient}/visits', VisitController::class . '@create');
+    $router->post('/{patient}/cdas', CdaController::class . '@generate');
 });

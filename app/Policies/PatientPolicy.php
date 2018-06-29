@@ -26,6 +26,15 @@ class PatientPolicy
         return false;
     }
 
+    public function updateForClinic($user, Patient $patient, Clinic $clinic)
+    {
+        if ($user instanceof Employee || $user instanceof Dentist) {
+            return $user->worksOn($clinic) && $patient->isSeenAt($clinic);
+        }
+
+        return false;
+    }
+
     public function generateCda($dentist, $patient)
     {
         return $dentist instanceof Dentist;

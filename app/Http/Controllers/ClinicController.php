@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\CreateDentistRequest;
-use App\Http\Requests\StoreClinic;
+use App\Http\Requests\StoreClinicRequest;
 use App\Mail\InvitationForDentistToJoinClinic;
 use App\Mail\InvitationForDentistToRegisterAndJoinClinic;
 use App\Models\Clinic;
@@ -47,10 +47,10 @@ class ClinicController extends _Controller
      *
      * Creates a new clinic
      *
-     * @param StoreClinic $request
+     * @param StoreClinicRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreClinic $request)
+    public function store(StoreClinicRequest $request)
     {
         $clinic = Clinic::create([
             'name'    => $request->name,
@@ -67,10 +67,10 @@ class ClinicController extends _Controller
      * Updates a clinic
      *
      * @param Clinic $clinic
-     * @param StoreClinic $request
+     * @param StoreClinicRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Clinic $clinic, StoreClinic $request)
+    public function update(Clinic $clinic, StoreClinicRequest $request)
     {
         $this->authorize('update', $clinic);
 

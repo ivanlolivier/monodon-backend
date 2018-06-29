@@ -19,7 +19,7 @@ class Patient extends _Model
         'photo',
         'phones',
         'email',
-        'tags',
+//        'tags',
     ];
 
     protected $dates = [
@@ -42,7 +42,6 @@ class Patient extends _Model
     {
         return $this
             ->belongsToMany(Clinic::class)
-//            ->whereNull('clinic_patient.deleted_at')
             ->withTimestamps();
     }
 
@@ -109,6 +108,11 @@ class Patient extends _Model
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    public function clinicInformations()
+    {
+        return $this->hasMany(ClinicPatientInformation::class);
     }
 
 

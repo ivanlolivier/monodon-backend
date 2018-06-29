@@ -9,7 +9,7 @@ use App\Models\Subscription;
 class PatientTransformer extends Transformer
 {
 
-    public function transform(Patient $model)
+    public function transform($model)
     {
         $photo = null;
         if ($model->photo) {

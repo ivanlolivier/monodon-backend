@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\CanUploadFiles;
 use App\Http\Requests\CreatePatientRequest;
-use App\Http\Requests\StorePatient;
+use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdateTopicSubscriptionRequest;
 use App\Mail\InformingUserCreatedInClinic;
 use App\Mail\InformingUserCreatedInClinicWithSendingPassword;
 use App\Models\Appointment;
 use App\Models\Clinic;
+use App\Models\ClinicPatientInformation;
 use App\Models\FcmToken;
 use App\Models\Message;
 use App\Models\NotificationSent;
@@ -86,10 +87,10 @@ class PatientController extends _Controller
      *
      * Creates a new patient
      *
-     * @param StorePatient $request
+     * @param StorePatientRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function store(StorePatient $request)
+    function store(StorePatientRequest $request)
     {
         $patient = Patient::create($request->all());
 
@@ -101,12 +102,12 @@ class PatientController extends _Controller
      *
      * Updates the information of the patient logged
      *
-     * @param StorePatient $request
+     * @param StorePatientRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function updateMe(StorePatient $request)
+    function updateMe(StorePatientRequest $request)
     {
-        return $this->update(Auth::user(), $request);
+        return $this->update(Auth::user(), $request, true);
     }
 
     function updateMeTopics(UpdateTopicSubscriptionRequest $request)
@@ -120,19 +121,20 @@ class PatientController extends _Controller
      * Updates a patient's info specified by id
      *
      * @param Patient $patient
-     * @param StorePatient $request
+     * @param $request
+     * @param Boolean $update_clinic_informations
      * @return \Illuminate\Http\JsonResponse
      */
-    function update(Patient $patient, StorePatient $request)
+    function update(Patient $patient, $request, $update_clinic_informations = false)
     {
-        $patient->fill(array_merge($request->except(['document', 'phones', 'tags', 'photo', 'subscriptions']), [
-            'phones' => implode(';', $request->get('phones', [])),
-            'tags'   => implode(';', $request->get('tags', [])),
-        ]));
+        $new_patient_values = array_merge(
+            $request->except(['document', 'phones', 'tags', 'photo', 'subscriptions']),
+            ['phones' => implode(';', $request->get('phones', [])), 'tags' => implode(';', $request->get('tags', []))]
+        );
 
         if ($document = $request->get('document', false)) {
-            $patient->document_type = $document['type'];
-            $patient->document = $document['number'];
+            $new_patient_values['document_type'] = $document['type'];
+            $new_patient_values['document'] = $document['number'];
         }
 
         if ($base64_avatar = $request->get('photo', false)) {
@@ -146,7 +148,7 @@ class PatientController extends _Controller
 
                 $filename = $patient->id . '-' . time() . '.jpg';
 
-                $patient->photo = $this->saveFile($filename, $avatar);
+                $new_patient_values['photo'] = $this->saveFile($filename, $avatar);
             }
         }
 
@@ -162,6 +164,7 @@ class PatientController extends _Controller
             $patient->subscriptions()->createMany($subscriptions);
         }
 
+        $patient->fill($new_patient_values);
         $patient->update();
 
         $patient->load('subscriptions.topic');
@@ -180,6 +183,9 @@ class PatientController extends _Controller
         });
         $patient_formated['data']['subscriptions'] = $subscriptions->merge($subscriptions_inherited);
 
+        if ($update_clinic_informations) {
+            $patient->clinicInformations()->update($new_patient_values);
+        }
 
         return response()->json($patient_formated, 200);
     }
@@ -399,19 +405,18 @@ class PatientController extends _Controller
     {
         $this->authorize('createForClinic', [Patient::class, $clinic]);
 
+        $loggedin_user = $request->user();
+        $default_password = $this->generatePassword();
+
         //TODO: missing integration with EMPI
 
         /** @var Patient $patient */
         $patient = Patient::where([['document', '=', $request->get('document')], ['document_type', '=', $request->get('document_type')]])->first();
-        if (!$patient) {
+        $patient_is_new = !$patient;
+
+        if ($patient_is_new) {
             $patient = Patient::create($request->toArray());
-
-            $password = 'secret';
-
-            $patient->auth()->create(['email' => $request->get('email'), 'password' => $password]);
-            $email = new InformingUserCreatedInClinicWithSendingPassword($patient, $password, $clinic, $request->user());
-        } else {
-            $email = new InformingUserCreatedInClinic($patient, $clinic, $request->user());
+            $patient->auth()->create(['email' => $request->get('email'), 'password' => $default_password]);
         }
 
         if ($base64_avatar = $request->get('photo', false)) {
@@ -423,16 +428,66 @@ class PatientController extends _Controller
             }
         }
 
+        if (!$patient_is_new) {
+            $clinic_patient_info = ClinicPatientInformation::where([['patient_id', '=', $patient->id]])->first();
+
+            if ($clinic_patient_info) {
+                return $this->responseAsJson(['message' => 'PATIENT_ALREADY_IN_CLINIC'], 403);
+            }
+        }
+
+        $clinic_patient_info = ClinicPatientInformation::create(array_merge([
+            'clinic_id'  => $clinic->id,
+            'patient_id' => $patient->id,
+        ], $request->toArray()));
+
         $patient->clinics()->attach($clinic->id);
 
-        //generar el user
-
-
-        //mandar el mail avisandole
+        $email = $patient_is_new
+            ? new InformingUserCreatedInClinicWithSendingPassword($patient, $default_password, $clinic, $loggedin_user)
+            : new InformingUserCreatedInClinic($patient, $clinic, $loggedin_user);
 
         Mail::to($patient->email)->send($email);
 
+        return $this->responseAsJson($clinic_patient_info, 201);
+    }
 
-        return $this->responseAsJson($patient, 201);
+    public function updateForClinic(Clinic $clinic, Patient $patient, CreatePatientRequest $request)
+    {
+        $this->authorize('updateForClinic', [$patient, $clinic]);
+
+        $document_type = $request->get('document_type');
+        $document = $request->get('document');
+
+        $request->request->remove('document');
+        $request->request->remove('document_type');
+
+        $request->request->add([
+            'document' => [
+                'type'   => $document_type,
+                'number' => $document,
+            ]
+        ]);
+
+        $request->merge([
+            'document' => [
+                'type'   => $document_type,
+                'number' => $document,
+            ]
+        ]);
+
+        return $this->update($patient, $request);
+    }
+
+    private function generatePassword($length = 6, $alphabet = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789')
+    {
+        $alphaLength = strlen($alphabet) - 1;
+        $pass = array();
+
+        for ($i = 0; $i < $length; $i++) {
+            $pass[] = $alphabet[rand(0, $alphaLength)];
+        }
+
+        return implode($pass);
     }
 }
