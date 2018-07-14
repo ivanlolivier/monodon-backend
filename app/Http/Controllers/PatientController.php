@@ -60,7 +60,7 @@ class PatientController extends _Controller
         $subscriptions_inherited = $topics->map(function ($topic) {
             return [
                 "subscribed" => true,
-                "topic"      => NotificationTopic::transformer()->transform($topic)
+                "topic" => NotificationTopic::transformer()->transform($topic)
             ];
         });
         $patient_formated['data']['subscriptions'] = $subscriptions->merge($subscriptions_inherited);
@@ -122,10 +122,10 @@ class PatientController extends _Controller
      *
      * @param Patient $patient
      * @param $request
-     * @param Boolean $update_clinic_informations
+     * @param Boolean $update_clinic_information
      * @return \Illuminate\Http\JsonResponse
      */
-    function update(Patient $patient, $request, $update_clinic_informations = false)
+    function update(Patient $patient, $request, $update_clinic_information = false)
     {
         $new_patient_values = array_merge(
             $request->except(['document', 'phones', 'tags', 'photo', 'subscriptions']),
@@ -178,12 +178,12 @@ class PatientController extends _Controller
         $subscriptions_inherited = $topics->map(function ($topic) {
             return [
                 "subscribed" => $topic->defaultSubscribed == 1,
-                "topic"      => NotificationTopic::transformer()->transform($topic)
+                "topic" => NotificationTopic::transformer()->transform($topic)
             ];
         });
         $patient_formated['data']['subscriptions'] = $subscriptions->merge($subscriptions_inherited);
 
-        if ($update_clinic_informations) {
+        if ($update_clinic_information) {
             $patient->clinicInformations()->update($new_patient_values);
         }
 
@@ -270,7 +270,7 @@ class PatientController extends _Controller
         return response()->json([
             'data' => [
                 'unanswered' => $unanswered['data'],
-                'answered'   => $answered['data'],
+                'answered' => $answered['data'],
             ]
         ], 200);
     }
@@ -415,6 +415,11 @@ class PatientController extends _Controller
         $patient_is_new = !$patient;
 
         if ($patient_is_new) {
+            $patient_with_email = Patient::where('email', $request->get('email'))->get();
+            if (!$patient_with_email->isEmpty()) {
+                return $this->responseAsJson(['message' => 'PATIENT_WITH_SAME_EMAIL_AND_DIFFERENT_ID'], 403);
+            }
+
             $patient = Patient::create($request->toArray());
             $patient->auth()->create(['email' => $request->get('email'), 'password' => $default_password]);
         }
@@ -429,7 +434,10 @@ class PatientController extends _Controller
         }
 
         if (!$patient_is_new) {
-            $clinic_patient_info = ClinicPatientInformation::where([['patient_id', '=', $patient->id]])->first();
+            $clinic_patient_info = ClinicPatientInformation::where([
+                ['patient_id', '=', $patient->id],
+                ['clinic_id', '=', $clinic->id]
+            ])->first();
 
             if ($clinic_patient_info) {
                 return $this->responseAsJson(['message' => 'PATIENT_ALREADY_IN_CLINIC'], 403);
@@ -437,7 +445,7 @@ class PatientController extends _Controller
         }
 
         $clinic_patient_info = ClinicPatientInformation::create(array_merge([
-            'clinic_id'  => $clinic->id,
+            'clinic_id' => $clinic->id,
             'patient_id' => $patient->id,
         ], $request->toArray()));
 
@@ -449,6 +457,7 @@ class PatientController extends _Controller
 
         Mail::to($patient->email)->send($email);
 
+        $clinic_patient_info->id = $patient->id;
         return $this->responseAsJson($clinic_patient_info, 201);
     }
 
@@ -456,27 +465,43 @@ class PatientController extends _Controller
     {
         $this->authorize('updateForClinic', [$patient, $clinic]);
 
-        $document_type = $request->get('document_type');
-        $document = $request->get('document');
+        $clinic_patient_info = ClinicPatientInformation::where([
+                ['patient_id', '=', $patient->id],
+                ['clinic_id', '=', $clinic->id]]
+        )->first();
 
-        $request->request->remove('document');
-        $request->request->remove('document_type');
+        if (!$clinic_patient_info) {
+            return $this->responseAsJson(['message' => 'PATIENT_DOES_NOT_BELONG_TO_CLINIC'], 403);
+        }
 
-        $request->request->add([
-            'document' => [
-                'type'   => $document_type,
-                'number' => $document,
-            ]
-        ]);
+        $new_patient_values = array_merge(
+            $request->except(['document', 'document_type', 'phones', 'tags', 'photo', 'subscriptions']),
+            ['phones' => implode(';', $request->get('phones', [])), 'tags' => implode(';', $request->get('tags', []))]
+        );
 
-        $request->merge([
-            'document' => [
-                'type'   => $document_type,
-                'number' => $document,
-            ]
-        ]);
+        $new_patient_values['document_type'] = $request->get('document_type');
+        $new_patient_values['document'] = $request->get('document');
 
-        return $this->update($patient, $request);
+        if ($base64_avatar = $request->get('photo', false)) {
+            $avatar = base64_decode($base64_avatar, true);
+
+            if ($avatar !== false) {
+                $disk = Storage::disk(self::STORAGE_DISC);
+                if ($clinic_patient_info->photo && $disk->exists($clinic_patient_info->photo)) {
+                    $disk->delete($clinic_patient_info->photo);
+                }
+
+                $filename = $clinic_patient_info->id . '-' . time() . '.jpg';
+
+                $new_patient_values['photo'] = $this->saveFile($filename, $avatar);
+            }
+        }
+
+        $clinic_patient_info->fill($new_patient_values);
+        $clinic_patient_info->update();
+
+        $clinic_patient_info->id = $patient->id;
+        return $this->responseAsJson($clinic_patient_info, 200);
     }
 
     private function generatePassword($length = 6, $alphabet = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789')

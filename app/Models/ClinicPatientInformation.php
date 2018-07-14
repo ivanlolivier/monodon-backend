@@ -32,7 +32,8 @@ class ClinicPatientInformation extends _Model
 
     public function setPhonesAttribute($value)
     {
-        $this->attributes['phones'] = implode(';', $value);
+        if (is_array($value)) $value = implode(';', $value);
+        $this->attributes['phones'] = $value;
     }
 
 
