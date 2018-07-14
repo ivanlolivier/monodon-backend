@@ -2,32 +2,23 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreClinicRequest extends FormRequest
+class StoreClinicRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            'name'    => ['required', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'phones'  => ['array'],
-            'email'   => ['email']
+            'name'                  => ['required', 'max:255'],
+            'address'               => ['required', 'max:255'],
+            'phones'                => ['array'],
+            'email'                 => ['email'],
+            'coordinates.latitude'  => [
+                'required_with:coordinates.longitude',
+                'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'
+            ],
+            'coordinates.longitude' => [
+                'required_with:coordinates.latitude',
+                'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'
+            ]
         ];
     }
 }

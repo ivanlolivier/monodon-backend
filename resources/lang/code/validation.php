@@ -1,42 +1,41 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
-    'accepted'             => 'MUST_BE_ACCEPTED',
-    'active_url'           => 'INVALID_URL',
-    'after'                => 'The :attribute must be a date after :date.',
-    'alpha'                => 'MAY_ONLY_CONTAIN_LETTERS',
-    'alpha_dash'           => 'MAY_ONLY_CONTAIN_LETTERS_NUMBERS_DASHES',
-    'alpha_num'            => 'MAY_ONLY_CONTAIN_LETTERS_NUMBERS',
-    'array'                => 'MUST_BE_AN_ARRAY',
-    'before'               => 'The :attribute must be a date before :date.',
-    'between'              => [
-        'numeric' => 'The :attribute must be between :min and :max.',
-        'file'    => 'The :attribute must be between :min and :max kilobytes.',
-        'string'  => 'The :attribute must be between :min and :max characters.',
-        'array'   => 'The :attribute must have between :min and :max items.',
+    'accepted'    => 'MUST_BE_ACCEPTED',
+    'active_url'  => 'INVALID_URL',
+    'after'       => 'MUST_BE_A_DATE_AFTER[:date]',
+    'alpha'       => 'MAY_ONLY_CONTAIN_LETTERS',
+    'alpha_dash'  => 'MAY_ONLY_CONTAIN_LETTERS_NUMBERS_DASHES',
+    'alpha_num'   => 'MAY_ONLY_CONTAIN_LETTERS_NUMBERS',
+    'array'       => 'MUST_BE_AN_ARRAY',
+    'before'      => 'MUST_BE_A_DATE_BEFORE[:date]',
+    'email'       => 'INVALID_EMAIL',
+    'not_in'      => 'INVALID',
+    'numeric'     => 'MUST_BE_A_NUMBER',
+    'present'     => 'MUST_BE_PRESENT',
+    'regex'       => 'INVALID',
+    'required'    => 'IS_REQUIRED',
+    'same'        => 'ATTRIBUTES_MUST_MATCH[:other]',
+    'string'      => 'MUST_BE_A_STRING',
+    'timezone'    => 'MUST_BE_A_TIMEZONE',
+    'unique'      => 'ATTRIBUTE_ALREADY_TAKEN',
+    'url'         => 'INVALID_FORMAT',
+    'between'     => [
+        'numeric' => 'MUST_BE_BETWEEN[:min][:max]',
+        'file'    => 'MUST_BE_BETWEEN_KB[:min][:max]',
+        'string'  => 'MUST_BE_BETWEEN_CHAR[:min][:max]',
+        'array'   => 'MUST_BE_BETWEEN_ITEMS[:min][:max]',
     ],
-    'boolean'              => 'The :attribute field must be true or false.',
-    'confirmed'            => 'The :attribute confirmation does not match.',
-    'date'                 => 'The :attribute is not a valid date.',
-    'date_format'          => 'The :attribute does not match the format :format.',
-    'different'            => 'The :attribute and :other must be different.',
+    'boolean'     => 'MUST_BE_TRUE_OR_FALSE',
+    'confirmed'   => 'CONFIRMATION_DOES_NOT_MATCH',
+    'date'        => 'INVALID_DATE',
+    'date_format' => 'DOES_NOT_MATCH_FORMAT[:format]',
+    'different'   => 'MUST_BE_DIFFERENT_TO[:other]',
+    
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field is required.',
@@ -59,29 +58,20 @@ return [
         'string'  => 'The :attribute must be at least :min characters.',
         'array'   => 'The :attribute must have at least :min items.',
     ],
-    'not_in'               => 'The selected :attribute is invalid.',
-    'numeric'              => 'The :attribute must be a number.',
-    'present'              => 'The :attribute field must be present.',
-    'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
-    'required_if'          => 'The :attribute field is required when :other is :value.',
-    'required_unless'      => 'The :attribute field is required unless :other is in :values.',
-    'required_with'        => 'The :attribute field is required when :values is present.',
-    'required_with_all'    => 'The :attribute field is required when :values is present.',
-    'required_without'     => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
+    'required_if'          => 'REQUIRED_IF[:other][:value]',
+    'required_unless'      => 'REQUIRED_UNLESS[:other][:values]',
+    'required_with'        => 'REQUIRED_WITH[:values]',
+    'required_with_all'    => 'REQUIRED_WITH_ALL[:values]',
+    'required_without'     => 'REQUIRED_WITHOUT[:values]',
+    'required_without_all' => 'REQUIRED_WITHOUT_ALL[:values]',
     'size'                 => [
         'numeric' => 'The :attribute must be :size.',
         'file'    => 'The :attribute must be :size kilobytes.',
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'string'               => 'The :attribute must be a string.',
-    'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
-    'url'                  => 'The :attribute format is invalid.',
-
+    
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -92,13 +82,9 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
+    
+    'custom' => [],
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -109,7 +95,7 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
+    
     'attributes' => [],
 
 ];

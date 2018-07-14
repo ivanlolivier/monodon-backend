@@ -17,15 +17,15 @@ class ClinicTransformer extends Transformer
             'email'       => $model->email,
             'logo'        => $model->logo ? url('/storage/' . $model->logo) : null,
             'coordinates' => [
-                'latitude'  => '-34.7969135',
-                'longitude' => '-56.0692276'
+                'latitude'  => $model->latitude,// '-34.7969135',
+                'longitude' => $model->longitude,//'-56.0692276'
             ]
         ];
-
+        
         if (isset($model->last_visit)) {
             $this->output['last_visit'] = Visit::transformer()->transform($model->last_visit);
         }
-
+        
         return $this->output;
     }
 }
