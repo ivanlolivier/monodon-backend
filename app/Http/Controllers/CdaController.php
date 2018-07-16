@@ -20,8 +20,8 @@ class CdaController extends _Controller
         $visit->dentist = $dentist;
         $visit->patient = $patient;
 
-        (new CDA)->generateForVisit($visit);
+        $cda = (new CDA)->generateForVisit($visit);
 
-        return response()->json(null, 201);
+        return response()->json($cda, 201);
     }
 }
