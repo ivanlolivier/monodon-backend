@@ -163,7 +163,7 @@ class PatientController extends _Controller
 
             $patient->subscriptions()->createMany($subscriptions);
         }
-
+        
         $patient->fill($new_patient_values);
         $patient->update();
 

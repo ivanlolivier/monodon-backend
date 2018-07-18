@@ -12,15 +12,15 @@ class CdaController extends _Controller
 {
     public function generate(Patient $patient, GenerateCdaRequest $request)
     {
-//        $this->authorize('me', Dentist::class);
+//        $this->authorize('me', dentist::class);
 
-        $dentist = Auth::user();
-        $visit = Visit::find($request->visitId);
+        $dentist = auth::user();
+        $visit = visit::find($request->visitid);
 
         $visit->dentist = $dentist;
         $visit->patient = $patient;
 
-        $cda = (new CDA)->generateForVisit($visit);
+        $cda = (new cda)->generateforvisit($visit);
 
         return response()->json($cda, 201);
     }
