@@ -11,6 +11,7 @@ class CreateDentistRequest extends BaseRequest
             'surname'      => ['required'],
             'affiliate_id' => ['required'],
             'email'        => ['required', 'email'],
+            'password'     => ['required'],
             'phones'       => ['array'],
             'sex'          => ['required', 'in:male,female'],
         ];
