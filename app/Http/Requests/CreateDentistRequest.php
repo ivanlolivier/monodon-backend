@@ -9,7 +9,7 @@ class CreateDentistRequest extends BaseRequest
         return [
             'name'         => ['required'],
             'surname'      => ['required'],
-            'affiliate_id' => ['required'],
+            'affiliate_id' => ['required', 'exists:dentists,affiliate_id,!0'],
             'email'        => ['required', 'email'],
             'password'     => ['required'],
             'phones'       => ['array'],
