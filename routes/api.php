@@ -22,7 +22,7 @@ $router->put('password/reset', ResetPasswordController::class . '@reset');
  * ENDPOINTS FOR LISTS *
  ***********************/
 $router->get('employee_types', EmployeeTypeController::class . '@index');
-$router->group(['middleware' => 'auth:dentist'], function (Router $router) {
+$router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {
     $router->get('/questions', QuestionController::class . '@index');
     $router->get('/treatments', TreatmentController::class . '@index');
     $router->get('/buccal_zones', BuccalZoneController::class . '@index');
