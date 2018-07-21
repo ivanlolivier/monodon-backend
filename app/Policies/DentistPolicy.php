@@ -16,8 +16,4 @@ class DentistPolicy extends PolicyBase
         return self::user_is_dentist($user);
     }
 
-    static private function user_is_dentist($user)
-    {
-        return ($user instanceof Dentist);
-    }
 }
