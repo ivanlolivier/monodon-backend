@@ -2,16 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Dentist;
-use App\Models\Employee;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
-class VisitPolicy
+class VisitPolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function create($user)
     {
-        return ($user instanceof Dentist || $user instanceof Employee);
+        return (self::user_is_dentist($user) || self::user_is_employee($user));
     }
 }

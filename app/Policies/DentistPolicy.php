@@ -3,12 +3,9 @@
 namespace App\Policies;
 
 use App\Models\Dentist;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DentistPolicy
+class DentistPolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function me($user)
     {
         return self::user_is_dentist($user);

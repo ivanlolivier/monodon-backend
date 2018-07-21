@@ -7,13 +7,9 @@ use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Employee;
 use App\Models\Patient;
-use Carbon\Carbon;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AppointmentPolicy
+class AppointmentPolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function listForClinic($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {

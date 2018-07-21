@@ -5,12 +5,9 @@ namespace App\Policies;
 use App\Models\Clinic;
 use App\Models\Employee;
 use App\Models\Message;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class MessagePolicy
+class MessagePolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function listForClinic($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {

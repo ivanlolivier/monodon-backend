@@ -2,15 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Dentist;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
-class QuestionPolicy
+class QuestionPolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function index($user)
     {
-        return ($user instanceof Dentist);
+        return (self::user_is_dentist($user) || self::user_is_employee($user));
     }
 }

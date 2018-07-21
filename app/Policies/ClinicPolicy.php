@@ -6,12 +6,9 @@ use App\Models\Clinic;
 use App\Models\Dentist;
 use App\Models\Employee;
 use App\Models\Patient;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ClinicPolicy
+class ClinicPolicy extends PolicyBase
 {
-    use HandlesAuthorization;
-
     public function show($user, Clinic $clinic)
     {
         if ($user instanceof Employee) {
