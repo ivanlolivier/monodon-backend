@@ -50,7 +50,7 @@ class PatientController extends _Controller
         $patient->load('subscriptions.topic');
         
         $topics = NotificationTopic::where(['defaultSubscribed' => 1])->whereNotIn('id',
-                $patient->subscriptions->pluck('notification_topic_id'))->get();
+            $patient->subscriptions->pluck('notification_topic_id'))->get();
         
         $patient_formated = $this->prepareResponse($patient);
         $patient_formated['data']['clinicIds'] = $patient->clinics()->pluck('clinics.id');
@@ -78,6 +78,14 @@ class PatientController extends _Controller
      */
     function show(Patient $patient)
     {
+        return $this->responseAsJson($patient);
+    }
+    
+    function showForClinic(Clinic $clinic, Patient $patient)
+    {
+        $this->authorize('showForClinic', [$patient, $clinic]);
+        
+        $patient->load(['visits', 'notificationsSent', 'messages', 'informations', 'appointments', 'files']);
         return $this->responseAsJson($patient);
     }
     
@@ -256,10 +264,10 @@ class PatientController extends _Controller
         $patient = Auth::user();
         
         $notifications_unanswered = $patient->notificationsSent()->with('scheduled')->whereNull('answered_at')->orderBy('sent_at',
-                'desc')->get();
+            'desc')->get();
         
         $notifications_answered = $patient->notificationsSent()->with('scheduled')->whereNotNull('answered_at')->orderBy('sent_at',
-                'desc')->get();
+            'desc')->get();
         
         $unanswered = $this->prepareResponse($notifications_unanswered, NotificationSent::transformer());
         
@@ -297,7 +305,7 @@ class PatientController extends _Controller
         $patient = Auth::user();
         
         $next_appointments = $patient->appointments()->with(['clinic', 'dentist'])->whereDate('datetime', '>=',
-                Carbon::now())->get();
+            Carbon::now())->get();
         
         return $this->responseAsJson($next_appointments, 200, Appointment::transformer());
     }
@@ -369,13 +377,13 @@ class PatientController extends _Controller
         $patient = Auth::user();
         
         $visits = $patient->visits()->with([
-                'clinic',
-                'dentist',
-                'treatments.buccal_zone',
-                'treatments.treatment',
-                'diagnosis.derivation',
-                'parent',
-            ])->get();
+            'clinic',
+            'dentist',
+            'treatments.buccal_zone',
+            'treatments.treatment',
+            'diagnosis.derivation',
+            'parent',
+        ])->get();
         
         return $this->responseAsJson($visits, 200, Visit::transformer());
     }
@@ -442,7 +450,7 @@ class PatientController extends _Controller
         }
         
         $clinic_patient_info = ClinicPatientInformation::create(array_merge([
-            'clinic_id' => $clinic->id,
+            'clinic_id'  => $clinic->id,
             'patient_id' => $patient->id,
         ], $request->toArray()));
         
@@ -462,9 +470,9 @@ class PatientController extends _Controller
         $this->authorize('updateForClinic', [$patient, $clinic]);
         
         $clinic_patient_info = ClinicPatientInformation::where([
-                ['patient_id', '=', $patient->id],
-                ['clinic_id', '=', $clinic->id]
-            ])->first();
+            ['patient_id', '=', $patient->id],
+            ['clinic_id', '=', $clinic->id]
+        ])->first();
         
         if (!$clinic_patient_info) {
             return $this->responseAsJson(['message' => 'PATIENT_DOES_NOT_BELONG_TO_CLINIC'], 403);

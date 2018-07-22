@@ -14,6 +14,15 @@ class PatientPolicy extends PolicyBase
         return self::user_is_patient($user);
     }
     
+    public function showForClinic($user, Patient $patient, Clinic $clinic)
+    {
+        if ($user instanceof Employee || $user instanceof Dentist) {
+            return $user->worksOn($clinic) && $patient->isSeenAt($clinic);
+        }
+        
+        return false;
+    }
+    
     public function createForClinic($user, Clinic $clinic)
     {
         if ($user instanceof Employee || $user instanceof Dentist) {
@@ -32,10 +41,14 @@ class PatientPolicy extends PolicyBase
         return false;
     }
     
-    public function generateCda($dentist, $patient)
+    public function generateCda($user, Patient $patient)
     {
-        return $dentist instanceof Dentist;
-        //        TODO: agregar que el paciente se atienda con el dentista
+        if ($user instanceof Dentist) {
+            //TODO: agregar que el paciente se atienda con el dentista
+            return true;
+        }
+        
+        return false;
     }
     
 }

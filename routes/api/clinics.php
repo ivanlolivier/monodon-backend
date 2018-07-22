@@ -28,6 +28,7 @@ $router->group(['prefix' => '/{clinic}'], function (Router $router) {
         $router->group(['prefix' => '/patients'], function (Router $router) {
             $router->get('/', ClinicController::class . '@patients');
             $router->post('/', PatientController::class . '@createForClinic');
+            $router->get('/{patient}', PatientController::class . '@showForClinic');
             $router->put('/{patient}', PatientController::class . '@updateForClinic');
         });
     });

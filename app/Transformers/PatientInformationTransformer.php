@@ -15,7 +15,7 @@ class PatientInformationTransformer extends Transformer
             'information' => $model->information,
             'patient_id'  => $model->patient_id,
             'created_at'  => $model->created_at->toDateTimeString(),
-            'read_at'     => $model->read_at->toDateTimeString(),
+            'read_at'     => $model->read_at ? $model->read_at->toDateTimeString() : null,
         ];
 
         $this->replaceRelationship($model, 'patient', Patient::transformer());
