@@ -93,6 +93,7 @@ class PatientController extends _Controller
             'visits.exploratory' => function ($query) { return $query; },
             'visits.progress' => function ($query) { return $query; },
             'visits.interrogatory' => function ($query) { return $query; },
+            'visits.interrogatory.question' => function ($query) { return $query; },
             'visits.notificationsScheduled' => function ($query) { return $query; },
 
             'interrogation' => function ($query) { return $query; },
@@ -100,7 +101,7 @@ class PatientController extends _Controller
             'messages' => function ($query) { return $query; },
             'informations' => function ($query) { return $query; },
             'appointments' => function ($query) { return $query; },
-            'files' => function ($query) { return $query; }
+            'files' => function ($query) { return $query; },
         ]);
 
 
