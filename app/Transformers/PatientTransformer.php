@@ -9,12 +9,13 @@ use App\Models\Message;
 use App\Models\NotificationSent;
 use App\Models\Patient;
 use App\Models\PatientInformation;
+use App\Models\PatientInterrogatory;
 use App\Models\Subscription;
 use App\Models\Visit;
 
 class PatientTransformer extends Transformer
 {
-    
+
     public function transform($model)
     {
         $photo = null;
@@ -25,7 +26,7 @@ class PatientTransformer extends Transformer
                 $photo = url('/storage/' . $model->photo);
             }
         }
-        
+
         $this->output = [
             'id'        => $model->id,
             'name'      => $model->name,
@@ -41,7 +42,7 @@ class PatientTransformer extends Transformer
             'email'     => $model->email,
             'tags'      => explode(';', $model->tags),
         ];
-        
+
         $this->replaceRelationship($model, 'subscriptions', Subscription::transformer());
         $this->replaceRelationship($model, 'clinics', Clinic::transformer());
         $this->replaceRelationship($model, 'visits', Visit::transformer());
@@ -50,8 +51,9 @@ class PatientTransformer extends Transformer
         $this->replaceRelationship($model, 'informations', PatientInformation::transformer());
         $this->replaceRelationship($model, 'appointments', Appointment::transformer());
         $this->replaceRelationship($model, 'files', File::transformer());
-        
+        $this->replaceRelationship($model, 'interrogation', PatientInterrogatory::transformer());
+
         return $this->output;
     }
-    
+
 }

@@ -6,6 +6,8 @@ use App\Transformers\ProgressTransformer;
 
 class Progress extends _Model
 {
+    protected $table = 'progress';
+
     protected $fillable = ['description'];
 
     public function treatment_assigned()
