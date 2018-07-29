@@ -89,6 +89,8 @@ class PatientController extends _Controller
             'visits' => function ($query) { return $query->orderBy('created_at','DESC'); },
             'visits.dentist' => function ($query) { return $query; },
             'visits.diagnosis' => function ($query) { return $query; },
+            'visits.diagnosis.derivation' => function ($query) { return $query; },
+            'visits.diagnosis.predefined' => function ($query) { return $query; },
             'visits.treatments' => function ($query) { return $query; },
             'visits.exploratory' => function ($query) { return $query; },
             'visits.progress' => function ($query) { return $query; },
