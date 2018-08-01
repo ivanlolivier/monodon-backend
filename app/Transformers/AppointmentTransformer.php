@@ -16,7 +16,7 @@ class AppointmentTransformer extends Transformer
             'title'       => $model->title,
             'description' => $model->description,
             'date'        => $model->datetime->toDateString(),
-            'time'        => $model->datetime->format('h:i'),
+            'time'        => $model->datetime->format('H:i'),
             'duration'    => $model->duration,
             'clinic_id'   => $model->clinic_id,
             'dentist_id'  => $model->dentist_id,
