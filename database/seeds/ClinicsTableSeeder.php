@@ -16,39 +16,36 @@ class ClinicsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Clinic::class, 10)->create()->each(function (Clinic $clinic) {
+        $clinic = factory(Clinic::class)->create();
 
-            for ($i = 0; $i <= random_int(2, 7); $i++) {
-                $dentist = factory(Dentist::class)->make();
+        for ($i = 1; $i <= 70; $i++) {
+            $dentist = factory(Dentist::class)->make(['email' => 'dentist' . $i . '@mailinator.com']);
+            $clinic->dentists()->save($dentist);
 
-                $clinic->dentists()->save($dentist);
+            $dentist->auth()->save(new User([
+                "email"    => $dentist->email,
+                "password" => 'secret',
+            ]));
+        }
 
-                $dentist->auth()->save(new User([
-                    "email"    => $dentist->email,
-                    "password" => 'secret',
-                ]));
-            }
+        for ($i = 1; $i <= 70; $i++) {
+            $patient = factory(Patient::class)->make(['email' => 'patient' . $i . '@mailinator.com']);
+            $clinic->patients()->save($patient);
 
-            for ($i = 0; $i <= random_int(8, 15); $i++) {
-                $patient = factory(Patient::class)->make();
-                $clinic->patients()->save($patient);
+            $patient->auth()->save(new User([
+                "email"    => $patient->email,
+                "password" => 'secret',
+            ]));
+        }
 
-                $patient->auth()->save(new User([
-                    "email"    => $patient->email,
-                    "password" => 'secret',
-                ]));
-            }
+        for ($i = 1; $i <= 70; $i++) {
+            $employee = factory(Employee::class)->make(['email' => 'assistant' . $i . '@mailinator.com']);
+            $clinic->employees()->save($employee);
 
-            for ($i = 0; $i <= random_int(3, 10); $i++) {
-                $employee = factory(Employee::class)->make();
-                $clinic->employees()->save($employee);
-
-                $employee->auth()->save(new User([
-                    "email"    => $employee->email,
-                    "password" => 'secret',
-                ]));
-            }
-
-        });
+            $employee->auth()->save(new User([
+                "email"    => $employee->email,
+                "password" => 'secret',
+            ]));
+        }
     }
 }
