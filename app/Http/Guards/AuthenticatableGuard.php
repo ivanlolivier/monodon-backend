@@ -14,12 +14,13 @@ class AuthenticatableGuard extends TokenGuard
 {
     protected $realProvider;
 
-    public function __construct(ResourceServer $server,
+    public function __construct(
+        ResourceServer $server,
         UserProvider $provider,
         TokenRepository $tokens,
         ClientRepository $clients,
-        Encrypter $encrypter)
-    {
+        Encrypter $encrypter
+    ) {
         $this->realProvider = $provider;
 
         parent::__construct(

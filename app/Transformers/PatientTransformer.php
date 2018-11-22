@@ -27,20 +27,25 @@ class PatientTransformer extends Transformer
             }
         }
 
+        $model_for_attributes = $model;
+        if ($this->isRelationshipLoaded($model, 'clinicInformations') && $model->clinicInformations->count() > 0) {
+            $model_for_attributes = $model->clinicInformations[0];
+        }
+
         $this->output = [
             'id'        => $model->id,
-            'name'      => $model->name,
-            'surname'   => $model->surname,
+            'name'      => $model_for_attributes->name,
+            'surname'   => $model_for_attributes->surname,
             'document'  => [
-                'type'   => $model->document_type,
-                'number' => $model->document,
+                'type'   => $model_for_attributes->document_type,
+                'number' => $model_for_attributes->document,
             ],
-            'birthdate' => $model->birthdate->toDateString(),
-            'sex'       => $model->sex,
+            'birthdate' => $model_for_attributes->birthdate->toDateString(),
+            'sex'       => $model_for_attributes->sex,
             'photo'     => $photo,
-            'phones'    => explode(';', $model->phones),
-            'email'     => $model->email,
-            'tags'      => explode(';', $model->tags),
+            'phones'    => explode(';', $model_for_attributes->phones),
+            'email'     => $model_for_attributes->email,
+            'tags'      => explode(';', $model_for_attributes->tags),
         ];
 
         $this->replaceRelationship($model, 'subscriptions', Subscription::transformer());
