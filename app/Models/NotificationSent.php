@@ -6,6 +6,11 @@ use App\Transformers\NotificationSentTransformer;
 
 class NotificationSent extends _Model
 {
+    protected $fillable = [
+        'sent_at',
+        'read_at',
+        'answered_at',
+    ];
 
     protected $dates = [
         'sent_at',

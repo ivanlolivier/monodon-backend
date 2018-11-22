@@ -1,0 +1,1402 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:hl7-org:v2xml" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="agestionpacientes_servicesService" targetNamespace="urn:hl7-org:v2xml">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:hl7-org:v2xml" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:hl7-org:v2xml">
+  <xs:element name="ping" type="tns:ping"/>
+  <xs:element name="pingResponse" type="tns:pingResponse"/>
+  <xs:complexType name="ping">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="pingResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Alive" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PIXFeedMsg">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ADT_A01" type="tns:ADT_A01.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ADT_A01.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSH" type="tns:MSH.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN" type="tns:EVN.CONTENT"/>
+      <xs:element minOccurs="0" name="PID" type="tns:PID.CONTENT"/>
+      <xs:element minOccurs="0" name="PV1" type="tns:PV1.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="MSH.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSH.1" type="tns:MSH.1.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.2" type="tns:MSH.2.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.3" type="tns:MSH.3.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.4" type="tns:MSH.4.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.5" type="tns:MSH.5.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.6" type="tns:MSH.6.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.7" type="tns:MSH.7.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.8" type="tns:MSH.8.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.9" type="tns:MSH.9.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.10" type="tns:MSH.10.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.11" type="tns:MSH.11.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.12" type="tns:MSH.12.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.13" type="tns:MSH.13.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.14" type="tns:MSH.14.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.15" type="tns:MSH.15.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.16" type="tns:MSH.16.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.17" type="tns:MSH.17.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="MSH.18" type="tns:MSH.18.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.19" type="tns:MSH.19.CONTENT"/>
+      <xs:element minOccurs="0" name="MSH.20" type="tns:MSH.20.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="MSH.21" type="tns:MSH.21.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MSH.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.3.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="HD.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="HD.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="HD.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.4.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="MSH.5.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="MSH.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="MSH.7.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TS.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="TS.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.9.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSG.1" type="tns:MSG.1.CONTENT"/>
+      <xs:element minOccurs="0" name="MSG.2" type="tns:MSG.2.CONTENT"/>
+      <xs:element minOccurs="0" name="MSG.3" type="tns:MSG.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MSG.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSG.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSG.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.10.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.11.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PT.1" type="tns:PT.1.CONTENT"/>
+      <xs:element minOccurs="0" name="PT.2" type="tns:PT.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PT.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="PT.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.12.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="VID.1" type="tns:VID.1.CONTENT"/>
+      <xs:element minOccurs="0" name="VID.2" type="tns:VID.2.CONTENT"/>
+      <xs:element minOccurs="0" name="VID.3" type="tns:VID.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="VID.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="VID.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CE.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CE.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CE.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CE.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CE.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CE.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="VID.3.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MSH.13.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.14.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.15.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.16.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.17.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSH.18.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.19.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MSH.20.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSH.21.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EI.1" type="tns:EI.1.CONTENT"/>
+      <xs:element minOccurs="0" name="EI.2" type="tns:EI.2.CONTENT"/>
+      <xs:element minOccurs="0" name="EI.3" type="tns:EI.3.CONTENT"/>
+      <xs:element minOccurs="0" name="EI.4" type="tns:EI.4.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EI.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="EI.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="EI.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="EI.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="EVN.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EVN.1" type="tns:EVN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN.2" type="tns:EVN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN.3" type="tns:EVN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN.4" type="tns:EVN.4.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="EVN.5" type="tns:EVN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN.6" type="tns:EVN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="EVN.7" type="tns:EVN.7.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EVN.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="EVN.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="EVN.3.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EVN.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="EVN.5.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XCN.1" type="tns:XCN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.2" type="tns:XCN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.3" type="tns:XCN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.4" type="tns:XCN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.5" type="tns:XCN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.6" type="tns:XCN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.7" type="tns:XCN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.8" type="tns:XCN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.9" type="tns:XCN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.10" type="tns:XCN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.11" type="tns:XCN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.12" type="tns:XCN.12.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.13" type="tns:XCN.13.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.14" type="tns:XCN.14.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.15" type="tns:XCN.15.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.16" type="tns:XCN.16.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.17" type="tns:XCN.17.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.18" type="tns:XCN.18.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.19" type="tns:XCN.19.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.20" type="tns:XCN.20.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.21" type="tns:XCN.21.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.22" type="tns:XCN.22.CONTENT"/>
+      <xs:element minOccurs="0" name="XCN.23" type="tns:XCN.23.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XCN.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FN.1" type="tns:FN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.2" type="tns:FN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.3" type="tns:FN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.4" type="tns:FN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.5" type="tns:FN.5.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="FN.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="FN.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="FN.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="FN.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="FN.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.9.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XCN.10.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.11.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.12.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XCN.13.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.14.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XCN.15.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.16.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XCN.17.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DR.1" type="tns:DR.1.CONTENT"/>
+      <xs:element minOccurs="0" name="DR.2" type="tns:DR.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="DR.1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="DR.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XCN.18.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.19.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XCN.20.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XCN.21.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.22.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CWE.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CWE.9.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XCN.23.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="EVN.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="EVN.7.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PID.1" type="tns:PID.1.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.2" type="tns:PID.2.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.3" type="tns:PID.3.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.4" type="tns:PID.4.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.5" type="tns:PID.5.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.6" type="tns:PID.6.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.7" type="tns:PID.7.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.8" type="tns:PID.8.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.9" type="tns:PID.9.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.10" type="tns:PID.10.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.11" type="tns:PID.11.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.12" type="tns:PID.12.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.13" type="tns:PID.13.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.14" type="tns:PID.14.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.15" type="tns:PID.15.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.16" type="tns:PID.16.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.17" type="tns:PID.17.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.18" type="tns:PID.18.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.19" type="tns:PID.19.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.20" type="tns:PID.20.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.21" type="tns:PID.21.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.22" type="tns:PID.22.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.23" type="tns:PID.23.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.24" type="tns:PID.24.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.25" type="tns:PID.25.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PID.26" type="tns:PID.26.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.27" type="tns:PID.27.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.28" type="tns:PID.28.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.29" type="tns:PID.29.CONTENT"/>
+      <xs:element minOccurs="0" name="PID.30" type="tns:PID.30.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CX.1" type="tns:CX.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.2" type="tns:CX.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.3" type="tns:CX.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.4" type="tns:CX.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.5" type="tns:CX.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.6" type="tns:CX.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.7" type="tns:CX.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.8" type="tns:CX.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.9" type="tns:CX.9.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.10" type="tns:CX.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CX.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CX.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CX.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="CX.4.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CX.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="CX.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="CX.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="CX.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="CX.9.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="CX.10.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.3.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CX.1" type="tns:CX.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.2" type="tns:CX.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.3" type="tns:CX.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.4" type="tns:CX.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.5" type="tns:CX.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.6" type="tns:CX.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.7" type="tns:CX.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.8" type="tns:CX.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.9" type="tns:CX.9.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.10" type="tns:CX.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.4.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CX.1" type="tns:CX.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.2" type="tns:CX.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.3" type="tns:CX.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.4" type="tns:CX.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.5" type="tns:CX.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.6" type="tns:CX.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.7" type="tns:CX.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.8" type="tns:CX.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.9" type="tns:CX.9.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.10" type="tns:CX.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.5.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XPN.1" type="tns:XPN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.2" type="tns:XPN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.3" type="tns:XPN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.4" type="tns:XPN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.5" type="tns:XPN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.6" type="tns:XPN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.7" type="tns:XPN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.8" type="tns:XPN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.9" type="tns:XPN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.10" type="tns:XPN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.11" type="tns:XPN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.12" type="tns:XPN.12.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.13" type="tns:XPN.13.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.14" type="tns:XPN.14.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XPN.1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FN.1" type="tns:FN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.2" type="tns:FN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.3" type="tns:FN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.4" type="tns:FN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="FN.5" type="tns:FN.5.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XPN.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XPN.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XPN.9.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XPN.10.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DR.1" type="tns:DR.1.CONTENT"/>
+      <xs:element minOccurs="0" name="DR.2" type="tns:DR.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XPN.11.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XPN.12.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XPN.13.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XPN.14.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XPN.1" type="tns:XPN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.2" type="tns:XPN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.3" type="tns:XPN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.4" type="tns:XPN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.5" type="tns:XPN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.6" type="tns:XPN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.7" type="tns:XPN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.8" type="tns:XPN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.9" type="tns:XPN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.10" type="tns:XPN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.11" type="tns:XPN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.12" type="tns:XPN.12.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.13" type="tns:XPN.13.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.14" type="tns:XPN.14.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.7.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.9.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XPN.1" type="tns:XPN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.2" type="tns:XPN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.3" type="tns:XPN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.4" type="tns:XPN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.5" type="tns:XPN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.6" type="tns:XPN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.7" type="tns:XPN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.8" type="tns:XPN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.9" type="tns:XPN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.10" type="tns:XPN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.11" type="tns:XPN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.12" type="tns:XPN.12.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.13" type="tns:XPN.13.CONTENT"/>
+      <xs:element minOccurs="0" name="XPN.14" type="tns:XPN.14.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.10.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.11.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XAD.1" type="tns:XAD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.2" type="tns:XAD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.3" type="tns:XAD.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.4" type="tns:XAD.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.5" type="tns:XAD.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.6" type="tns:XAD.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.7" type="tns:XAD.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.8" type="tns:XAD.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.9" type="tns:XAD.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.10" type="tns:XAD.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.11" type="tns:XAD.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.12" type="tns:XAD.12.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.13" type="tns:XAD.13.CONTENT"/>
+      <xs:element minOccurs="0" name="XAD.14" type="tns:XAD.14.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XAD.1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SAD.1" type="tns:SAD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="SAD.2" type="tns:SAD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="SAD.3" type="tns:SAD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SAD.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="SAD.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="SAD.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.9.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.10.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XAD.11.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XAD.12.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DR.1" type="tns:DR.1.CONTENT"/>
+      <xs:element minOccurs="0" name="DR.2" type="tns:DR.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XAD.13.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="XAD.14.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.12.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.13.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XTN.1" type="tns:XTN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.2" type="tns:XTN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.3" type="tns:XTN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.4" type="tns:XTN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.5" type="tns:XTN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.6" type="tns:XTN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.7" type="tns:XTN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.8" type="tns:XTN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.9" type="tns:XTN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.10" type="tns:XTN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.11" type="tns:XTN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.12" type="tns:XTN.12.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XTN.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.8.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.9.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.10.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.11.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XTN.12.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.14.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XTN.1" type="tns:XTN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.2" type="tns:XTN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.3" type="tns:XTN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.4" type="tns:XTN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.5" type="tns:XTN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.6" type="tns:XTN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.7" type="tns:XTN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.8" type="tns:XTN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.9" type="tns:XTN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.10" type="tns:XTN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.11" type="tns:XTN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.12" type="tns:XTN.12.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.15.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.16.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.17.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.18.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CX.1" type="tns:CX.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.2" type="tns:CX.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.3" type="tns:CX.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.4" type="tns:CX.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.5" type="tns:CX.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.6" type="tns:CX.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.7" type="tns:CX.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.8" type="tns:CX.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.9" type="tns:CX.9.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.10" type="tns:CX.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.19.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.20.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DLN.1" type="tns:DLN.1.CONTENT"/>
+      <xs:element minOccurs="0" name="DLN.2" type="tns:DLN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="DLN.3" type="tns:DLN.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DLN.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="DLN.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="DLN.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.21.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CX.1" type="tns:CX.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.2" type="tns:CX.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.3" type="tns:CX.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.4" type="tns:CX.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.5" type="tns:CX.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.6" type="tns:CX.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.7" type="tns:CX.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.8" type="tns:CX.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.9" type="tns:CX.9.CONTENT"/>
+      <xs:element minOccurs="0" name="CX.10" type="tns:CX.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.22.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.23.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="PID.24.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="PID.25.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PID.26.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.27.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.28.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PID.29.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PID.30.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="PV1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PV1.1" type="tns:PV1.1.CONTENT"/>
+      <xs:element minOccurs="0" name="PV1.2" type="tns:PV1.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PV1.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="PV1.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ACK.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSH" type="tns:MSH.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SFT" type="tns:SFT.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA" type="tns:MSA.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR" type="tns:ERR.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="SFT.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SFT.1" type="tns:SFT.1.CONTENT"/>
+      <xs:element minOccurs="0" name="SFT.2" type="tns:SFT.2.CONTENT"/>
+      <xs:element minOccurs="0" name="SFT.3" type="tns:SFT.3.CONTENT"/>
+      <xs:element minOccurs="0" name="SFT.4" type="tns:SFT.4.CONTENT"/>
+      <xs:element minOccurs="0" name="SFT.5" type="tns:SFT.5.CONTENT"/>
+      <xs:element minOccurs="0" name="SFT.6" type="tns:SFT.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="SFT.1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XON.1" type="tns:XON.1.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.2" type="tns:XON.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.3" type="tns:XON.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.4" type="tns:XON.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.5" type="tns:XON.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.6" type="tns:XON.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.7" type="tns:XON.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.8" type="tns:XON.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.9" type="tns:XON.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XON.10" type="tns:XON.10.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XON.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XON.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XON.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XON.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XON.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XON.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XON.7.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="XON.8.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HD.1" type="tns:HD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.2" type="tns:HD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="HD.3" type="tns:HD.3.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="XON.9.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="XON.10.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="SFT.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="SFT.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="SFT.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="SFT.5.CONTENT">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="escape" type="tns:PairOfVString"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="PairOfVString">
+    <xs:sequence/>
+    <xs:attribute name="V" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="SFT.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="TS.1" type="tns:TS.1.CONTENT"/>
+      <xs:element minOccurs="0" name="TS.2" type="tns:TS.2.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="MSA.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSA.1" type="tns:MSA.1.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA.2" type="tns:MSA.2.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA.3" type="tns:MSA.3.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA.4" type="tns:MSA.4.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA.5" type="tns:MSA.5.CONTENT"/>
+      <xs:element minOccurs="0" name="MSA.6" type="tns:MSA.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MSA.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSA.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSA.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSA.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="MSA.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="MSA.6.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.CONTENT">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.1" type="tns:ERR.1.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.2" type="tns:ERR.2.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.3" type="tns:ERR.3.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.4" type="tns:ERR.4.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.5" type="tns:ERR.5.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.6" type="tns:ERR.6.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.7" type="tns:ERR.7.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.8" type="tns:ERR.8.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.9" type="tns:ERR.9.CONTENT"/>
+      <xs:element minOccurs="0" name="ERR.10" type="tns:ERR.10.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.11" type="tns:ERR.11.CONTENT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ERR.12" type="tns:ERR.12.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.1.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ELD.1" type="tns:ELD.1.CONTENT"/>
+      <xs:element minOccurs="0" name="ELD.2" type="tns:ELD.2.CONTENT"/>
+      <xs:element minOccurs="0" name="ELD.3" type="tns:ELD.3.CONTENT"/>
+      <xs:element minOccurs="0" name="ELD.4" type="tns:ELD.4.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ELD.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ELD.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ELD.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ELD.4.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CE.1" type="tns:CE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.2" type="tns:CE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.3" type="tns:CE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.4" type="tns:CE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.5" type="tns:CE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CE.6" type="tns:CE.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.2.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ERL.1" type="tns:ERL.1.CONTENT"/>
+      <xs:element minOccurs="0" name="ERL.2" type="tns:ERL.2.CONTENT"/>
+      <xs:element minOccurs="0" name="ERL.3" type="tns:ERL.3.CONTENT"/>
+      <xs:element minOccurs="0" name="ERL.4" type="tns:ERL.4.CONTENT"/>
+      <xs:element minOccurs="0" name="ERL.5" type="tns:ERL.5.CONTENT"/>
+      <xs:element minOccurs="0" name="ERL.6" type="tns:ERL.6.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ERL.1.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ERL.2.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ERL.3.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ERL.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ERL.5.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:simpleType name="ERL.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ERR.3.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ERR.4.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ERR.5.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ERR.6.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ERR.7.CONTENT">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="escape" type="tns:PairOfVString"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.8.CONTENT">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="escape" type="tns:PairOfVString"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ERR.9.CONTENT">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType final="extension restriction" name="ERR.10.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.11.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CWE.1" type="tns:CWE.1.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.2" type="tns:CWE.2.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.3" type="tns:CWE.3.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.4" type="tns:CWE.4.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.5" type="tns:CWE.5.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.6" type="tns:CWE.6.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.7" type="tns:CWE.7.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.8" type="tns:CWE.8.CONTENT"/>
+      <xs:element minOccurs="0" name="CWE.9" type="tns:CWE.9.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType final="extension restriction" name="ERR.12.CONTENT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="XTN.2" type="tns:XTN.2.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.3" type="tns:XTN.3.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.4" type="tns:XTN.4.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.5" type="tns:XTN.5.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.6" type="tns:XTN.6.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.7" type="tns:XTN.7.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.8" type="tns:XTN.8.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.9" type="tns:XTN.9.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.10" type="tns:XTN.10.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.11" type="tns:XTN.11.CONTENT"/>
+      <xs:element minOccurs="0" name="XTN.12" type="tns:XTN.12.CONTENT"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HL7Msg" nillable="true" type="tns:PIXFeedMsg"/>
+  <xs:element name="Pixack_content" nillable="true" type="tns:ACK.CONTENT"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="crearPaciente">
+    <wsdl:part element="tns:HL7Msg" name="HL7Msg">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="crearPacienteResponse">
+    <wsdl:part element="tns:Pixack_content" name="Pixack_content">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingResponse">
+    <wsdl:part element="tns:pingResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ping">
+    <wsdl:part element="tns:ping" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="agestionpacientes">
+    <wsdl:operation name="ping">
+      <wsdl:input message="tns:ping" name="ping">
+    </wsdl:input>
+      <wsdl:output message="tns:pingResponse" name="pingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearPaciente" parameterOrder="HL7Msg Pixack_content">
+      <wsdl:input message="tns:crearPaciente" name="crearPaciente">
+    </wsdl:input>
+      <wsdl:output message="tns:crearPacienteResponse" name="crearPacienteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="agestionpacientes_servicesServiceSoapBinding" type="tns:agestionpacientes">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="http://testservicios.pge.salud.uy/SaludUy/gestionpacientes/ping" style="document"/>
+      <wsdl:input name="ping">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearPaciente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="crearPaciente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearPacienteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="agestionpacientes_servicesService">
+    <wsdl:port binding="tns:agestionpacientes_servicesServiceSoapBinding" name="agestionpacientesPort">
+      <soap:address location="http://localhost:8330/AppliancePS/agestionpacientes_services"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

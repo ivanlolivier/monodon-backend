@@ -75,7 +75,7 @@ class NotificationScheduled extends _Model
         $data = $dataBuilder->build();
 
         /** @var Patient $patient */
-        $patient = $this->patient()->with('fcmTokens')->get();
+        $patient = $this->patient()->with('fcmTokens')->first();
         $tokens = $patient->fcmTokens
             ->pluck('fcm_token')
             ->toArray();
