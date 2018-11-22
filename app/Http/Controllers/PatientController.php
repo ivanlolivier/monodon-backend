@@ -91,8 +91,8 @@ class PatientController extends _Controller
             'clinicInformations'          => function ($query) use ($clinic, $request) {
                 return $query->where('clinic_id', $clinic->id);
             },
-            'visits'                      => function ($query) use ($request, $page_size) {
-                return $query->orderBy('created_at', 'DESC')->take($request->input('take-visits', $page_size));
+            'visits'                      => function ($query) use ($clinic, $request, $page_size) {
+                return $query->where('clinic_id', $clinic->id)->orderBy('created_at', 'DESC')->take($request->input('take-visits', $page_size));
             },
             'visits.dentist'              => function ($query) use ($request) {
                 return $query;
@@ -128,17 +128,18 @@ class PatientController extends _Controller
 //            'interrogation'     => function ($query) use ($request) {
 //                return $query;
 //            },
+            //TODO: filtrar que sean notificaciones generadas en la clinica
             'notificationsSent'           => function ($query) use ($request, $page_size) {
                 return $query->take($request->input('take-notificationsSent', $page_size));
             },
-            'messages'                    => function ($query) use ($request, $page_size) {
-                return $query->take($request->input('take-messages', $page_size));
+            'messages'                    => function ($query) use ($clinic, $request, $page_size) {
+                return $query->where('clinic_id', $clinic->id)->take($request->input('take-messages', $page_size));
             },
             'informations'                => function ($query) use ($request, $page_size) {
                 return $query->take($request->input('take-informations', $page_size));
             },
-            'appointments'                => function ($query) use ($request, $page_size) {
-                return $query->orderBy('datetime', 'DESC')->take($request->input('take-appointments', $page_size));
+            'appointments'                => function ($query) use ($clinic, $request, $page_size) {
+                return $query->where('clinic_id', $clinic->id)->orderBy('datetime', 'DESC')->take($request->input('take-appointments', $page_size));
             },
             'files'                       => function ($query) use ($request, $page_size) {
                 return $query->take($request->input('take-files', $page_size));
