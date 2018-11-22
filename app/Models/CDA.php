@@ -117,11 +117,11 @@ class CDA extends _Model
     private function getFileName(Visit $visit, $now, $isMasterVisit = false)
     {
         $patient_id = $visit->patient->id;
-        $dentist_id = $$visit->dentist->id;
+        $dentist_id = $visit->dentist->id;
         $visit_id = $visit->id;
         $master = $isMasterVisit ? '(Master)' : '';
 
-        return "/cdas/patient-{$patient_id}/dentist-{$dentist_id}_visit-{$visit_id}${$master}_$now.xml";
+        return "/cdas/patient-{$patient_id}/dentist-{$dentist_id}_visit-{$visit_id}{$master}_{$now->format('YmdHis')}.xml";
     }
 
     private function setId($now, $id)

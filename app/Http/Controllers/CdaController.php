@@ -14,8 +14,8 @@ class CdaController extends _Controller
     {
 //        $this->authorize('me', dentist::class);
 
-        $dentist = auth::user();
-        $visit = visit::find($request->visitid);
+        $dentist = Auth::user();
+        $visit = visit::find($request->visitId);
 
         $visit->dentist = $dentist;
         $visit->patient = $patient;
