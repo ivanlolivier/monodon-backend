@@ -13,14 +13,30 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends _Controller
 {
-    public function listForClinic(Clinic $clinic)
+    public function listForClinic(Clinic $clinic, Request $request)
     {
         $this->authorize('listForClinic', [Appointment::class, $clinic]);
 
+
         $appointments = $clinic->appointments()
             ->with('dentist')
-            ->with('patient')
-            ->get();
+            ->with('patient');
+
+        if ($from = $request->input('from', false)) {
+            $appointments = $appointments->where('datetime', '>=', date($from));
+        }
+        if ($to = $request->input('to', false)) {
+            $appointments = $appointments->where('datetime', '<=', date($to));
+        }
+        if ($take = $request->input('take', false)) {
+            $appointments = $appointments->take($take);
+        }
+        if ($skip = $request->input('skip', false)) {
+            $appointments = $appointments->skip($skip);
+        }
+
+        $appointments = $appointments->orderBy('datetime', 'asc')->get();
+
 
         return $this->responseAsJson($appointments, 200, Appointment::transformer());
     }
