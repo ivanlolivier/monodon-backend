@@ -25,8 +25,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule
-            ->command('send-patient-notifications')
-            ->everyThirtyMinutes();
+            ->command('send:patient-notifications')
+            ->everyThirtyMinutes()
+            ->withoutOverlapping();
     }
 
     /**
