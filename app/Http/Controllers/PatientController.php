@@ -81,29 +81,68 @@ class PatientController extends _Controller
         return $this->responseAsJson($patient);
     }
 
-    function showForClinic(Clinic $clinic, Patient $patient)
+    function showForClinic(Clinic $clinic, Patient $patient, Request $request)
     {
+        $page_size = 30;
+
         $this->authorize('showForClinic', [$patient, $clinic]);
 
         $patient->load([
-            'visits' => function ($query) { return $query->orderBy('created_at','DESC'); },
-            'visits.dentist' => function ($query) { return $query; },
-            'visits.diagnosis' => function ($query) { return $query; },
-            'visits.diagnosis.derivation' => function ($query) { return $query; },
-            'visits.diagnosis.predefined' => function ($query) { return $query; },
-            'visits.treatments' => function ($query) { return $query; },
-            'visits.exploratory' => function ($query) { return $query; },
-            'visits.progress' => function ($query) { return $query; },
-            'visits.interrogatory' => function ($query) { return $query; },
-            'visits.interrogatory.question' => function ($query) { return $query; },
-            'visits.notificationsScheduled' => function ($query) { return $query; },
+            'clinicInformations'          => function ($query) use ($clinic, $request) {
+                return $query->where('clinic_id', $clinic->id);
+            },
+            'visits'                      => function ($query) use ($request, $page_size) {
+                return $query->orderBy('created_at', 'DESC')->take($request->input('take-visits', $page_size));
+            },
+            'visits.dentist'              => function ($query) use ($request) {
+                return $query;
+            },
+            'visits.diagnosis'            => function ($query) use ($request) {
+                return $query;
+            },
+            'visits.diagnosis.derivation' => function ($query) use ($request) {
+                return $query;
+            },
+            'visits.diagnosis.predefined' => function ($query) use ($request) {
+                return $query;
+            },
+            'visits.treatments'           => function ($query) use ($request) {
+                return $query;
+            },
+//            'visits.exploratory'            => function ($query) use ($request) {
+//                return $query;
+//            },
+            'visits.progress'             => function ($query) use ($request) {
+                return $query;
+            },
+//            'visits.interrogatory'          => function ($query) use ($request) {
+//                return $query;
+//            },
+//            'visits.interrogatory.question' => function ($query) use ($request) {
+//                return $query;
+//            },
+//            'visits.notificationsScheduled' => function ($query) use ($request) {
+//                return $query;
+//            },
 
-            'interrogation' => function ($query) { return $query; },
-            'notificationsSent' => function ($query) { return $query; },
-            'messages' => function ($query) { return $query; },
-            'informations' => function ($query) { return $query; },
-            'appointments' => function ($query) { return $query; },
-            'files' => function ($query) { return $query; },
+//            'interrogation'     => function ($query) use ($request) {
+//                return $query;
+//            },
+            'notificationsSent'           => function ($query) use ($request, $page_size) {
+                return $query->take($request->input('take-notificationsSent', $page_size));
+            },
+            'messages'                    => function ($query) use ($request, $page_size) {
+                return $query->take($request->input('take-messages', $page_size));
+            },
+            'informations'                => function ($query) use ($request, $page_size) {
+                return $query->take($request->input('take-informations', $page_size));
+            },
+            'appointments'                => function ($query) use ($request, $page_size) {
+                return $query->orderBy('datetime', 'DESC')->take($request->input('take-appointments', $page_size));
+            },
+            'files'                       => function ($query) use ($request, $page_size) {
+                return $query->take($request->input('take-files', $page_size));
+            },
         ]);
 
 
