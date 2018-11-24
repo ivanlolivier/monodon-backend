@@ -101,7 +101,8 @@ class VisitController extends _Controller
                 'type'             => $notificationFields['type'],
                 'time_to_send'     => $notificationFields['time_to_send'],
                 'start_sending'    => $notificationFields['start_sending'],
-                'finish_sending'   => array_key_exists('finish_sending', $notificationFields) ? $notificationFields['finish_sending'] : null,
+                'finish_sending'   => array_key_exists('finish_sending',
+                    $notificationFields) && $notificationFields['finish_sending'] ? $notificationFields['finish_sending'] : null,
             ]);
 
             if (array_key_exists('periodicity', $notificationFields)) {
