@@ -109,27 +109,14 @@ class PatientController extends _Controller
             'visits.treatments'           => function ($query) use ($request) {
                 return $query;
             },
-//            'visits.exploratory'            => function ($query) use ($request) {
-//                return $query;
-//            },
             'visits.progress'             => function ($query) use ($request) {
                 return $query;
             },
-//            'visits.interrogatory'          => function ($query) use ($request) {
-//                return $query;
-//            },
-//            'visits.interrogatory.question' => function ($query) use ($request) {
-//                return $query;
-//            },
-//            'visits.notificationsScheduled' => function ($query) use ($request) {
-//                return $query;
-//            },
-
-//            'interrogation'     => function ($query) use ($request) {
-//                return $query;
-//            },
-            //TODO: filtrar que sean notificaciones generadas en la clinica
+            'interrogation'               => function ($query) use ($request) {
+                return $query;
+            },
             'notificationsSent'           => function ($query) use ($request, $page_size) {
+                //TODO: filtrar que sean notificaciones generadas en la clinica
                 return $query->take($request->input('take-notificationsSent', $page_size));
             },
             'messages'                    => function ($query) use ($clinic, $request, $page_size) {
