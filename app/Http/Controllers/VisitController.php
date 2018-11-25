@@ -81,13 +81,23 @@ class VisitController extends _Controller
         $visit->exploratory()->create(['mouth_photo' => $request->get('exploratory')]);
         $visit->load('exploratory');
 
-        $interrogatory = Collect($request->get('interrogatory'))->map(function ($response) {
+        $visit_interrogatory = Collect($request->get('interrogatory'))->filter(function ($response) {
+            return array_key_exists('type', $response) ? $response['type'] == 'visit' : true;
+        })->map(function ($response) {
             return [
                 'question_id' => $response['question'],
                 'answer'      => $response['answer'],
             ];
         })->toArray();
-        $visit->interrogatory()->createMany($interrogatory);
+        $patient_interrogatory = Collect($request->get('interrogatory'))->map(function ($response) {
+            return [
+                'question_id' => $response['question'],
+                'answer'      => $response['answer'],
+            ];
+        })->toArray();
+        $visit->interrogatory()->createMany($visit_interrogatory);
+        $patient->interrogation()->delete();
+        $patient->interrogation()->createMany($patient_interrogatory);
         $visit->load('interrogatory.question');
 
         // Indications
