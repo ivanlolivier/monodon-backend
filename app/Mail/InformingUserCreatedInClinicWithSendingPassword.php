@@ -36,12 +36,13 @@ class InformingUserCreatedInClinicWithSendingPassword extends CommonBaseMail
 
         $this->buttons = [
             [
-                'html' => "<a href='" . Config::get('app.ANDROID.LINK') . "'><img alt='Disponible en Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/es-419_badge_web_generic.png'/></a>",
+                'html' => "<a href='" . Config::get('app.ANDROID.LINK') . "'><img alt='Disponible en Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/es-419_badge_web_generic.png' style='height: 100px;'/></a>",
             ],
         ];
 
         $this->outroLines = [
             'Si no te atiendes en esa clinica por favor escribenos a noclinica@monodon.uy y arreglaremos el problema.',
+            'Google Play y el logotipo de Google Play son marcas comerciales de Google LLC.'
         ];
 
         return $this->view('email.common');
