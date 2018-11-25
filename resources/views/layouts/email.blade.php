@@ -148,7 +148,7 @@
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; text-align: center;" valign="top">
                                         <img src="{{url('/img/monodon-logo-no-background.png')}}" alt="Monodon" style="width: 200px;">
-                                        <h1 style="color: #A19D9D; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: center; line-height: 1.3; word-break: normal; font-size: 25px; font-style: italic; padding: 0; margin: 0 0 0 -90px;"
+                                        <h1 style="color: #A19D9D; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: center; line-height: 1.3; word-break: normal; font-size: 25px; font-style: italic; padding: 0;"
                                             align="center">
                                             @yield('title')
                                         </h1>
