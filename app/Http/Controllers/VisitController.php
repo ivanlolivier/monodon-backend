@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateVisitRequest;
 use App\Models\Clinic;
+use App\Models\Dentist;
 use App\Models\Derivation;
 use App\Models\Diagnosis;
 use App\Models\NotificationScheduled;
@@ -26,7 +27,9 @@ class VisitController extends _Controller
     {
         $this->authorize('create', Visit::class);
 
-        $dentist = $request->user();
+        $dentis_id = $request->get('dentistId', false);
+
+        $dentist = $dentis_id ? Dentist::find($dentis_id) : $request->user();
         $clinic = Clinic::find($request->get('clinic'));
 
         $visit = new Visit();
