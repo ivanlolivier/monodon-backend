@@ -28,7 +28,7 @@
                         $actionColor = '#3869D4';
                         //                        }
                         ?>
-                        @if (isset$button['html'])
+                        @if (isset($button['html']))
                             {!! $button['html'] !!}
                         @else
                             <a href="{{ $button['url'] }}"
