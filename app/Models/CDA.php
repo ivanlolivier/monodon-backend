@@ -8,6 +8,7 @@ use DateTime;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use PHPHealth\CDA\ClinicalDocument;
+use PHPHealth\CDA\Component\NonXMLBodyComponent;
 use PHPHealth\CDA\DataType\TextAndMultimedia\CharacterString;
 use PHPHealth\CDA\DataType\Identifier\InstanceIdentifier;
 use PHPHealth\CDA\DataType\Code\LoincCode;
@@ -48,9 +49,11 @@ class CDA extends _Model
     {
         $now = new Carbon();
 
-        $this->setBaseData($visit, $now);
-        $this->setTitle('CDA generated for specific visit with MONODON');
-        $this->saveFile($this->getFileName($visit, $now));
+        $this
+            ->setBaseData($visit, $now)
+            ->setVisitInfo($visit)
+            ->setTitle('CDA generated for specific visit with MONODON')
+            ->saveFile($this->getFileName($visit, $now));
     }
 
     public function generateForMasterVisit(Visit $visit)
@@ -112,6 +115,8 @@ class CDA extends _Model
         $this->setPatient($visit->patient);
         $this->setDentist($visit->dentist);
         $this->setCustodian();
+
+        return $this;
     }
 
     private function getFileName(Visit $visit, $now, $isMasterVisit = false)
@@ -158,8 +163,10 @@ class CDA extends _Model
         $patientIds->add(new InstanceIdentifier(Config::get('oid.DNI.UY') . $patient->document));
 
         $names = new Set(PersonName::class);
-        $names->add((new PersonName())->addPart(PersonName::FIRST_NAME, $patient->name)->addPart(PersonName::LAST_NAME,
-            $patient->surname));
+        $names->add((new PersonName())
+            ->addPart(PersonName::FIRST_NAME, $patient->name)
+            ->addPart(PersonName::LAST_NAME, $patient->surname));
+
         $patient = new CDAPAtient($names,
             new TimeStamp(\DateTime::createFromFormat('Y-m-d', $patient->birthdate->toDateString())),
             new CodedValue('M', '', "2.16.858.2.10000675.69600", ''));
@@ -173,11 +180,12 @@ class CDA extends _Model
     private function setDentist(Dentist $dentist)
     {
         $names = new Set(PersonName::class);
-        $names->add((new PersonName())->addPart(PersonName::FIRST_NAME, $dentist->name)->addPart(PersonName::LAST_NAME,
-            $dentist->surname));
+        $names->add((new PersonName())
+            ->addPart(PersonName::FIRST_NAME, $dentist->name)
+            ->addPart(PersonName::LAST_NAME, $dentist->surname));
 
-        $assignedAuthor = new AssignedAuthor(new AssignedPerson($names),
-            (new Set(InstanceIdentifier::class))->add(new InstanceIdentifier("2.16.840.1.113883.19.5", "KP00017")));
+        $assignedAuthor = new AssignedAuthor(new AssignedPerson($names), (new Set(InstanceIdentifier::class))
+            ->add(new InstanceIdentifier("2.16.840.1.113883.19.5", "KP00017")));
 
         $this->clinicalDocument->setAuthor(new Author(new TimeStamp(\DateTime::createFromFormat('Y-m-d-H:i',
             "2017-04-07-14:00")), $assignedAuthor));
@@ -185,8 +193,10 @@ class CDA extends _Model
 
     private function setCustodian()
     {
-        $reprCustodian = new RepresentedCustodianOrganization((new Set(EntityName::class))->add(new EntityName('MONODON')),
-            (new Set(InstanceIdentifier::class))->add(new InstanceIdentifier(Config::get('cda.OID.MONODON'))));
+        $reprCustodian = new RepresentedCustodianOrganization((new Set(EntityName::class))
+            ->add(new EntityName('MONODON')), (new Set(InstanceIdentifier::class))
+            ->add(new InstanceIdentifier(Config::get('cda.OID.MONODON'))));
+
         $assignedCustodian = new AssignedCustodian($reprCustodian);
         $custodian = new Custodian($assignedCustodian);
 
@@ -196,5 +206,18 @@ class CDA extends _Model
     private function setTitle($title)
     {
         $this->clinicalDocument->setTitle(new Title(new CharacterString($title)));
+
+        return $this;
+    }
+
+    private function setVisitInfo($visit)
+    {
+        //TODO: mejorar el body
+        $nonXMLBody = new NonXMLBodyComponent();
+        $nonXMLBody->setContent(new CharacterString($visit->diagnosis->description));
+
+        $this->clinicalDocument->getRootComponent()->addComponent($nonXMLBody);
+
+        return $this;
     }
 }

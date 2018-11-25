@@ -36,8 +36,7 @@ class InformingUserCreatedInClinicWithSendingPassword extends CommonBaseMail
 
         $this->buttons = [
             [
-                'label' => 'Descargar',
-                'url'   => Config::get('app.ANDROID.LINK'),
+                'html' => "<a href='" . Config::get('app.ANDROID.LINK') . "'><img alt='Disponible en Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/es-419_badge_web_generic.png'/></a>",
             ],
         ];
 

@@ -28,15 +28,16 @@
                         $actionColor = '#3869D4';
                         //                        }
                         ?>
-
-                        <a href="{{ $button['url'] }}"
-                           style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; display: block; display: inline-block; width: 200px; min-height: 20px; padding: 10px;
-                                   border-radius: 3px; color: #ffffff; font-size: 15px; line-height: 25px; text-align: center; text-decoration: none;
-                                   -webkit-text-size-adjust: none; background-color: {{$actionColor}}; margin-bottom: 10px;"
-                           class="button"
-                           target="_blank">
-                            {{ $button['label'] }}
-                        </a>
+                        @if (isset$button['html'])
+                            {!! $button['html'] !!}
+                        @else
+                            <a href="{{ $button['url'] }}"
+                               style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; display: block; display: inline-block; width: 200px; min-height: 20px; padding: 10px; border-radius: 3px; color: #ffffff; font-size: 15px; line-height: 25px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; background-color: {{$actionColor}}; margin-bottom: 10px;"
+                               class="button"
+                               target="_blank">
+                                {{ $button['label'] }}
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
