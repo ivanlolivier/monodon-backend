@@ -123,7 +123,7 @@ class PatientController extends _Controller
                 return $query->where('clinic_id', $clinic->id)->take($request->input('take-messages', $page_size));
             },
             'informations'                => function ($query) use ($request, $page_size) {
-                return $query->take($request->input('take-informations', $page_size));
+                return $query->orderBy('created_at', 'DESC')->take($request->input('take-informations', $page_size));
             },
             'appointments'                => function ($query) use ($clinic, $request, $page_size) {
                 return $query->where('clinic_id', $clinic->id)->orderBy('datetime', 'DESC')->take($request->input('take-appointments', $page_size));
