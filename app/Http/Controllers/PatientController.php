@@ -115,6 +115,9 @@ class PatientController extends _Controller
             'interrogation'               => function ($query) use ($request) {
                 return $query;
             },
+            'interrogation.question'      => function ($query) use ($request) {
+                return $query;
+            },
             'notificationsSent'           => function ($query) use ($request, $page_size) {
                 //TODO: filtrar que sean notificaciones generadas en la clinica
                 return $query->take($request->input('take-notificationsSent', $page_size));
