@@ -565,6 +565,13 @@ class PatientController extends _Controller
         return $this->responseAsJson($clinic_patient_info, 200);
     }
 
+    public function markInformationAsRead(Patient $patient)
+    {
+        $patient->informations()->whereNull('read_at')->update(['read_at' => new Carbon()]);
+
+        return response()->json(null, 200);
+    }
+
     private function generatePassword($length = 6, $alphabet = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789')
     {
         $alphaLength = strlen($alphabet) - 1;

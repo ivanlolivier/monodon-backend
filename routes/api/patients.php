@@ -44,4 +44,6 @@ $router->group(['middleware' => 'auth:dentist,employee'], function (Router $rout
 
     $router->post('/{patient}/visits', VisitController::class . '@create');
     $router->post('/{patient}/cdas', CdaController::class . '@generate');
+
+    $router->put('/{patient}/information/read', PatientController::class . '@markInformationAsRead');
 });
