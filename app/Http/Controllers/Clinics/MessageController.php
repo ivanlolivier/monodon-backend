@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Clinics;
 use App\Http\Controllers\_Controller;
 use App\Models\Clinic;
 use App\Models\Message;
+use App\Models\NotificationTopic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 class MessageController extends _Controller
 {
@@ -67,8 +67,8 @@ class MessageController extends _Controller
 
     public function topics()
     {
-        $topics = Config::get('message-topics');
+        $topics = NotificationTopic::all();
 
-        return response()->json($topics, 200);
+        return $this->responseAsJson($topics, 200, NotificationTopic::transformer());
     }
 }
