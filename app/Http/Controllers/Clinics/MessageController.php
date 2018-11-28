@@ -40,8 +40,8 @@ class MessageController extends _Controller
         $this->validate($request, [
             'title'        => ['required'],
             'message'      => ['required'],
-            'is_broadcast' => ['boolean'],
-            'patients'     => ['required_if:is_broadcast,false', 'array'],
+            'is_broadcast' => ['required', 'boolean'],
+            'patients'     => ['array'],
             'patients.*'   => ['integer', 'exists:patients,id'],
             'topic'        => ['string', 'exists:notification_topics,code']
         ]);
