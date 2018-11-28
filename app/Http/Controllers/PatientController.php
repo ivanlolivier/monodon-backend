@@ -119,8 +119,7 @@ class PatientController extends _Controller
                 return $query;
             },
             'notificationsSent'           => function ($query) use ($request, $page_size) {
-                //TODO: filtrar que sean notificaciones generadas en la clinica
-                return $query->take($request->input('take-notificationsSent', $page_size));
+                return $query->orderBy('sent_at', 'DESC')->take($request->input('take-notificationsSent', $page_size));
             },
             'messages'                    => function ($query) use ($clinic, $request, $page_size) {
                 return $query->where('clinic_id', $clinic->id)->take($request->input('take-messages', $page_size));
@@ -135,7 +134,6 @@ class PatientController extends _Controller
                 return $query->take($request->input('take-files', $page_size));
             },
         ]);
-
 
         return $this->responseAsJson($patient);
     }
@@ -445,11 +443,6 @@ class PatientController extends _Controller
         $patient = Auth::user();
 
         $patient->clinics()->detach($clinic->id);
-
-        //        DB::table('clinic_patient')
-        //            ->where('patient_id', $patient->id)
-        //            ->where('clinic_id', $clinic->id)
-        //            ->update(['deleted_at' => DB::raw('NOW()')]);
 
         return $this->response204();
     }

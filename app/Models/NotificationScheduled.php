@@ -46,7 +46,7 @@ class NotificationScheduled extends _Model
 
     public function sents()
     {
-        return $this->hasMany(NotificationSent::class, 'notification_id');
+        return $this->hasMany(NotificationSent::class, 'notification_id', 'id');
     }
 
     public static function transformer()
@@ -109,6 +109,11 @@ class NotificationScheduled extends _Model
     }
 
     public function scopeThisHour(Builder $query)
+    {
+        return $query->where('time_to_send', '=', Carbon::now()->hour . ':00:00');
+    }
+
+    public function scopeThisDay(Builder $query)
     {
         return $query->where('time_to_send', '=', Carbon::now()->hour . ':00:00');
     }
