@@ -43,15 +43,20 @@ class MessageController extends _Controller
             'is_broadcast' => ['required', 'boolean'],
             'patients'     => ['required_if:is_broadcast,false', 'array'],
             'patients.*'   => ['integer', 'exists:patients,id'],
+            'topic'        => ['string', 'exists:notification_topics,code']
         ]);
 
-        $message = new Message($request->only(['title', 'message', 'is_broadcast']));
+        $message = new Message($request->only(['title', 'message', 'is_broadcast', 'topic']));
+        if ($message->topic) {
+            $message->is_broadcast = true;
+        }
+
         $message->employee_id = $request->user()->id;
 
         /** @var Message $message */
         $message = $clinic->messages()->save($message);
 
-        if (!$request->get('is_broadcast')) {
+        if (!$message->is_broadcast) {
             $message->patients()->attach($request->get('patients'));
         }
 

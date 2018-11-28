@@ -17,6 +17,7 @@ class MessageTransformer extends Transformer
             'title'        => $model->title,
             'message'      => $model->message,
             'is_broadcast' => $model->is_broadcast,
+            'topic'        => $model->topic,
             'created_at'   => $model->created_at->toDateTimeString(),
             'sent_at'      => $model->sent_at ? $model->sent_at->toDateTimeString() : null,
             'clinic_id'    => $model->clinic_id,

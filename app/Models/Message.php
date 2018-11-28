@@ -16,6 +16,7 @@ class Message extends _Model
         'title',
         'message',
         'is_broadcast',
+        'topic'
     ];
 
     protected $dates = [
@@ -81,11 +82,13 @@ class Message extends _Model
          * SENDING THE MESSAGE
          */
 
-        if ($this->is_broadcast) {
-            $global_topic = Config::get('message-topics.global');
+        if ($this->is_broadcast || $this->topic) {
+            $firebase_topic = $this->topic || Config::get('message-topics.global')['code'];
+
+            $clinic = $this->clinic->id;
 
             $topic = new Topics();
-            $topic->topic($global_topic);
+            $topic->topic($clinic . '-' . $firebase_topic);
 
             return FCM::sendToTopic($topic, $option, $notification, $data);
         }
