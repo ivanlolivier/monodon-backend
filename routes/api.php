@@ -5,6 +5,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BuccalZoneController;
+use App\Http\Controllers\Clinics\MessageController;
 use App\Http\Controllers\DiagnosisTypesController;
 use App\Http\Controllers\EmployeeTypeController;
 use App\Http\Controllers\NotificationController;
@@ -22,6 +23,7 @@ $router->put('password/reset', ResetPasswordController::class . '@reset');
  * ENDPOINTS FOR LISTS *
  ***********************/
 $router->get('employee_types', EmployeeTypeController::class . '@index');
+$router->get('/topics', MessageController::class . '@topics');
 $router->group(['middleware' => 'auth:dentist,employee'], function (Router $router) {
     $router->get('/questions', QuestionController::class . '@index');
     $router->get('/treatments', TreatmentController::class . '@index');

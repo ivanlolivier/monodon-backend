@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Clinics;
 
 use App\Http\Controllers\_Controller;
-use App\Http\Requests;
 use App\Models\Clinic;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class MessageController extends _Controller
 {
@@ -63,5 +63,12 @@ class MessageController extends _Controller
         $message->send();
 
         return $this->responseAsJson($message, 201);
+    }
+
+    public function topics()
+    {
+        $topics = Config::get('message-topics');
+
+        return response()->json($topics, 200);
     }
 }

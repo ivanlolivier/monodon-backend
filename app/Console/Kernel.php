@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule
             ->command('send:patient-notifications')
-            ->everyThirtyMinutes()
+            ->everyMinute()
             ->withoutOverlapping();
     }
 
