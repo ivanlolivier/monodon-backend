@@ -40,17 +40,13 @@ class MessageController extends _Controller
         $this->validate($request, [
             'title'        => ['required'],
             'message'      => ['required'],
-            'is_broadcast' => ['required', 'boolean'],
+            'is_broadcast' => ['boolean'],
             'patients'     => ['required_if:is_broadcast,false', 'array'],
             'patients.*'   => ['integer', 'exists:patients,id'],
             'topic'        => ['string', 'exists:notification_topics,code']
         ]);
 
         $message = new Message($request->only(['title', 'message', 'is_broadcast', 'topic']));
-        if ($message->topic) {
-            $message->is_broadcast = true;
-        }
-
         $message->employee_id = $request->user()->id;
 
         /** @var Message $message */
