@@ -83,12 +83,12 @@ class Message extends _Model
          */
 
         if ($this->is_broadcast || $this->topic) {
-            $firebase_topic = isset($this->topic) ? $this->topic : Config::get('message-topics.global')['code'];
-
-            $clinic = $this->clinic->id;
+            $firebase_topic = isset($this->topic)
+                ? $this->clinic->id . '-' . $this->topic
+                : Config::get('message-topics.global')['code'];
 
             $topic = new Topics();
-            $topic->topic($clinic . '-' . $firebase_topic);
+            $topic->topic($firebase_topic);
 
             return FCM::sendToTopic($topic, $option, $notification, $data);
         }
