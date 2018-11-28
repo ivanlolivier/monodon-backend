@@ -83,7 +83,7 @@ class Message extends _Model
          */
 
         if ($this->is_broadcast || $this->topic) {
-            $firebase_topic = $this->topic || Config::get('message-topics.global')['code'];
+            $firebase_topic = isset($this->topic) ? $this->topic : Config::get('message-topics.global')['code'];
 
             $clinic = $this->clinic->id;
 
