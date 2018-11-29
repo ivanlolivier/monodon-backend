@@ -19,7 +19,7 @@ class MessageController extends _Controller
     {
         //$this->authorize('listForClinic', [Message::class, $clinic]);
 
-        $messages = $clinic->messages()->with('employee')->with('dentist')->get();
+        $messages = $clinic->messages()->with('employee')->with('dentist')->orderBy('created_at', 'DESC')->get();
 
         return $this->responseAsJson($messages, 200);
     }
