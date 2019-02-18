@@ -20,6 +20,7 @@ class SendPatientNotifications extends Command
     public function handle()
     {
         $notifications = NotificationScheduled::active()
+            ->thisDay()
             ->thisHour()
             ->notSent()
             ->get();
